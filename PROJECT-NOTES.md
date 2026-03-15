@@ -66,5 +66,31 @@ AnimatedText (with split modes: word, character, line), AnimatedCounter, CodeBlo
 ## Tech Approach
 Everything is pure HTML/CSS/JS in a single file. No framework, no build step. This means some components are simplified CSS/JS interpretations of their React originals. To add more components, just edit `index.html` and push — Vercel auto-deploys.
 
+## Next Session: Toolbar + Sections + Search
+Plan for tomorrow:
+- Add a sticky top toolbar with search/filter
+- Organize components into filterable sections by library (Magic UI, shadcn, Creative Arsenal, etc.)
+- Add category tags (buttons, cards, text, effects, navigation, etc.) so you can filter by type
+- This will make it much easier to navigate as we add more components toward the full 300+
+
+## Full Coverage Table
+
+| Library | Total Available | In Showcase | Missing | Coverage |
+|---------|----------------|-------------|---------|----------|
+| **Magic UI** | 150+ | 33 | ~117 | ~22% |
+| **shadcn/ui** (installed) | 50+ | 21 | ~29 | ~42% |
+| **Creative Arsenal** | ~44 | 23 | ~21 | ~52% |
+| **remotion-bits** | 11 | 2 | 9 | ~18% |
+| **Recharts** | 12+ chart types | 3 | ~9 | ~25% |
+| **DnD Kit** | multiple patterns | 1 | many | low |
+| **Three.js / R3F** | unlimited | 1 (CSS fake) | all | ~0% |
+| **Embla Carousel** | many variants | 1 | many | low |
+| **Framer Motion** | core animation lib | 0 | all | 0% |
+| **Lenis** | smooth scroll | 1 | rest | basic |
+| **Vaul** | drawer component | 0 | 1 | 0% |
+| **GSAP** | ScrollTrigger etc | 0 | all | 0% |
+| **Lottie** | vector animations | 0 | all | 0% |
+| **TOTAL** | **~300+** | **88** | **~212** | **~29%** |
+
 ## How to Resume
-Ask Claude: "I want to add more components to the mega component library" and reference this file. Best approach is to do batches of ~20-30 components at a time. Prioritize the most visually impressive ones first.
+Ask Claude: "I want to add more components to the mega component library" and reference this file. Best approach is to do batches of ~20-30 components at a time. Prioritize the most visually impressive ones first. Next priority: toolbar/search UI, then fill in Magic UI gaps (biggest library, lowest coverage).
