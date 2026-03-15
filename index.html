@@ -1,0 +1,3179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic UI Components — Full Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --card: #141416;
+    --border: rgba(255,255,255,0.06);
+    --text: #e4e4e7;
+    --muted: #71717a;
+    --accent: #10b981;
+    --accent2: #3b82f6;
+    --accent3: #8b5cf6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Satoshi', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mesh-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .mesh-blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.12; animation: meshFloat 20s ease-in-out infinite; }
+  .mesh-blob:nth-child(1) { width: 600px; height: 600px; background: #10b981; top: -10%; left: -10%; }
+  .mesh-blob:nth-child(2) { width: 500px; height: 500px; background: #3b82f6; top: 40%; right: -10%; animation-delay: -7s; }
+  .mesh-blob:nth-child(3) { width: 400px; height: 400px; background: #8b5cf6; bottom: -10%; left: 30%; animation-delay: -14s; }
+  @keyframes meshFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(80px, -60px) scale(1.1); }
+    66% { transform: translate(-40px, 40px) scale(0.9); }
+  }
+
+  .container { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
+
+  h1 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 16px; }
+  .source-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 80px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em;
+  }
+  .badge-green { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
+  .badge-blue { background: rgba(59,130,246,0.1); color: #3b82f6; border: 1px solid rgba(59,130,246,0.2); }
+  .badge-purple { background: rgba(139,92,246,0.1); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.2); }
+  .badge-yellow { background: rgba(234,179,8,0.1); color: #eab308; border: 1px solid rgba(234,179,8,0.2); }
+
+  .section-title {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 24px; margin-top: 80px;
+  }
+  .component-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .component-source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 0.03em;
+    position: absolute; bottom: 12px; right: 16px;
+  }
+
+  .demo-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-bottom: 48px; }
+  .demo-cell {
+    background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+    padding: 40px; position: relative; overflow: hidden; min-height: 280px;
+    display: flex; flex-direction: column;
+  }
+
+  /* 1. MAGNETIC BUTTON */
+  .magnetic-wrap { display: flex; align-items: center; justify-content: center; flex: 1; }
+  .magnetic-btn {
+    padding: 16px 40px; background: var(--accent); color: #0a0a0b; border: none; border-radius: 12px;
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; will-change: transform;
+  }
+  .magnetic-btn:hover { box-shadow: 0 0 40px rgba(16, 185, 129, 0.3); }
+
+  /* 2. PARALLAX TILT CARD */
+  .tilt-card {
+    width: 100%; height: 200px; background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease; will-change: transform; cursor: pointer;
+  }
+  .tilt-card-text { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; font-size: 1.5rem; z-index: 1; }
+
+  /* 3. SPOTLIGHT BORDER CARD */
+  .spotlight-card {
+    width: 100%; height: 200px; background: var(--card); border-radius: 16px;
+    position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden;
+  }
+  .spotlight-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px;
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(16,185,129,0.5), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .spotlight-card-inner { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; color: var(--muted); }
+
+  /* 4. GLASSMORPHISM PANEL */
+  .glass-scene { display: flex; align-items: center; justify-content: center; flex: 1; position: relative; }
+  .glass-bg-orb {
+    position: absolute; width: 120px; height: 120px; border-radius: 50%; filter: blur(40px);
+    animation: orbFloat 6s ease-in-out infinite;
+  }
+  .glass-bg-orb:nth-child(1) { background: #10b981; left: 20%; top: 10%; }
+  .glass-bg-orb:nth-child(2) { background: #3b82f6; right: 20%; bottom: 10%; animation-delay: -3s; }
+  @keyframes orbFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  .glass-panel {
+    background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.3);
+    border-radius: 20px; padding: 32px; position: relative; z-index: 1; width: 240px; text-align: center;
+  }
+  .glass-panel h3 { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; margin-bottom: 8px; }
+  .glass-panel p { color: var(--muted); font-size: 0.85rem; }
+
+  /* 5. TEXT SCRAMBLE */
+  .scramble-text {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 500;
+    min-height: 2.2em; display: flex; align-items: center; justify-content: center; flex: 1; cursor: pointer;
+  }
+
+  /* 6. KINETIC MARQUEE */
+  .marquee-wrap { overflow: hidden; margin: 0 -40px; padding: 20px 0; }
+  .marquee-track { display: flex; width: max-content; animation: marqueeScroll 25s linear infinite; }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item {
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 3rem; font-weight: 900;
+    letter-spacing: -0.03em; white-space: nowrap; padding: 0 32px;
+    color: rgba(255,255,255,0.08); transition: color 0.3s;
+  }
+  .marquee-item:hover { color: var(--accent); }
+  @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* 7. PARTICLE EXPLOSION BUTTON */
+  .particle-wrap { display: flex; align-items: center; justify-content: center; flex: 1; position: relative; }
+  .particle-btn {
+    padding: 16px 40px; background: transparent; color: var(--text);
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
+  }
+  .particle-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .particle-btn.exploded { background: var(--accent); color: var(--bg); border-color: var(--accent); transform: scale(0.95); }
+  .particle {
+    position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    pointer-events: none;
+  }
+
+  /* 8. SKELETON SHIMMER */
+  .skeleton-demo { display: flex; flex-direction: column; gap: 12px; flex: 1; justify-content: center; }
+  .skeleton-line {
+    height: 14px; border-radius: 8px;
+    background: linear-gradient(90deg, #1f1f23 25%, #2a2a30 50%, #1f1f23 75%);
+    background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite;
+  }
+  .skeleton-line:nth-child(1) { width: 70%; } .skeleton-line:nth-child(2) { width: 100%; }
+  .skeleton-line:nth-child(3) { width: 85%; } .skeleton-line:nth-child(4) { width: 60%; }
+  .skeleton-circle {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(90deg, #1f1f23 25%, #2a2a30 50%, #1f1f23 75%);
+    background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; margin-bottom: 8px;
+  }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  /* 9. RIPPLE CLICK */
+  .ripple-area {
+    display: flex; align-items: center; justify-content: center; flex: 1;
+    border-radius: 12px; background: rgba(255,255,255,0.02); cursor: pointer;
+    position: relative; overflow: hidden; user-select: none;
+  }
+  .ripple-area span { color: var(--muted); font-size: 0.9rem; z-index: 1; pointer-events: none; }
+  .ripple {
+    position: absolute; border-radius: 50%; background: rgba(16, 185, 129, 0.25);
+    transform: scale(0); animation: rippleExpand 0.6s ease-out forwards; pointer-events: none;
+  }
+  @keyframes rippleExpand { to { transform: scale(4); opacity: 0; } }
+
+  /* 10. HOLOGRAPHIC FOIL CARD */
+  .holo-card {
+    width: 100%; height: 200px; border-radius: 16px;
+    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+    border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .holo-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(var(--holo-angle, 135deg), transparent 20%, rgba(255,0,128,0.08) 30%,
+      rgba(0,255,200,0.08) 40%, rgba(100,100,255,0.1) 50%, rgba(255,200,0,0.08) 60%,
+      rgba(255,0,128,0.08) 70%, transparent 80%);
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .holo-card:hover::after { opacity: 1; }
+  .holo-card-text { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; font-size: 1.2rem; z-index: 1; opacity: 0.6; }
+
+  /* 11. DIRECTIONAL HOVER BUTTON */
+  .dir-btn-wrap { display: flex; align-items: center; justify-content: center; flex: 1; gap: 16px; flex-wrap: wrap; }
+  .dir-btn {
+    padding: 14px 32px; background: transparent; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: var(--text); font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; position: relative; overflow: hidden; transition: color 0.3s;
+  }
+  .dir-btn .fill {
+    position: absolute; inset: 0; background: var(--accent);
+    transform: translateX(-101%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;
+  }
+  .dir-btn:hover .fill { transform: translateX(0); }
+  .dir-btn:hover { color: var(--bg); }
+  .dir-btn span { position: relative; z-index: 1; }
+
+  /* 12. SVG LINE DRAWING */
+  .svg-draw { display: flex; align-items: center; justify-content: center; flex: 1; }
+  .svg-draw svg { width: 160px; height: 160px; }
+  .svg-draw path {
+    fill: none; stroke: var(--accent); stroke-width: 2;
+    stroke-dasharray: 500; stroke-dashoffset: 500; animation: drawLine 3s ease-in-out infinite;
+  }
+  @keyframes drawLine { 0% { stroke-dashoffset: 500; } 50% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -500; } }
+
+  /* 13. BREATHING STATUS DOTS */
+  .status-row { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
+  .status-item { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--muted); }
+  .status-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    animation: breathe 2s ease-in-out infinite;
+  }
+  .status-dot.green { background: #10b981; box-shadow: 0 0 12px rgba(16,185,129,0.6); }
+  .status-dot.yellow { background: #eab308; box-shadow: 0 0 12px rgba(234,179,8,0.6); animation-delay: -0.5s; }
+  .status-dot.blue { background: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.6); animation-delay: -1s; }
+  .status-dot.red { background: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,0.6); animation-delay: -1.5s; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px currentColor; }
+    50% { transform: scale(1.5); opacity: 0.5; box-shadow: 0 0 20px currentColor; }
+  }
+
+  /* 14. NUMBER TICKER */
+  .ticker-wrap { display: flex; align-items: center; justify-content: center; flex: 1; gap: 8px; }
+  .ticker-digit {
+    font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 500;
+    height: 1.2em; overflow: hidden; position: relative; line-height: 1.2;
+  }
+  .ticker-digit-inner {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ticker-digit span { display: block; height: 1.2em; text-align: center; min-width: 0.65em; }
+  .ticker-label { font-size: 0.8rem; color: var(--muted); margin-top: 12px; text-align: center; }
+
+  /* 15. GRADIENT TEXT */
+  .gradient-text {
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 2.8rem; font-weight: 900;
+    letter-spacing: -0.04em; text-align: center;
+    background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6, #ec4899, #10b981);
+    background-size: 300% 300%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease-in-out infinite;
+  }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+  /* 16. BORDER BEAM */
+  .border-beam-card {
+    width: 100%; height: 200px; background: var(--card); border-radius: 16px;
+    position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .border-beam-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 2px;
+    background: conic-gradient(from var(--beam-angle, 0deg), transparent 60%, var(--accent) 80%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: beamRotate 3s linear infinite;
+  }
+  @keyframes beamRotate { to { --beam-angle: 360deg; } }
+  @property --beam-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  .border-beam-inner { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 700; color: var(--muted); }
+
+  /* 17. SHIMMER BUTTON */
+  .shimmer-btn {
+    padding: 16px 48px; background: linear-gradient(110deg, #1f1f23 40%, #2a2a30 50%, #1f1f23 60%);
+    background-size: 200% 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    color: var(--text); font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; animation: shimmerBtn 2s linear infinite;
+  }
+  @keyframes shimmerBtn { to { background-position: -200% 0; } }
+
+  /* 18. METEORS */
+  .meteor-scene { position: relative; flex: 1; overflow: hidden; border-radius: 12px; }
+  .meteor {
+    position: absolute; width: 2px; height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    border-radius: 999px; animation: meteorFall 2s linear infinite;
+    opacity: 0;
+  }
+  @keyframes meteorFall {
+    0% { transform: translateY(-100px) translateX(0) rotate(-35deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(400px) translateX(-200px) rotate(-35deg); opacity: 0; }
+  }
+
+  /* 19. ORBITING CIRCLES */
+  .orbit-scene { position: relative; width: 200px; height: 200px; margin: auto; }
+  .orbit-ring {
+    position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%; animation: orbitSpin 8s linear infinite;
+  }
+  .orbit-ring:nth-child(2) { inset: 25px; animation-duration: 6s; animation-direction: reverse; }
+  .orbit-ring:nth-child(3) { inset: 50px; animation-duration: 4s; }
+  .orbit-dot {
+    position: absolute; width: 12px; height: 12px; border-radius: 50%; top: -6px; left: 50%;
+    margin-left: -6px;
+  }
+  .orbit-ring:nth-child(1) .orbit-dot { background: var(--accent); box-shadow: 0 0 12px rgba(16,185,129,0.5); }
+  .orbit-ring:nth-child(2) .orbit-dot { background: var(--accent2); box-shadow: 0 0 12px rgba(59,130,246,0.5); }
+  .orbit-ring:nth-child(3) .orbit-dot { background: var(--accent3); box-shadow: 0 0 12px rgba(139,92,246,0.5); }
+  @keyframes orbitSpin { to { transform: rotate(360deg); } }
+
+  /* 20. NEON GRADIENT CARD */
+  .neon-card {
+    width: 100%; height: 200px; border-radius: 16px; position: relative; overflow: hidden;
+    background: var(--card); display: flex; align-items: center; justify-content: center;
+  }
+  .neon-card::before {
+    content: ''; position: absolute; inset: -2px; border-radius: 18px; z-index: -1;
+    background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6, #ec4899);
+    background-size: 300% 300%; animation: neonShift 3s ease-in-out infinite;
+  }
+  @keyframes neonShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  .neon-card-inner { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; font-size: 1.2rem; }
+
+  /* 21. ANIMATED LIST */
+  .animated-list { display: flex; flex-direction: column; gap: 8px; flex: 1; justify-content: flex-start; overflow: hidden; padding-top: 4px; }
+  .animated-list-item {
+    display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+    background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.8rem; opacity: 0; transform: translateY(-16px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .animated-list-item.visible { opacity: 1; transform: translateY(0); }
+  .animated-list-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* 22. TYPEWRITER */
+  .typewriter {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; flex: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .typewriter-cursor { animation: blink 0.8s step-end infinite; margin-left: 2px; color: var(--accent); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* 23. MATRIX RAIN */
+  .matrix-scene { position: relative; flex: 1; overflow: hidden; border-radius: 12px; background: #000; }
+  .matrix-col {
+    position: absolute; top: 0; font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; line-height: 1.2; color: #0f0; writing-mode: vertical-rl;
+    animation: matrixDrop linear infinite; opacity: 0.7;
+  }
+  @keyframes matrixDrop { 0% { transform: translateY(-100%); } 100% { transform: translateY(300px); } }
+
+  /* 24. DOCK (macOS) */
+  .dock-wrap { display: flex; align-items: flex-end; justify-content: center; flex: 1; padding-bottom: 20px; }
+  .dock {
+    display: flex; align-items: flex-end; gap: 4px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    padding: 8px 12px 8px; border-radius: 20px;
+  }
+  .dock-item {
+    width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center;
+    justify-content: center; font-size: 1.2rem; font-weight: 700;
+    font-family: 'Cabinet Grotesk', sans-serif;
+  }
+  .dock-item:hover { transform: translateY(-12px) scale(1.5); }
+  .dock-item:has(+ .dock-item:hover), .dock-item:hover + .dock-item { transform: translateY(-6px) scale(1.2); }
+
+  /* 25. PULSATING BUTTON */
+  .pulsate-wrap { display: flex; align-items: center; justify-content: center; flex: 1; }
+  .pulsate-btn {
+    padding: 16px 40px; background: var(--accent2); color: white; border: none; border-radius: 12px;
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; position: relative;
+  }
+  .pulsate-btn::before, .pulsate-btn::after {
+    content: ''; position: absolute; inset: 0; border-radius: 12px;
+    border: 2px solid var(--accent2); animation: pulsateRing 2s ease-out infinite;
+  }
+  .pulsate-btn::after { animation-delay: 1s; }
+  @keyframes pulsateRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.5); opacity: 0; } }
+
+  /* 26. SPINNING TEXT */
+  .spin-text-scene { display: flex; align-items: center; justify-content: center; flex: 1; }
+  .spin-text-wrap { position: relative; width: 140px; height: 140px; animation: spinText 10s linear infinite; }
+  .spin-text-char {
+    position: absolute; left: 50%; top: 0; transform-origin: 0 70px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  @keyframes spinText { to { transform: rotate(360deg); } }
+
+  /* 27. SCROLL PROGRESS */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; background: var(--accent);
+    z-index: 999; width: 0%; transition: width 0.1s;
+  }
+
+  /* 28. ACCORDION IMAGE SLIDER */
+  .accordion-slider { display: flex; gap: 4px; flex: 1; min-height: 200px; }
+  .accordion-panel {
+    flex: 1; border-radius: 12px; cursor: pointer; position: relative; overflow: hidden;
+    transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .accordion-panel:hover { flex: 4; }
+  .accordion-panel-label {
+    position: absolute; bottom: 12px; left: 12px; font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace; text-transform: uppercase;
+    letter-spacing: 0.1em; opacity: 0; transition: opacity 0.3s;
+  }
+  .accordion-panel:hover .accordion-panel-label { opacity: 1; }
+
+  /* 29. MORPHING TEXT */
+  .morph-text {
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 2.5rem; font-weight: 900;
+    letter-spacing: -0.04em; text-align: center; flex: 1; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .morph-text span { display: inline-block; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  /* 30. CONFETTI */
+  .confetti-wrap { display: flex; align-items: center; justify-content: center; flex: 1; position: relative; }
+  .confetti-btn {
+    padding: 16px 40px; background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    color: white; border: none; border-radius: 12px;
+    font-family: 'Cabinet Grotesk', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .confetti-btn:active { transform: scale(0.95); }
+  .confetti-piece {
+    position: absolute; width: 8px; height: 8px; pointer-events: none;
+    animation: confettiFall 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(200px) rotate(720deg) scale(0); opacity: 0; }
+  }
+
+  /* 31. COMMAND PALETTE */
+  .cmd-palette {
+    width: 100%; max-width: 400px; background: #1a1a1e; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    margin: auto;
+  }
+  .cmd-input-wrap {
+    display: flex; align-items: center; gap: 10px; padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cmd-input-wrap svg { color: var(--muted); flex-shrink: 0; }
+  .cmd-input {
+    background: none; border: none; color: var(--text); font-family: 'Satoshi', sans-serif;
+    font-size: 0.9rem; width: 100%; outline: none;
+  }
+  .cmd-input::placeholder { color: var(--muted); }
+  .cmd-kbd {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted);
+    background: rgba(255,255,255,0.06); padding: 3px 6px; border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .cmd-group-label {
+    font-size: 0.65rem; font-weight: 600; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em; padding: 10px 16px 6px;
+  }
+  .cmd-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+    cursor: pointer; transition: background 0.15s; font-size: 0.85rem; color: var(--text);
+  }
+  .cmd-item:hover, .cmd-item.active { background: rgba(255,255,255,0.05); }
+  .cmd-item-icon { color: var(--muted); font-size: 1rem; width: 20px; text-align: center; }
+  .cmd-item-shortcut {
+    margin-left: auto; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: rgba(255,255,255,0.2);
+  }
+
+  /* 32. TOAST NOTIFICATION */
+  .toast-demo { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: 20px; }
+  .toast-trigger {
+    padding: 12px 28px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: var(--text); font-family: 'Satoshi', sans-serif; font-size: 0.85rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .toast-trigger:hover { background: rgba(255,255,255,0.1); }
+  .toast-stack { position: relative; width: 100%; max-width: 320px; min-height: 80px; }
+  .toast {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 16px;
+    background: #1a1a1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+    display: flex; align-items: flex-start; gap: 10px; font-size: 0.8rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    transform: translateY(0) scale(1); opacity: 1;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .toast.stacked-1 { transform: translateY(-8px) scale(0.96); opacity: 0.7; }
+  .toast.stacked-2 { transform: translateY(-14px) scale(0.92); opacity: 0.4; }
+  .toast.exiting { transform: translateX(120%) scale(0.9); opacity: 0; }
+  .toast-icon { font-size: 1.1rem; line-height: 1; }
+  .toast-content { flex: 1; }
+  .toast-title { font-weight: 600; margin-bottom: 2px; }
+  .toast-desc { color: var(--muted); font-size: 0.75rem; }
+
+  /* 33. ACCORDION (radix) */
+  .accordion { width: 100%; }
+  .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .accordion-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0; background: none; border: none; color: var(--text);
+    font-family: 'Satoshi', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; text-align: left;
+  }
+  .accordion-trigger:hover { color: var(--accent); }
+  .accordion-chevron {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); color: var(--muted);
+  }
+  .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+  .accordion-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .accordion-item.open .accordion-body { max-height: 200px; }
+  .accordion-body-inner { padding: 0 0 16px; color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+  /* 34. PROGRESS BAR */
+  .progress-demo { display: flex; flex-direction: column; gap: 20px; flex: 1; justify-content: center; }
+  .progress-bar {
+    height: 8px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 999px; transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+
+  /* 35. SPARKLINE CHART */
+  .sparkline-wrap { display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: center; }
+  .sparkline-header { display: flex; align-items: baseline; gap: 8px; }
+  .sparkline-value { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 500; }
+  .sparkline-change { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .sparkline-change.up { color: #10b981; background: rgba(16,185,129,0.1); }
+  .sparkline-svg { width: 100%; height: 60px; }
+
+  /* 36. DRAG & DROP SORTABLE */
+  .sortable-list { display: flex; flex-direction: column; gap: 6px; flex: 1; justify-content: center; }
+  .sortable-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; cursor: grab; user-select: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); font-size: 0.85rem;
+  }
+  .sortable-item:active { cursor: grabbing; background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); transform: scale(1.02); }
+  .sortable-item.dragging { opacity: 0.5; }
+  .sortable-grip { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.1em; }
+
+  /* 37. TABS */
+  .tabs-wrap { width: 100%; }
+  .tabs-list {
+    display: flex; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 3px; margin-bottom: 16px;
+  }
+  .tab-trigger {
+    flex: 1; padding: 8px 16px; background: none; border: none; border-radius: 8px;
+    color: var(--muted); font-family: 'Satoshi', sans-serif; font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .tab-trigger.active { background: rgba(255,255,255,0.08); color: var(--text); }
+  .tab-content { font-size: 0.85rem; color: var(--muted); line-height: 1.6; min-height: 80px; }
+
+  /* 38. CAROUSEL */
+  .carousel-wrap { overflow: hidden; border-radius: 12px; flex: 1; position: relative; }
+  .carousel-track {
+    display: flex; gap: 12px; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .carousel-slide {
+    min-width: calc(100% - 24px); height: 180px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; font-size: 1.5rem;
+  }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .carousel-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .carousel-dot.active { background: var(--accent); width: 20px; border-radius: 3px; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /* NEW COMPONENTS 39-88                                */
+  /* ═══════════════════════════════════════════════════ */
+
+  /* 39. DIALOG/MODAL */
+  .modal-overlay {
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(6px);
+    z-index:1000; align-items:center; justify-content:center;
+  }
+  .modal-overlay.open { display:flex; }
+  .modal-box {
+    background:#1a1a1e; border:1px solid rgba(255,255,255,0.1); border-radius:16px;
+    padding:32px; max-width:420px; width:90%; box-shadow:0 30px 80px rgba(0,0,0,0.6);
+    animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  @keyframes modalIn { from { opacity:0; transform:scale(0.95) translateY(10px); } to { opacity:1; transform:none; } }
+  .modal-box h3 { font-family:'Cabinet Grotesk',sans-serif; font-weight:800; margin-bottom:8px; }
+  .modal-box p { color:var(--muted); font-size:0.85rem; line-height:1.6; margin-bottom:20px; }
+  .modal-actions { display:flex; gap:10px; justify-content:flex-end; }
+  .modal-actions button {
+    padding:8px 20px; border-radius:8px; font-family:'Satoshi',sans-serif; font-size:0.85rem;
+    cursor:pointer; border:none; font-weight:600;
+  }
+  .modal-cancel { background:rgba(255,255,255,0.06); color:var(--text); }
+  .modal-confirm { background:var(--accent); color:#0a0a0b; }
+
+  /* 40. SHEET/DRAWER */
+  .sheet-overlay {
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000;
+  }
+  .sheet-overlay.open { display:block; }
+  .sheet-panel {
+    position:fixed; top:0; right:-360px; width:340px; height:100%; background:#1a1a1e;
+    border-left:1px solid rgba(255,255,255,0.08); padding:32px; z-index:1001;
+    transition:right 0.35s cubic-bezier(0.16,1,0.3,1); overflow-y:auto;
+  }
+  .sheet-panel.open { right:0; }
+  .sheet-panel h3 { font-family:'Cabinet Grotesk',sans-serif; font-weight:800; margin-bottom:8px; }
+  .sheet-panel p { color:var(--muted); font-size:0.85rem; line-height:1.6; margin-bottom:20px; }
+  .sheet-close {
+    position:absolute; top:16px; right:16px; background:none; border:none; color:var(--muted);
+    font-size:1.2rem; cursor:pointer;
+  }
+
+  /* 41. DROPDOWN MENU */
+  .dropdown-wrap { position:relative; display:inline-block; }
+  .dropdown-trigger {
+    padding:10px 20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px; color:var(--text); font-family:'Satoshi',sans-serif; font-size:0.85rem;
+    cursor:pointer;
+  }
+  .dropdown-menu {
+    display:none; position:absolute; top:calc(100% + 6px); left:0; min-width:180px;
+    background:#1a1a1e; border:1px solid rgba(255,255,255,0.1); border-radius:10px;
+    padding:4px; box-shadow:0 12px 40px rgba(0,0,0,0.5); z-index:50;
+    animation:dropIn 0.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .dropdown-menu.open { display:block; }
+  @keyframes dropIn { from { opacity:0; transform:translateY(-4px); } }
+  .dropdown-menu-item {
+    display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:6px;
+    font-size:0.8rem; color:var(--text); cursor:pointer; transition:background 0.15s;
+  }
+  .dropdown-menu-item:hover { background:rgba(255,255,255,0.06); }
+  .dropdown-sep { height:1px; background:rgba(255,255,255,0.06); margin:4px 0; }
+
+  /* 42. CUSTOM SELECT */
+  .custom-select-wrap { position:relative; width:220px; }
+  .custom-select-btn {
+    width:100%; padding:10px 14px; background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:var(--text);
+    font-family:'Satoshi',sans-serif; font-size:0.85rem; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .custom-select-btn .arrow { color:var(--muted); transition:transform 0.2s; }
+  .custom-select-btn.open .arrow { transform:rotate(180deg); }
+  .custom-select-list {
+    display:none; position:absolute; top:calc(100% + 4px); left:0; right:0;
+    background:#1a1a1e; border:1px solid rgba(255,255,255,0.1); border-radius:8px;
+    padding:4px; z-index:50; max-height:180px; overflow-y:auto;
+  }
+  .custom-select-list.open { display:block; }
+  .custom-select-option {
+    padding:8px 12px; border-radius:6px; font-size:0.8rem; cursor:pointer; transition:background 0.15s;
+  }
+  .custom-select-option:hover { background:rgba(255,255,255,0.06); }
+  .custom-select-option.selected { color:var(--accent); }
+
+  /* 43. SWITCH/TOGGLE */
+  .switch-row { display:flex; flex-direction:column; gap:16px; flex:1; justify-content:center; }
+  .switch-item { display:flex; align-items:center; gap:12px; font-size:0.85rem; }
+  .switch {
+    width:44px; height:24px; background:rgba(255,255,255,0.1); border-radius:12px;
+    position:relative; cursor:pointer; transition:background 0.3s;
+  }
+  .switch.on { background:var(--accent); }
+  .switch-knob {
+    width:20px; height:20px; border-radius:50%; background:#fff; position:absolute;
+    top:2px; left:2px; transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    box-shadow:0 2px 4px rgba(0,0,0,0.3);
+  }
+  .switch.on .switch-knob { transform:translateX(20px); }
+
+  /* 44. SLIDER */
+  .slider-demo { display:flex; flex-direction:column; gap:20px; flex:1; justify-content:center; }
+  .slider-track {
+    width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:3px;
+    position:relative; cursor:pointer;
+  }
+  .slider-fill { height:100%; background:var(--accent); border-radius:3px; width:40%; }
+  .slider-thumb {
+    width:18px; height:18px; border-radius:50%; background:var(--accent); border:2px solid #fff;
+    position:absolute; top:50%; transform:translate(-50%,-50%); left:40%;
+    cursor:grab; box-shadow:0 2px 8px rgba(16,185,129,0.4);
+    transition:box-shadow 0.2s;
+  }
+  .slider-thumb:hover { box-shadow:0 2px 16px rgba(16,185,129,0.6); }
+  .slider-value { font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--muted); text-align:center; }
+
+  /* 45. CHECKBOX */
+  .checkbox-group { display:flex; flex-direction:column; gap:12px; flex:1; justify-content:center; }
+  .checkbox-item { display:flex; align-items:center; gap:10px; font-size:0.85rem; cursor:pointer; }
+  .checkbox-box {
+    width:20px; height:20px; border-radius:6px; border:2px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+    flex-shrink:0;
+  }
+  .checkbox-item.checked .checkbox-box {
+    background:var(--accent); border-color:var(--accent);
+  }
+  .checkbox-check {
+    opacity:0; transform:scale(0); transition:all 0.2s cubic-bezier(0.16,1,0.3,1);
+    color:#0a0a0b; font-size:0.7rem; font-weight:900;
+  }
+  .checkbox-item.checked .checkbox-check { opacity:1; transform:scale(1); }
+
+  /* 46. AVATAR */
+  .avatar-row { display:flex; gap:16px; flex:1; align-items:center; justify-content:center; flex-wrap:wrap; }
+  .avatar {
+    width:48px; height:48px; border-radius:50%; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:0.9rem;
+  }
+  .avatar-img { width:100%; height:100%; border-radius:50%; object-fit:cover; }
+  .avatar-fallback {
+    width:100%; height:100%; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+  .avatar-status {
+    position:absolute; bottom:0; right:0; width:14px; height:14px; border-radius:50%;
+    border:2px solid var(--card);
+  }
+  .avatar-lg { width:56px; height:56px; font-size:1.1rem; }
+
+  /* 47. BADGE VARIANTS */
+  .badge-demo { display:flex; flex-wrap:wrap; gap:10px; flex:1; align-items:center; justify-content:center; }
+  .badge-v { padding:5px 12px; border-radius:999px; font-size:0.75rem; font-weight:600; font-family:'JetBrains Mono',monospace; }
+  .badge-default { background:var(--accent); color:#0a0a0b; }
+  .badge-destructive { background:#ef4444; color:#fff; }
+  .badge-outline-v { background:transparent; border:1px solid rgba(255,255,255,0.15); color:var(--text); }
+  .badge-secondary { background:rgba(255,255,255,0.08); color:var(--text); }
+
+  /* 48. TOOLTIP */
+  .tooltip-demo { display:flex; gap:20px; flex:1; align-items:center; justify-content:center; flex-wrap:wrap; }
+  .tooltip-target {
+    position:relative; padding:8px 20px; background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1); border-radius:8px; font-size:0.85rem; cursor:default;
+  }
+  .tooltip-bubble {
+    position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(4px);
+    background:#fff; color:#0a0a0b; padding:6px 12px; border-radius:6px; font-size:0.75rem;
+    font-weight:600; white-space:nowrap; opacity:0; pointer-events:none;
+    transition:all 0.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .tooltip-bubble::after {
+    content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:5px solid transparent; border-top-color:#fff;
+  }
+  .tooltip-target:hover .tooltip-bubble { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* 49. HOVER CARD */
+  .hovercard-wrap { position:relative; display:inline-block; }
+  .hovercard-trigger {
+    color:var(--accent); text-decoration:underline; text-underline-offset:3px; cursor:pointer; font-size:0.9rem;
+  }
+  .hovercard-content {
+    display:none; position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%);
+    width:260px; background:#1a1a1e; border:1px solid rgba(255,255,255,0.1); border-radius:12px;
+    padding:16px; box-shadow:0 12px 40px rgba(0,0,0,0.5); z-index:50;
+  }
+  .hovercard-wrap:hover .hovercard-content { display:block; animation:dropIn 0.2s; }
+  .hovercard-content .hc-name { font-weight:700; margin-bottom:4px; }
+  .hovercard-content .hc-handle { color:var(--muted); font-size:0.8rem; margin-bottom:8px; }
+  .hovercard-content .hc-bio { color:var(--muted); font-size:0.8rem; line-height:1.5; }
+
+  /* 50. TABLE */
+  .data-table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+  .data-table th {
+    text-align:left; padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.1);
+    color:var(--muted); font-weight:600; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;
+  }
+  .data-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .data-table tbody tr:nth-child(even) { background:rgba(255,255,255,0.02); }
+  .data-table tbody tr:hover { background:rgba(16,185,129,0.04); }
+
+  /* 51. POPOVER */
+  .popover-wrap { position:relative; display:inline-block; }
+  .popover-trigger {
+    padding:8px 20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px; color:var(--text); font-size:0.85rem; cursor:pointer;
+  }
+  .popover-content {
+    display:none; position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+    width:240px; background:#1a1a1e; border:1px solid rgba(255,255,255,0.1); border-radius:10px;
+    padding:16px; box-shadow:0 12px 40px rgba(0,0,0,0.5); z-index:50; font-size:0.8rem;
+  }
+  .popover-content.open { display:block; animation:dropIn 0.2s; }
+
+  /* 52. SCROLL AREA */
+  .scroll-area-demo {
+    width:100%; height:160px; overflow-y:auto; border-radius:8px;
+    background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06);
+    padding:12px; font-size:0.8rem; color:var(--muted); line-height:1.7;
+  }
+  .scroll-area-demo::-webkit-scrollbar { width:6px; }
+  .scroll-area-demo::-webkit-scrollbar-track { background:transparent; }
+  .scroll-area-demo::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:3px; }
+  .scroll-area-demo::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,0.2); }
+
+  /* 53. GLOBE (CSS/SVG wireframe) */
+  .globe-scene { display:flex; align-items:center; justify-content:center; flex:1; }
+  .globe-wrap { width:160px; height:160px; position:relative; animation:globeSpin 12s linear infinite; }
+  .globe-circle {
+    position:absolute; inset:0; border:1px solid rgba(16,185,129,0.2); border-radius:50%;
+  }
+  .globe-meridian {
+    position:absolute; inset:0; border:1px solid rgba(16,185,129,0.15); border-radius:50%;
+  }
+  @keyframes globeSpin { to { transform:rotateY(360deg); } }
+
+  /* 54. ANIMATED BEAM */
+  .beam-scene { position:relative; width:100%; height:160px; }
+  .beam-node {
+    width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;
+    position:absolute; font-size:0.9rem;
+  }
+  .beam-path { fill:none; stroke:rgba(255,255,255,0.06); stroke-width:1; }
+  .beam-light {
+    fill:none; stroke:var(--accent); stroke-width:2;
+    stroke-dasharray:40; stroke-dashoffset:200; animation:beamTravel 3s linear infinite;
+    filter:drop-shadow(0 0 4px rgba(16,185,129,0.6));
+  }
+  @keyframes beamTravel { to { stroke-dashoffset:0; } }
+
+  /* 55. AURORA TEXT */
+  .aurora-text-wrap { position:relative; display:flex; align-items:center; justify-content:center; flex:1; }
+  .aurora-bg {
+    position:absolute; width:200%; height:200%; top:-50%; left:-50%;
+    background:conic-gradient(from 0deg, #10b981, #3b82f6, #8b5cf6, #ec4899, #10b981);
+    filter:blur(60px); opacity:0.15; animation:auroraRotate 8s linear infinite;
+  }
+  @keyframes auroraRotate { to { transform:rotate(360deg); } }
+  .aurora-text {
+    font-family:'Cabinet Grotesk',sans-serif; font-size:2.5rem; font-weight:900;
+    letter-spacing:-0.04em; position:relative; z-index:1;
+  }
+
+  /* 56. SPARKLES TEXT */
+  .sparkles-wrap { position:relative; display:inline-block; }
+  .sparkle {
+    position:absolute; width:6px; height:6px; background:var(--accent);
+    border-radius:50%; pointer-events:none; animation:sparklePop 1.5s ease-out forwards;
+  }
+  @keyframes sparklePop {
+    0% { transform:scale(0) rotate(0deg); opacity:1; }
+    50% { transform:scale(1) rotate(180deg); opacity:1; }
+    100% { transform:scale(0) rotate(360deg); opacity:0; }
+  }
+
+  /* 57. WORD ROTATE */
+  .word-rotate-wrap {
+    font-family:'Cabinet Grotesk',sans-serif; font-size:2rem; font-weight:800;
+    display:flex; align-items:center; justify-content:center; flex:1; gap:12px;
+  }
+  .word-rotate-slot {
+    display:inline-block; height:1.2em; overflow:hidden; position:relative; min-width:120px;
+    color:var(--accent);
+  }
+  .word-rotate-inner {
+    transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .word-rotate-inner span { display:block; height:1.2em; line-height:1.2; }
+
+  /* 58. RAINBOW BUTTON */
+  .rainbow-btn-wrap { display:flex; align-items:center; justify-content:center; flex:1; }
+  .rainbow-btn {
+    position:relative; padding:14px 36px; background:var(--bg); color:var(--text);
+    font-family:'Cabinet Grotesk',sans-serif; font-size:1rem; font-weight:700;
+    border:none; border-radius:12px; cursor:pointer; z-index:1;
+  }
+  .rainbow-btn::before {
+    content:''; position:absolute; inset:-2px; border-radius:14px; z-index:-1;
+    background:conic-gradient(from var(--rainbow-angle,0deg), #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ec4899, #ef4444);
+    animation:rainbowSpin 3s linear infinite;
+  }
+  @property --rainbow-angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+  @keyframes rainbowSpin { to { --rainbow-angle:360deg; } }
+
+  /* 59. INTERACTIVE HOVER BUTTON */
+  .ihover-btn {
+    position:relative; padding:14px 36px; background:transparent;
+    border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:var(--text);
+    font-family:'Cabinet Grotesk',sans-serif; font-size:1rem; font-weight:700;
+    cursor:pointer; overflow:hidden; transition:color 0.4s;
+  }
+  .ihover-btn .ihover-fill {
+    position:absolute; width:0; height:0; border-radius:50%; background:var(--accent);
+    top:50%; left:50%; transform:translate(-50%,-50%); transition:width 0.5s cubic-bezier(0.16,1,0.3,1), height 0.5s cubic-bezier(0.16,1,0.3,1);
+    z-index:0;
+  }
+  .ihover-btn:hover .ihover-fill { width:300px; height:300px; }
+  .ihover-btn:hover { color:#0a0a0b; }
+  .ihover-btn span { position:relative; z-index:1; }
+
+  /* 60. ANIMATED CIRCULAR PROGRESS */
+  .circ-progress-row { display:flex; gap:24px; flex:1; align-items:center; justify-content:center; }
+  .circ-progress { position:relative; width:80px; height:80px; }
+  .circ-progress svg { transform:rotate(-90deg); }
+  .circ-progress-bg { fill:none; stroke:rgba(255,255,255,0.06); stroke-width:6; }
+  .circ-progress-fill {
+    fill:none; stroke-width:6; stroke-linecap:round;
+    transition:stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .circ-progress-label {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:0.8rem; font-weight:500;
+  }
+
+  /* 61. BLUR FADE */
+  .blur-fade-demo { display:flex; flex-direction:column; gap:12px; flex:1; justify-content:center; }
+  .blur-fade-item {
+    padding:12px 16px; background:rgba(255,255,255,0.03); border-radius:10px;
+    border:1px solid rgba(255,255,255,0.04); font-size:0.85rem;
+    opacity:0; filter:blur(8px); transform:translateY(12px);
+    transition:all 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .blur-fade-item.visible { opacity:1; filter:blur(0); transform:translateY(0); }
+
+  /* 62. DOT PATTERN */
+  .dot-pattern-demo {
+    flex:1; border-radius:12px; position:relative; overflow:hidden;
+    background-image:radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size:20px 20px; display:flex; align-items:center; justify-content:center;
+  }
+  .dot-pattern-text {
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:800; font-size:1.4rem;
+    background:var(--card); padding:12px 24px; border-radius:12px;
+    border:1px solid var(--border);
+  }
+
+  /* 63. FLICKERING GRID */
+  .flicker-grid {
+    display:grid; grid-template-columns:repeat(12,1fr); gap:2px;
+    flex:1; align-content:center; padding:20px 0;
+  }
+  .flicker-cell {
+    aspect-ratio:1; border-radius:2px; background:rgba(16,185,129,0.05);
+    animation:flicker var(--dur, 3s) var(--del, 0s) ease-in-out infinite;
+  }
+  @keyframes flicker {
+    0%,100% { opacity:0.1; } 50% { opacity:var(--peak, 0.8); }
+  }
+
+  /* 64. RETRO GRID */
+  .retro-grid-scene {
+    flex:1; position:relative; overflow:hidden; display:flex;
+    align-items:flex-end; justify-content:center; perspective:400px;
+  }
+  .retro-grid {
+    width:200%; height:300px; position:absolute; bottom:-40%;
+    background-image:
+      linear-gradient(rgba(16,185,129,0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,185,129,0.15) 1px, transparent 1px);
+    background-size:40px 40px;
+    transform:rotateX(60deg); transform-origin:center top;
+    animation:retroScroll 4s linear infinite;
+    mask-image:linear-gradient(to top, white 30%, transparent 90%);
+    -webkit-mask-image:linear-gradient(to top, white 30%, transparent 90%);
+  }
+  @keyframes retroScroll { to { background-position:0 40px; } }
+
+  /* 65. WARP BACKGROUND */
+  .warp-scene { flex:1; position:relative; overflow:hidden; border-radius:12px; }
+  .warp-dot {
+    position:absolute; width:3px; height:3px; border-radius:50%;
+    background:rgba(255,255,255,0.2); animation:warpMove var(--wd,6s) ease-in-out infinite;
+  }
+  @keyframes warpMove {
+    0%,100% { transform:translate(0,0); }
+    25% { transform:translate(var(--wx,20px), var(--wy,-15px)); }
+    50% { transform:translate(var(--wx2,-10px), var(--wy2,25px)); }
+    75% { transform:translate(var(--wx3,15px), var(--wy3,10px)); }
+  }
+
+  /* 66. COOL MODE */
+  .cool-mode-wrap { display:flex; align-items:center; justify-content:center; flex:1; position:relative; overflow:hidden; }
+  .cool-mode-btn {
+    padding:14px 36px; background:var(--accent); color:#0a0a0b; border:none; border-radius:12px;
+    font-family:'Cabinet Grotesk',sans-serif; font-size:1rem; font-weight:700; cursor:pointer;
+  }
+  .cool-particle {
+    position:absolute; font-size:1.2rem; pointer-events:none;
+    animation:coolFly 1s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes coolFly {
+    0% { transform:translateY(0) scale(1); opacity:1; }
+    100% { transform:translateY(-120px) scale(0.5); opacity:0; }
+  }
+
+  /* 67. SHINE BORDER */
+  .shine-border-card {
+    position:relative; padding:24px; border-radius:16px; background:var(--card);
+    overflow:hidden; display:flex; align-items:center; justify-content:center;
+    min-height:120px;
+  }
+  .shine-border-card::before {
+    content:''; position:absolute; inset:0; border-radius:16px; padding:1px;
+    background:linear-gradient(var(--shine-pos, -45deg), transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    animation:shineMove 3s linear infinite;
+  }
+  @property --shine-pos { syntax:'<angle>'; initial-value:-45deg; inherits:false; }
+  @keyframes shineMove { to { --shine-pos:315deg; } }
+
+  /* 68. ICON CLOUD */
+  .icon-cloud { position:relative; width:200px; height:200px; margin:auto; perspective:600px; }
+  .icon-cloud-item {
+    position:absolute; font-size:1.5rem; animation:cloudOrbit var(--cd,8s) linear infinite;
+    transform-origin:100px 100px;
+  }
+  @keyframes cloudOrbit {
+    0% { transform:rotateY(var(--start,0deg)) translateZ(80px) rotateY(calc(-1 * var(--start,0deg))); }
+    100% { transform:rotateY(calc(var(--start,0deg) + 360deg)) translateZ(80px) rotateY(calc(-1 * var(--start,0deg) - 360deg)); }
+  }
+
+  /* 69. TERMINAL */
+  .terminal-window {
+    width:100%; background:#0c0c0e; border:1px solid rgba(255,255,255,0.08); border-radius:12px;
+    overflow:hidden; font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+  }
+  .terminal-header {
+    display:flex; align-items:center; gap:6px; padding:10px 14px;
+    background:rgba(255,255,255,0.03); border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .terminal-dot { width:10px; height:10px; border-radius:50%; }
+  .terminal-body { padding:14px; color:#a0a0a0; line-height:1.8; min-height:100px; }
+  .terminal-body .prompt { color:var(--accent); }
+  .terminal-body .cmd { color:var(--text); }
+
+  /* 70. MAGIC CARD */
+  .magic-card {
+    width:100%; height:200px; border-radius:16px; background:var(--card);
+    border:1px solid rgba(255,255,255,0.06); position:relative; overflow:hidden;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .magic-card::after {
+    content:''; position:absolute; width:300px; height:300px; border-radius:50%;
+    background:radial-gradient(circle, rgba(16,185,129,0.12), transparent 60%);
+    top:var(--my,-50%); left:var(--mmx,-50%); transform:translate(-50%,-50%);
+    pointer-events:none; transition:opacity 0.3s; opacity:0;
+  }
+  .magic-card:hover::after { opacity:1; }
+  .magic-card-inner { font-family:'Cabinet Grotesk',sans-serif; font-weight:700; color:var(--muted); z-index:1; }
+
+  /* 71. FILE TREE */
+  .file-tree { font-family:'JetBrains Mono',monospace; font-size:0.8rem; flex:1; }
+  .file-tree-item {
+    display:flex; align-items:center; gap:6px; padding:4px 8px; border-radius:6px;
+    cursor:pointer; transition:background 0.15s;
+  }
+  .file-tree-item:hover { background:rgba(255,255,255,0.04); }
+  .file-tree-item .icon { width:16px; text-align:center; color:var(--muted); }
+  .file-tree-children { padding-left:20px; overflow:hidden; max-height:0; transition:max-height 0.3s; }
+  .file-tree-item.open + .file-tree-children { max-height:300px; }
+
+  /* 72. LIGHT RAYS */
+  .light-rays-scene { flex:1; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .light-ray {
+    position:absolute; width:2px; height:200%; top:-50%; background:linear-gradient(to bottom, transparent, rgba(16,185,129,0.1), transparent);
+    transform-origin:bottom center; animation:rayPulse 4s ease-in-out infinite;
+  }
+  @keyframes rayPulse { 0%,100% { opacity:0.3; } 50% { opacity:0.8; } }
+
+  /* 73. LENS */
+  .lens-scene { flex:1; position:relative; overflow:hidden; cursor:none; border-radius:12px; min-height:180px; }
+  .lens-bg {
+    width:100%; height:100%; background:linear-gradient(135deg, #1a2a3a 0%, #2a1a3a 50%, #1a3a2a 100%);
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:800; font-size:0.9rem; color:var(--muted);
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:20px;
+  }
+  .lens-circle {
+    position:absolute; width:100px; height:100px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.2); pointer-events:none;
+    display:none; overflow:hidden; box-shadow:0 0 20px rgba(16,185,129,0.2);
+  }
+  .lens-scene:hover .lens-circle { display:block; }
+  .lens-magnified {
+    width:200%; height:200%; position:absolute; transform-origin:center;
+    background:linear-gradient(135deg, #1a2a3a 0%, #2a1a3a 50%, #1a3a2a 100%);
+    filter:brightness(1.6) contrast(1.2);
+  }
+
+  /* 74. BENTO GRID */
+  .bento-grid {
+    display:grid; grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(2,120px);
+    gap:8px; flex:1;
+  }
+  .bento-item {
+    background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:0.85rem; color:var(--muted);
+    transition:all 0.3s;
+  }
+  .bento-item:hover { background:rgba(16,185,129,0.06); border-color:rgba(16,185,129,0.15); }
+  .bento-item.span-2 { grid-column:span 2; }
+  .bento-item.span-row { grid-row:span 2; }
+
+  /* 75. GOOEY MENU */
+  .gooey-wrap { display:flex; align-items:center; justify-content:center; flex:1; position:relative; }
+  .gooey-menu { display:flex; gap:0; filter:url(#gooey); }
+  .gooey-item {
+    width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1.1rem; transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+    position:relative;
+  }
+  .gooey-item:hover { transform:scale(1.3); }
+
+  /* 76. GLITCH EFFECT */
+  .glitch-wrap { display:flex; align-items:center; justify-content:center; flex:1; }
+  .glitch-text {
+    font-family:'Cabinet Grotesk',sans-serif; font-size:2.5rem; font-weight:900;
+    letter-spacing:-0.04em; position:relative; cursor:pointer;
+  }
+  .glitch-text::before, .glitch-text::after {
+    content:attr(data-text); position:absolute; top:0; left:0; width:100%; height:100%;
+    opacity:0; transition:opacity 0.1s;
+  }
+  .glitch-text:hover::before {
+    opacity:1; color:#ef4444; clip-path:polygon(0 0,100% 0,100% 45%,0 45%);
+    transform:translate(-3px,-2px);
+  }
+  .glitch-text:hover::after {
+    opacity:1; color:#3b82f6; clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);
+    transform:translate(3px,2px);
+  }
+
+  /* 77. TEXT MASK REVEAL */
+  .text-mask {
+    font-family:'Cabinet Grotesk',sans-serif; font-size:3rem; font-weight:900;
+    letter-spacing:-0.04em;
+    background:linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6, #ec4899);
+    background-size:300% 300%; animation:gradientShift 4s ease-in-out infinite;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    display:flex; align-items:center; justify-content:center; flex:1;
+  }
+
+  /* 78. GRADIENT STROKE ANIMATION */
+  .gradient-stroke {
+    font-family:'Cabinet Grotesk',sans-serif; font-size:3rem; font-weight:900;
+    letter-spacing:-0.04em; -webkit-text-stroke:2px var(--accent);
+    color:transparent; display:flex; align-items:center; justify-content:center; flex:1;
+    animation:strokePulse 3s ease-in-out infinite;
+  }
+  @keyframes strokePulse {
+    0%,100% { -webkit-text-stroke-color:#10b981; }
+    33% { -webkit-text-stroke-color:#3b82f6; }
+    66% { -webkit-text-stroke-color:#8b5cf6; }
+  }
+
+  /* 79. KINETIC TYPOGRAPHY GRID */
+  .kinetic-grid {
+    display:grid; grid-template-columns:repeat(10,1fr); gap:4px;
+    flex:1; align-content:center; cursor:crosshair;
+  }
+  .kinetic-letter {
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:900; font-size:1.2rem;
+    text-align:center; transition:all 0.3s cubic-bezier(0.16,1,0.3,1); color:var(--muted);
+  }
+
+  /* 80. STICKY SCROLL STACK */
+  .sticky-scroll-demo {
+    display:flex; flex-direction:column; gap:12px; flex:1; justify-content:center;
+  }
+  .sticky-card-item {
+    padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px; transform-origin:top center;
+    transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .sticky-card-item h4 { font-family:'Cabinet Grotesk',sans-serif; font-weight:700; margin-bottom:4px; }
+  .sticky-card-item p { color:var(--muted); font-size:0.8rem; }
+
+  /* 81. HORIZONTAL SCROLL */
+  .hscroll-demo {
+    display:flex; gap:12px; overflow-x:auto; flex:1; align-items:center;
+    padding:10px 0; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .hscroll-demo::-webkit-scrollbar { height:4px; }
+  .hscroll-demo::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:2px; }
+  .hscroll-card {
+    min-width:160px; height:120px; border-radius:12px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:0.9rem;
+    scroll-snap-align:start; border:1px solid rgba(255,255,255,0.06);
+  }
+
+  /* 82. 3D CUBE */
+  .cube-scene { display:flex; align-items:center; justify-content:center; flex:1; perspective:500px; }
+  .cube {
+    width:100px; height:100px; position:relative; transform-style:preserve-3d;
+    animation:cubeRotate 8s linear infinite;
+  }
+  .cube-face {
+    position:absolute; width:100px; height:100px; border:1px solid rgba(16,185,129,0.3);
+    background:rgba(16,185,129,0.05); display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--accent);
+    backface-visibility:visible;
+  }
+  .cube-face.front  { transform:translateZ(50px); }
+  .cube-face.back   { transform:rotateY(180deg) translateZ(50px); }
+  .cube-face.right  { transform:rotateY(90deg) translateZ(50px); }
+  .cube-face.left   { transform:rotateY(-90deg) translateZ(50px); }
+  .cube-face.top    { transform:rotateX(90deg) translateZ(50px); }
+  .cube-face.bottom { transform:rotateX(-90deg) translateZ(50px); }
+  @keyframes cubeRotate { to { transform:rotateX(360deg) rotateY(360deg); } }
+
+  /* 83. RESIZABLE PANELS */
+  .resizable-wrap { display:flex; flex:1; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.06); }
+  .resizable-left, .resizable-right {
+    padding:16px; display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; color:var(--muted); min-width:60px;
+  }
+  .resizable-left { flex:1; background:rgba(255,255,255,0.02); }
+  .resizable-right { flex:1; background:rgba(255,255,255,0.01); }
+  .resizable-divider {
+    width:6px; background:rgba(255,255,255,0.06); cursor:col-resize;
+    display:flex; align-items:center; justify-content:center; transition:background 0.2s;
+  }
+  .resizable-divider:hover { background:var(--accent); }
+  .resizable-divider::after { content:''; width:2px; height:24px; background:rgba(255,255,255,0.2); border-radius:1px; }
+
+  /* 84. FORM VALIDATION */
+  .form-demo { display:flex; flex-direction:column; gap:14px; flex:1; justify-content:center; }
+  .form-field { display:flex; flex-direction:column; gap:4px; }
+  .form-field label { font-size:0.75rem; color:var(--muted); font-weight:600; }
+  .form-field input {
+    padding:10px 12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px; color:var(--text); font-family:'Satoshi',sans-serif; font-size:0.85rem;
+    outline:none; transition:border-color 0.2s;
+  }
+  .form-field input:focus { border-color:var(--accent); }
+  .form-field input.error { border-color:#ef4444; }
+  .form-field input.valid { border-color:#10b981; }
+  .form-error { font-size:0.7rem; color:#ef4444; display:none; }
+  .form-field input.error ~ .form-error { display:block; }
+
+  /* 85. PIE/DONUT CHART */
+  .donut-chart-wrap { display:flex; align-items:center; justify-content:center; flex:1; gap:20px; }
+  .donut-chart { position:relative; width:120px; height:120px; }
+  .donut-chart svg { transform:rotate(-90deg); }
+  .donut-segment {
+    fill:none; stroke-width:20; transition:stroke-dashoffset 1s cubic-bezier(0.16,1,0.3,1);
+  }
+  .donut-center {
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .donut-center-value { font-family:'JetBrains Mono',monospace; font-size:1.2rem; font-weight:600; }
+  .donut-center-label { font-size:0.6rem; color:var(--muted); }
+  .donut-legend { display:flex; flex-direction:column; gap:6px; }
+  .donut-legend-item { display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--muted); }
+  .donut-legend-dot { width:8px; height:8px; border-radius:2px; }
+
+  /* 86. BAR CHART */
+  .bar-chart-wrap { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .bar-chart { display:flex; align-items:flex-end; gap:8px; height:140px; padding-top:10px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
+  .bar-fill {
+    width:100%; border-radius:4px 4px 0 0; transition:height 1s cubic-bezier(0.16,1,0.3,1);
+    min-width:20px;
+  }
+  .bar-label { font-size:0.6rem; color:var(--muted); font-family:'JetBrains Mono',monospace; }
+
+  /* 87. SMOOTH SCROLL SECTION */
+  .smooth-scroll-demo {
+    display:flex; flex-direction:column; gap:8px; flex:1; justify-content:center;
+  }
+  .smooth-scroll-item {
+    padding:12px 16px; background:rgba(255,255,255,0.03); border-radius:8px;
+    font-size:0.8rem; color:var(--muted); border-left:2px solid transparent;
+    transition:all 0.3s;
+  }
+  .smooth-scroll-item.active { border-left-color:var(--accent); color:var(--text); background:rgba(16,185,129,0.06); }
+
+  /* 88. HOVER IMAGE TRAIL */
+  .trail-scene {
+    flex:1; position:relative; overflow:hidden; cursor:pointer; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; min-height:180px;
+    background:rgba(255,255,255,0.02);
+  }
+  .trail-scene-label { color:var(--muted); font-size:0.85rem; z-index:1; pointer-events:none; }
+  .trail-ghost {
+    position:absolute; width:60px; height:40px; border-radius:8px; pointer-events:none;
+    opacity:0; transition:opacity 0.5s;
+  }
+
+  .footer { text-align: center; padding: 80px 0 40px; color: var(--muted); font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="mesh-bg"><div class="mesh-blob"></div><div class="mesh-blob"></div><div class="mesh-blob"></div></div>
+
+<!-- GLOBAL MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <h3>Confirm Action</h3>
+    <p>This is a centered modal dialog with backdrop blur. It animates in with a scale+fade transition.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="document.getElementById('modalOverlay').classList.remove('open')">Cancel</button>
+      <button class="modal-confirm" onclick="document.getElementById('modalOverlay').classList.remove('open')">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL SHEET/DRAWER -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
+<div class="sheet-panel" id="sheetPanel">
+  <button class="sheet-close" onclick="closeSheet()">&times;</button>
+  <h3>Settings</h3>
+  <p>This drawer slides in from the right side. It can hold forms, navigation, or any secondary content.</p>
+  <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+    <div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:0.8rem">Profile Settings</div>
+    <div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:0.8rem">Notifications</div>
+    <div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:0.8rem">Appearance</div>
+    <div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:0.8rem">Keyboard Shortcuts</div>
+  </div>
+</div>
+
+<!-- SVG FILTER FOR GOOEY -->
+<svg style="position:absolute;width:0;height:0">
+  <defs>
+    <filter id="gooey">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey"/>
+      <feComposite in="SourceGraphic" in2="gooey" operator="atop"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="container">
+  <h1>Magic UI Components</h1>
+  <p class="subtitle">Full interactive showcase — 88 components from 7 libraries</p>
+  <div class="source-badges">
+    <span class="badge badge-green">design-taste-frontend</span>
+    <span class="badge badge-blue">Magic UI</span>
+    <span class="badge badge-purple">remotion-bits</span>
+    <span class="badge badge-yellow">Creative Arsenal</span>
+    <span class="badge" style="background:rgba(255,255,255,0.05);color:#e4e4e7;border:1px solid rgba(255,255,255,0.1)">shadcn/ui</span>
+    <span class="badge" style="background:rgba(236,72,153,0.1);color:#ec4899;border:1px solid rgba(236,72,153,0.2)">3D / CSS</span>
+    <span class="badge" style="background:rgba(251,146,60,0.1);color:#fb923c;border:1px solid rgba(251,146,60,0.2)">Charts</span>
+  </div>
+
+  <!-- ══ TYPOGRAPHY & TEXT ══════════════════════════ -->
+  <div class="section-title">Typography & Text</div>
+  <div class="component-label">Kinetic Marquee</div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">FRONTEND</span><span class="marquee-item">DESIGN</span>
+      <span class="marquee-item">SKILL</span><span class="marquee-item">MAGNETIC</span>
+      <span class="marquee-item">PARALLAX</span><span class="marquee-item">GLASSMORPHISM</span>
+      <span class="marquee-item">HOLOGRAPHIC</span><span class="marquee-item">FRONTEND</span>
+      <span class="marquee-item">DESIGN</span><span class="marquee-item">SKILL</span>
+      <span class="marquee-item">MAGNETIC</span><span class="marquee-item">PARALLAX</span>
+      <span class="marquee-item">GLASSMORPHISM</span><span class="marquee-item">HOLOGRAPHIC</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Gradient Text</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="gradient-text">Animated Gradient</div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Text Scramble — hover</div>
+      <div class="scramble-text" id="scrambleText">FRONTEND DESIGN</div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Spinning Text</div>
+      <div class="spin-text-scene"><div class="spin-text-wrap" id="spinText"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Morphing Text</div>
+      <div class="morph-text" id="morphText"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">TypeWriter</div>
+      <div class="typewriter"><span id="typewriterText"></span><span class="typewriter-cursor">|</span></div>
+      <span class="component-source">remotion-bits</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Number Ticker</div>
+      <div class="ticker-wrap" id="tickerWrap"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- NEW TEXT COMPONENTS -->
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Aurora Text</div>
+      <div class="aurora-text-wrap">
+        <div class="aurora-bg"></div>
+        <div class="aurora-text">Aurora Glow</div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Sparkles Text</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="sparkles-wrap" id="sparklesWrap" style="font-family:'Cabinet Grotesk',sans-serif;font-size:2rem;font-weight:900">
+          Sparkle
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Word Rotate</div>
+      <div class="word-rotate-wrap">
+        Build
+        <div class="word-rotate-slot">
+          <div class="word-rotate-inner" id="wordRotateInner">
+            <span>faster</span><span>better</span><span>smarter</span><span>bolder</span>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Text Mask Reveal</div>
+      <div class="text-mask">GRADIENT</div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Gradient Stroke Animation</div>
+      <div class="gradient-stroke">OUTLINED</div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Glitch Effect — hover</div>
+      <div class="glitch-wrap">
+        <div class="glitch-text" data-text="GLITCH">GLITCH</div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <!-- ══ BUTTONS & MICRO-INTERACTIONS ═══════════════ -->
+  <div class="section-title">Buttons & Micro-Interactions</div>
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Magnetic Button</div>
+      <div class="magnetic-wrap"><button class="magnetic-btn" id="magneticBtn">Hover me</button></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Particle Explosion</div>
+      <div class="particle-wrap" id="particleWrap"><button class="particle-btn" id="particleBtn">Click to explode</button></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Directional Hover</div>
+      <div class="dir-btn-wrap">
+        <button class="dir-btn"><div class="fill"></div><span>Hover Left</span></button>
+        <button class="dir-btn"><div class="fill"></div><span>Hover Right</span></button>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Shimmer Button</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <button class="shimmer-btn">Shimmer Effect</button>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Pulsating Button</div>
+      <div class="pulsate-wrap"><button class="pulsate-btn">Live Now</button></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Confetti</div>
+      <div class="confetti-wrap" id="confettiWrap"><button class="confetti-btn" id="confettiBtn">Celebrate</button></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Ripple Click</div>
+      <div class="ripple-area" id="rippleArea"><span>Click anywhere</span></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Rainbow Button</div>
+      <div class="rainbow-btn-wrap">
+        <button class="rainbow-btn">Rainbow Border</button>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Interactive Hover Button</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <button class="ihover-btn"><div class="ihover-fill"></div><span>Hover to Fill</span></button>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Cool Mode — click for emojis</div>
+      <div class="cool-mode-wrap" id="coolModeWrap">
+        <button class="cool-mode-btn" id="coolModeBtn">Click Me</button>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- ══ CARDS & CONTAINERS ═══════════════════════ -->
+  <div class="section-title">Cards & Containers</div>
+  <div class="demo-row">
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Parallax Tilt Card</div>
+      <div class="tilt-card" id="tiltCard"><div class="tilt-card-text">Hover & Move</div></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Spotlight Border</div>
+      <div class="spotlight-card" id="spotlightCard"><div class="spotlight-card-inner">Move cursor along edges</div></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Holographic Foil</div>
+      <div class="holo-card" id="holoCard"><div class="holo-card-text">Hover for iridescence</div></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Border Beam</div>
+      <div class="border-beam-card"><div class="border-beam-inner">Rotating border light</div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Neon Gradient Card</div>
+      <div class="neon-card"><div class="neon-card-inner">Animated gradient border</div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Magic Card — mouse follow</div>
+      <div class="magic-card" id="magicCard"><div class="magic-card-inner">Move cursor over card</div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Shine Border</div>
+      <div class="shine-border-card">
+        <span style="font-family:'Cabinet Grotesk',sans-serif;font-weight:700;color:var(--muted)">Traveling shine effect</span>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Bento Grid</div>
+      <div class="bento-grid">
+        <div class="bento-item span-2 span-row">Featured</div>
+        <div class="bento-item">Stats</div>
+        <div class="bento-item">Users</div>
+        <div class="bento-item">API</div>
+        <div class="bento-item">Logs</div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <!-- ══ EFFECTS & ATMOSPHERICS ═════════════════════ -->
+  <div class="section-title">Effects & Atmospherics</div>
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Glassmorphism Panel</div>
+      <div class="glass-scene">
+        <div class="glass-bg-orb"></div><div class="glass-bg-orb"></div>
+        <div class="glass-panel"><h3>Frosted Glass</h3><p>Backdrop blur with inner refraction</p></div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Meteors</div>
+      <div class="meteor-scene" id="meteorScene"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Orbiting Circles</div>
+      <div style="flex:1;display:flex;align-items:center">
+        <div class="orbit-scene">
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Matrix Rain</div>
+      <div class="matrix-scene" id="matrixScene"></div>
+      <span class="component-source">remotion-bits</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">SVG Line Drawing</div>
+      <div class="svg-draw"><svg viewBox="0 0 100 100"><path d="M 10 80 Q 30 10 50 50 T 90 20 M 20 90 C 40 30, 60 70, 80 10" /></svg></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Light Rays</div>
+      <div class="light-rays-scene" id="lightRaysScene">
+        <span style="font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.2rem;z-index:1">Radiance</span>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Retro Grid (Tron-style)</div>
+      <div class="retro-grid-scene">
+        <div class="retro-grid"></div>
+        <span style="position:relative;z-index:1;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:40px">GRID</span>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Dot Pattern</div>
+      <div class="dot-pattern-demo">
+        <div class="dot-pattern-text">Dot Grid</div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Flickering Grid</div>
+      <div class="flicker-grid" id="flickerGrid"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Warp Background</div>
+      <div class="warp-scene" id="warpScene"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Globe (wireframe)</div>
+      <div class="globe-scene">
+        <div class="globe-wrap" id="globeWrap">
+          <div class="globe-circle"></div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Lens — magnify on hover</div>
+      <div class="lens-scene" id="lensScene">
+        <div class="lens-bg">Move cursor here to see magnification effect on the gradient background</div>
+        <div class="lens-circle" id="lensCircle"><div class="lens-magnified"></div></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Animated Beam</div>
+      <div class="beam-scene">
+        <div class="beam-node" style="top:20px;left:20px">A</div>
+        <div class="beam-node" style="top:20px;right:20px">B</div>
+        <div class="beam-node" style="bottom:20px;left:50%;transform:translateX(-50%)">C</div>
+        <svg width="100%" height="100%" style="position:absolute;inset:0">
+          <path class="beam-path" d="M60,40 L280,40" id="beamPath1"/>
+          <path class="beam-light" d="M60,40 L280,40"/>
+          <path class="beam-path" d="M60,40 L170,140"/>
+          <path class="beam-light" d="M60,40 L170,140" style="animation-delay:1s"/>
+          <path class="beam-path" d="M280,40 L170,140"/>
+          <path class="beam-light" d="M280,40 L170,140" style="animation-delay:2s"/>
+        </svg>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Icon Cloud</div>
+      <div style="flex:1;display:flex;align-items:center">
+        <div class="icon-cloud" id="iconCloud"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Hover Image Trail</div>
+      <div class="trail-scene" id="trailScene">
+        <span class="trail-scene-label">Move cursor around</span>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <!-- ══ STATES & FEEDBACK ═══════════════════════ -->
+  <div class="section-title">States & Feedback</div>
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Skeleton Shimmer</div>
+      <div class="skeleton-demo">
+        <div class="skeleton-circle"></div>
+        <div class="skeleton-line"></div><div class="skeleton-line"></div>
+        <div class="skeleton-line"></div><div class="skeleton-line"></div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Breathing Status</div>
+      <div class="status-row">
+        <div class="status-item"><div class="status-dot green"></div>API Gateway — operational</div>
+        <div class="status-item"><div class="status-dot yellow"></div>Database — latency spike</div>
+        <div class="status-item"><div class="status-dot blue"></div>CDN — propagating</div>
+        <div class="status-item"><div class="status-dot red"></div>Workers — degraded</div>
+        <div class="status-item"><div class="status-dot green"></div>Auth — healthy</div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Animated List</div>
+      <div class="animated-list" id="animatedList"></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Blur Fade — scroll reveal</div>
+      <div class="blur-fade-demo" id="blurFadeDemo">
+        <div class="blur-fade-item">First item fades in</div>
+        <div class="blur-fade-item">Second item follows</div>
+        <div class="blur-fade-item">Third item appears</div>
+        <div class="blur-fade-item">Fourth completes the set</div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Animated Circular Progress</div>
+      <div class="circ-progress-row" id="circProgressRow">
+        <div class="circ-progress">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle class="circ-progress-bg" cx="40" cy="40" r="34"/>
+            <circle class="circ-progress-fill" cx="40" cy="40" r="34" stroke="var(--accent)"
+              stroke-dasharray="213.6" stroke-dashoffset="213.6" id="circFill1"/>
+          </svg>
+          <div class="circ-progress-label" id="circLabel1">0%</div>
+        </div>
+        <div class="circ-progress">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle class="circ-progress-bg" cx="40" cy="40" r="34"/>
+            <circle class="circ-progress-fill" cx="40" cy="40" r="34" stroke="var(--accent2)"
+              stroke-dasharray="213.6" stroke-dashoffset="213.6" id="circFill2"/>
+          </svg>
+          <div class="circ-progress-label" id="circLabel2">0%</div>
+        </div>
+        <div class="circ-progress">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle class="circ-progress-bg" cx="40" cy="40" r="34"/>
+            <circle class="circ-progress-fill" cx="40" cy="40" r="34" stroke="var(--accent3)"
+              stroke-dasharray="213.6" stroke-dashoffset="213.6" id="circFill3"/>
+          </svg>
+          <div class="circ-progress-label" id="circLabel3">0%</div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- ══ NAVIGATION ══════════════════════════════ -->
+  <div class="section-title">Navigation</div>
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">macOS Dock</div>
+      <div class="dock-wrap">
+        <div class="dock">
+          <div class="dock-item" style="background:#ef4444">F</div>
+          <div class="dock-item" style="background:#f97316">D</div>
+          <div class="dock-item" style="background:#eab308">S</div>
+          <div class="dock-item" style="background:#22c55e">K</div>
+          <div class="dock-item" style="background:#3b82f6">M</div>
+          <div class="dock-item" style="background:#8b5cf6">P</div>
+          <div class="dock-item" style="background:#ec4899">G</div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI / Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Accordion Image Slider</div>
+      <div class="accordion-slider">
+        <div class="accordion-panel" style="background:linear-gradient(135deg,#1a3a2a,#0a1a10)">
+          <div class="accordion-panel-label">Forest</div>
+        </div>
+        <div class="accordion-panel" style="background:linear-gradient(135deg,#1a2a3a,#0a101a)">
+          <div class="accordion-panel-label">Ocean</div>
+        </div>
+        <div class="accordion-panel" style="background:linear-gradient(135deg,#3a1a2a,#1a0a10)">
+          <div class="accordion-panel-label">Dusk</div>
+        </div>
+        <div class="accordion-panel" style="background:linear-gradient(135deg,#2a2a1a,#10100a)">
+          <div class="accordion-panel-label">Desert</div>
+        </div>
+        <div class="accordion-panel" style="background:linear-gradient(135deg,#1a1a3a,#0a0a1a)">
+          <div class="accordion-panel-label">Night</div>
+        </div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <!-- ══ SHADCN/UI & INSTALLED LIBRARIES ══════════ -->
+  <div class="section-title">shadcn/ui & Installed Libraries</div>
+
+  <div class="demo-row">
+    <div class="demo-cell" style="padding:24px">
+      <div class="component-label" style="padding:0 16px">Command Palette (cmdk)</div>
+      <div style="flex:1;display:flex;align-items:center">
+        <div class="cmd-palette">
+          <div class="cmd-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input class="cmd-input" placeholder="Type a command or search..." readonly>
+            <span class="cmd-kbd">&#8984;K</span>
+          </div>
+          <div class="cmd-group-label">Suggestions</div>
+          <div class="cmd-item active"><span class="cmd-item-icon">+</span>New Project<span class="cmd-item-shortcut">&#8984;N</span></div>
+          <div class="cmd-item"><span class="cmd-item-icon">&#9998;</span>Edit Theme<span class="cmd-item-shortcut">&#8984;T</span></div>
+          <div class="cmd-item"><span class="cmd-item-icon">&#9881;</span>Settings<span class="cmd-item-shortcut">&#8984;,</span></div>
+          <div class="cmd-item"><span class="cmd-item-icon">&#128269;</span>Search Files<span class="cmd-item-shortcut">&#8984;P</span></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn (cmdk)</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Toast Notifications (sonner)</div>
+      <div class="toast-demo">
+        <button class="toast-trigger" id="toastBtn">Trigger Toast</button>
+        <div class="toast-stack" id="toastStack"></div>
+      </div>
+      <span class="component-source">shadcn (sonner)</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Accordion (radix)</div>
+      <div class="accordion" id="accordion">
+        <div class="accordion-item open">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            What components are included?
+            <span class="accordion-chevron">&#9660;</span>
+          </button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Over 50 components including Button, Card, Dialog, Dropdown, Form, Input, Select, Tabs, Toast, and many more. All built on Radix UI primitives.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            Is it customizable?
+            <span class="accordion-chevron">&#9660;</span>
+          </button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Every component is fully customizable. You own the code — copy, paste, and modify. Uses Tailwind CSS for styling with CSS variables for theming.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" onclick="toggleAccordion(this)">
+            What about accessibility?
+            <span class="accordion-chevron">&#9660;</span>
+          </button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Built on Radix UI which provides WAI-ARIA compliant primitives. Keyboard navigation, focus management, and screen reader support out of the box.
+          </div></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn (radix)</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Tabs (radix)</div>
+      <div class="tabs-wrap">
+        <div class="tabs-list">
+          <button class="tab-trigger active" onclick="switchTab(this, 'tab1')">Overview</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'tab2')">Analytics</button>
+          <button class="tab-trigger" onclick="switchTab(this, 'tab3')">Settings</button>
+        </div>
+        <div class="tab-content" id="tab1">Your project dashboard with real-time metrics, deployment status, and team activity. Everything at a glance.</div>
+        <div class="tab-content" id="tab2" style="display:none">Traffic sources, conversion funnels, user retention curves, and cohort analysis — all updated in real-time.</div>
+        <div class="tab-content" id="tab3" style="display:none">Configure environment variables, manage team permissions, set up webhooks, and customize your deployment pipeline.</div>
+      </div>
+      <span class="component-source">shadcn (radix)</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Progress Bars</div>
+      <div class="progress-demo" id="progressDemo">
+        <div>
+          <div class="progress-label"><span>Build pipeline</span><span id="prog1val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="prog1" style="width:0%;background:var(--accent)"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Test coverage</span><span id="prog2val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="prog2" style="width:0%;background:var(--accent2)"></div></div>
+        </div>
+        <div>
+          <div class="progress-label"><span>Deploy progress</span><span id="prog3val">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="prog3" style="width:0%;background:var(--accent3)"></div></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Sparkline Chart (recharts)</div>
+      <div class="sparkline-wrap">
+        <div class="sparkline-header">
+          <span class="sparkline-value">$47.2K</span>
+          <span class="sparkline-change up">+12.4%</span>
+        </div>
+        <svg class="sparkline-svg" id="sparklineSvg" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+        <div style="font-size:0.7rem;color:var(--muted)">Revenue — last 30 days</div>
+      </div>
+      <span class="component-source">Recharts</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Drag & Drop Sortable (dnd-kit)</div>
+      <div class="sortable-list" id="sortableList">
+        <div class="sortable-item" draggable="true"><span class="sortable-grip">::</span>Design homepage hero section</div>
+        <div class="sortable-item" draggable="true"><span class="sortable-grip">::</span>Implement auth flow</div>
+        <div class="sortable-item" draggable="true"><span class="sortable-grip">::</span>Set up CI/CD pipeline</div>
+        <div class="sortable-item" draggable="true"><span class="sortable-grip">::</span>Write API documentation</div>
+        <div class="sortable-item" draggable="true"><span class="sortable-grip">::</span>Deploy to production</div>
+      </div>
+      <span class="component-source">DnD Kit</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Carousel (embla)</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="carousel-wrap">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide" style="background:linear-gradient(135deg,#064e3b,#10b981)">Slide 1</div>
+            <div class="carousel-slide" style="background:linear-gradient(135deg,#1e3a5f,#3b82f6)">Slide 2</div>
+            <div class="carousel-slide" style="background:linear-gradient(135deg,#3b1764,#8b5cf6)">Slide 3</div>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots">
+          <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+          <div class="carousel-dot" onclick="goToSlide(1)"></div>
+          <div class="carousel-dot" onclick="goToSlide(2)"></div>
+        </div>
+      </div>
+      <span class="component-source">Embla Carousel</span>
+    </div>
+  </div>
+
+  <!-- ══ NEW SHADCN/UI COMPONENTS ══════════════════ -->
+  <div class="section-title">shadcn/ui — Extended</div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Dialog / Modal</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <button class="toast-trigger" onclick="document.getElementById('modalOverlay').classList.add('open')">Open Modal</button>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Sheet / Drawer</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <button class="toast-trigger" onclick="openSheet()">Open Drawer</button>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Dropdown Menu</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="dropdown-wrap" id="dropdownWrap">
+          <button class="dropdown-trigger" id="dropdownTrigger">Options &#9662;</button>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-menu-item">&#9998; Edit</div>
+            <div class="dropdown-menu-item">&#128203; Duplicate</div>
+            <div class="dropdown-sep"></div>
+            <div class="dropdown-menu-item">&#128230; Archive</div>
+            <div class="dropdown-menu-item" style="color:#ef4444">&#128465; Delete</div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Custom Select</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="custom-select-wrap" id="customSelectWrap">
+          <button class="custom-select-btn" id="customSelectBtn">
+            <span id="customSelectValue">Select a framework...</span>
+            <span class="arrow">&#9662;</span>
+          </button>
+          <div class="custom-select-list" id="customSelectList">
+            <div class="custom-select-option" onclick="selectOption(this)">Next.js</div>
+            <div class="custom-select-option" onclick="selectOption(this)">Nuxt</div>
+            <div class="custom-select-option" onclick="selectOption(this)">Remix</div>
+            <div class="custom-select-option" onclick="selectOption(this)">Astro</div>
+            <div class="custom-select-option" onclick="selectOption(this)">SvelteKit</div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Switch / Toggle</div>
+      <div class="switch-row">
+        <div class="switch-item"><div class="switch on" onclick="this.classList.toggle('on')"><div class="switch-knob"></div></div>Notifications</div>
+        <div class="switch-item"><div class="switch" onclick="this.classList.toggle('on')"><div class="switch-knob"></div></div>Dark mode</div>
+        <div class="switch-item"><div class="switch on" onclick="this.classList.toggle('on')"><div class="switch-knob"></div></div>Auto-save</div>
+        <div class="switch-item"><div class="switch" onclick="this.classList.toggle('on')"><div class="switch-knob"></div></div>Analytics</div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Slider</div>
+      <div class="slider-demo">
+        <div class="slider-track" id="sliderTrack">
+          <div class="slider-fill" id="sliderFill"></div>
+          <div class="slider-thumb" id="sliderThumb"></div>
+        </div>
+        <div class="slider-value">Value: <span id="sliderVal">40</span>%</div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Checkbox</div>
+      <div class="checkbox-group">
+        <div class="checkbox-item checked" onclick="this.classList.toggle('checked')">
+          <div class="checkbox-box"><span class="checkbox-check">&#10003;</span></div>
+          Accept terms and conditions
+        </div>
+        <div class="checkbox-item" onclick="this.classList.toggle('checked')">
+          <div class="checkbox-box"><span class="checkbox-check">&#10003;</span></div>
+          Send marketing emails
+        </div>
+        <div class="checkbox-item checked" onclick="this.classList.toggle('checked')">
+          <div class="checkbox-box"><span class="checkbox-check">&#10003;</span></div>
+          Enable two-factor auth
+        </div>
+        <div class="checkbox-item" onclick="this.classList.toggle('checked')">
+          <div class="checkbox-box"><span class="checkbox-check">&#10003;</span></div>
+          Public profile
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Avatar</div>
+      <div class="avatar-row">
+        <div class="avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6)">
+          <div class="avatar-fallback">JB</div>
+          <div class="avatar-status" style="background:#10b981"></div>
+        </div>
+        <div class="avatar avatar-lg" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">
+          <div class="avatar-fallback">MK</div>
+          <div class="avatar-status" style="background:#eab308"></div>
+        </div>
+        <div class="avatar" style="background:linear-gradient(135deg,#ef4444,#f97316)">
+          <div class="avatar-fallback">AR</div>
+          <div class="avatar-status" style="background:#ef4444"></div>
+        </div>
+        <div class="avatar" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">
+          <div class="avatar-fallback">TS</div>
+          <div class="avatar-status" style="background:#10b981"></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Badge Variants</div>
+      <div class="badge-demo">
+        <span class="badge-v badge-default">Default</span>
+        <span class="badge-v badge-destructive">Destructive</span>
+        <span class="badge-v badge-outline-v">Outline</span>
+        <span class="badge-v badge-secondary">Secondary</span>
+        <span class="badge-v badge-default" style="background:var(--accent2)">Info</span>
+        <span class="badge-v badge-default" style="background:var(--accent3)">New</span>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Tooltip</div>
+      <div class="tooltip-demo">
+        <div class="tooltip-target">
+          Hover me
+          <div class="tooltip-bubble">This is a tooltip!</div>
+        </div>
+        <div class="tooltip-target">
+          Or me
+          <div class="tooltip-bubble">Another tooltip here</div>
+        </div>
+        <div class="tooltip-target">
+          Me too
+          <div class="tooltip-bubble">Tooltips everywhere</div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Hover Card</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="hovercard-wrap">
+          <span class="hovercard-trigger">@designengineer</span>
+          <div class="hovercard-content">
+            <div class="hc-name">Design Engineer</div>
+            <div class="hc-handle">@designengineer</div>
+            <div class="hc-bio">Building beautiful interfaces with code. Open source contributor. Design systems enthusiast.</div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Popover</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="popover-wrap" id="popoverWrap">
+          <button class="popover-trigger" id="popoverTrigger">Open Popover</button>
+          <div class="popover-content" id="popoverContent">
+            <div style="font-weight:600;margin-bottom:8px">Dimensions</div>
+            <div style="color:var(--muted);line-height:1.6">Width: 240px<br>Height: auto<br>Position: bottom</div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Table</div>
+      <div style="flex:1;overflow-x:auto">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Status</th><th>Role</th><th>Commits</th></tr></thead>
+          <tbody>
+            <tr><td>Alice Chen</td><td style="color:#10b981">Active</td><td>Engineer</td><td>847</td></tr>
+            <tr><td>Bob Kumar</td><td style="color:#10b981">Active</td><td>Designer</td><td>234</td></tr>
+            <tr><td>Carol West</td><td style="color:#eab308">Away</td><td>PM</td><td>91</td></tr>
+            <tr><td>Dan Ruiz</td><td style="color:#ef4444">Offline</td><td>DevOps</td><td>562</td></tr>
+            <tr><td>Eve Park</td><td style="color:#10b981">Active</td><td>Engineer</td><td>1203</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Scroll Area</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="scroll-area-demo">
+          <p>The scroll area component provides a custom-styled scrollbar that matches the dark theme. Scroll down to see more content in this container.</p>
+          <p style="margin-top:8px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p style="margin-top:8px">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p style="margin-top:8px">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <p style="margin-top:8px">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p style="margin-top:8px">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <!-- ══ CREATIVE ARSENAL — EXTENDED ════════════════ -->
+  <div class="section-title">Creative Arsenal — Extended</div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Gooey Menu</div>
+      <div class="gooey-wrap">
+        <div class="gooey-menu">
+          <div class="gooey-item" style="background:#10b981">&#9733;</div>
+          <div class="gooey-item" style="background:#3b82f6">&#9829;</div>
+          <div class="gooey-item" style="background:#8b5cf6">&#9827;</div>
+          <div class="gooey-item" style="background:#ec4899">&#9830;</div>
+        </div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Kinetic Typography Grid</div>
+      <div class="kinetic-grid" id="kineticGrid"></div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Sticky Scroll Stack</div>
+      <div class="sticky-scroll-demo">
+        <div class="sticky-card-item"><h4>Step 1: Design</h4><p>Create wireframes and mockups</p></div>
+        <div class="sticky-card-item"><h4>Step 2: Develop</h4><p>Build with modern frameworks</p></div>
+        <div class="sticky-card-item"><h4>Step 3: Deploy</h4><p>Ship to production confidently</p></div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Horizontal Scroll Section</div>
+      <div class="hscroll-demo">
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#1a2a1a,#0a1a0a)">Card 1</div>
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#1a1a2a,#0a0a1a)">Card 2</div>
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#2a1a1a,#1a0a0a)">Card 3</div>
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#2a2a1a,#1a1a0a)">Card 4</div>
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#1a2a2a,#0a1a1a)">Card 5</div>
+        <div class="hscroll-card" style="background:linear-gradient(135deg,#2a1a2a,#1a0a1a)">Card 6</div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
+  <!-- ══ MAGIC UI — EXTENDED ═══════════════════════ -->
+  <div class="section-title">Magic UI — Extended</div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Terminal</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dot" style="background:#ef4444"></div>
+            <div class="terminal-dot" style="background:#eab308"></div>
+            <div class="terminal-dot" style="background:#22c55e"></div>
+            <span style="margin-left:8px;font-size:0.7rem;color:var(--muted)">terminal</span>
+          </div>
+          <div class="terminal-body" id="terminalBody">
+            <div><span class="prompt">$ </span><span class="cmd" id="terminalCmd"></span><span class="typewriter-cursor">|</span></div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">File Tree</div>
+      <div class="file-tree" id="fileTree">
+        <div class="file-tree-item open" onclick="this.classList.toggle('open')">
+          <span class="icon">&#128193;</span> src
+        </div>
+        <div class="file-tree-children" style="max-height:300px">
+          <div class="file-tree-item open" onclick="this.classList.toggle('open')">
+            <span class="icon">&#128193;</span> components
+          </div>
+          <div class="file-tree-children" style="max-height:300px">
+            <div class="file-tree-item"><span class="icon" style="color:var(--accent2)">&#9672;</span> Button.tsx</div>
+            <div class="file-tree-item"><span class="icon" style="color:var(--accent2)">&#9672;</span> Card.tsx</div>
+            <div class="file-tree-item"><span class="icon" style="color:var(--accent2)">&#9672;</span> Dialog.tsx</div>
+          </div>
+          <div class="file-tree-item open" onclick="this.classList.toggle('open')">
+            <span class="icon">&#128193;</span> lib
+          </div>
+          <div class="file-tree-children" style="max-height:300px">
+            <div class="file-tree-item"><span class="icon" style="color:#eab308">&#9672;</span> utils.ts</div>
+            <div class="file-tree-item"><span class="icon" style="color:#eab308">&#9672;</span> hooks.ts</div>
+          </div>
+          <div class="file-tree-item"><span class="icon" style="color:var(--accent)">&#9672;</span> index.ts</div>
+        </div>
+        <div class="file-tree-item"><span class="icon" style="color:var(--muted)">&#9672;</span> package.json</div>
+        <div class="file-tree-item"><span class="icon" style="color:var(--muted)">&#9672;</span> tsconfig.json</div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Form Validation</div>
+      <div class="form-demo">
+        <div class="form-field">
+          <label>Email</label>
+          <input type="text" placeholder="you@example.com" id="formEmail" oninput="validateField(this,'email')">
+          <span class="form-error">Please enter a valid email</span>
+        </div>
+        <div class="form-field">
+          <label>Password</label>
+          <input type="password" placeholder="Min 8 characters" id="formPass" oninput="validateField(this,'password')">
+          <span class="form-error">Must be at least 8 characters</span>
+        </div>
+        <button class="modal-confirm" style="align-self:flex-start;margin-top:4px">Submit</button>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <!-- ══ 3D & CHARTS ═══════════════════════════════ -->
+  <div class="section-title">3D, Charts & Layout</div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">3D Cube</div>
+      <div class="cube-scene">
+        <div class="cube">
+          <div class="cube-face front">front</div>
+          <div class="cube-face back">back</div>
+          <div class="cube-face right">right</div>
+          <div class="cube-face left">left</div>
+          <div class="cube-face top">top</div>
+          <div class="cube-face bottom">bottom</div>
+        </div>
+      </div>
+      <span class="component-source">CSS 3D</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Resizable Panels</div>
+      <div class="resizable-wrap" id="resizableWrap">
+        <div class="resizable-left" id="resizableLeft">Left Panel</div>
+        <div class="resizable-divider" id="resizableDivider"></div>
+        <div class="resizable-right">Right Panel</div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Smooth Scroll Sections</div>
+      <div class="smooth-scroll-demo" id="smoothScrollDemo">
+        <div class="smooth-scroll-item active">Introduction</div>
+        <div class="smooth-scroll-item">Features Overview</div>
+        <div class="smooth-scroll-item">Installation Guide</div>
+        <div class="smooth-scroll-item">API Reference</div>
+        <div class="smooth-scroll-item">Configuration</div>
+        <div class="smooth-scroll-item">Deployment</div>
+      </div>
+      <span class="component-source">Lenis</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <div class="demo-cell">
+      <div class="component-label">Donut Chart</div>
+      <div class="donut-chart-wrap" id="donutChartWrap">
+        <div class="donut-chart">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle class="donut-segment" cx="60" cy="60" r="45" stroke="var(--accent)" stroke-dasharray="113 283" stroke-dashoffset="0" id="donutSeg1"/>
+            <circle class="donut-segment" cx="60" cy="60" r="45" stroke="var(--accent2)" stroke-dasharray="85 283" stroke-dashoffset="-113" id="donutSeg2"/>
+            <circle class="donut-segment" cx="60" cy="60" r="45" stroke="var(--accent3)" stroke-dasharray="57 283" stroke-dashoffset="-198" id="donutSeg3"/>
+            <circle class="donut-segment" cx="60" cy="60" r="45" stroke="#ec4899" stroke-dasharray="28 283" stroke-dashoffset="-255" id="donutSeg4"/>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-center-value">283</div>
+            <div class="donut-center-label">Total</div>
+          </div>
+        </div>
+        <div class="donut-legend">
+          <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--accent)"></div>Direct (40%)</div>
+          <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--accent2)"></div>Organic (30%)</div>
+          <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--accent3)"></div>Referral (20%)</div>
+          <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#ec4899"></div>Social (10%)</div>
+        </div>
+      </div>
+      <span class="component-source">SVG Charts</span>
+    </div>
+    <div class="demo-cell">
+      <div class="component-label">Bar Chart</div>
+      <div class="bar-chart-wrap" id="barChartWrap">
+        <div class="bar-chart" id="barChart">
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent)" id="bar1"></div><div class="bar-label">Mon</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent)" id="bar2"></div><div class="bar-label">Tue</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent2)" id="bar3"></div><div class="bar-label">Wed</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent2)" id="bar4"></div><div class="bar-label">Thu</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent3)" id="bar5"></div><div class="bar-label">Fri</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:var(--accent3)" id="bar6"></div><div class="bar-label">Sat</div></div>
+          <div class="bar-col"><div class="bar-fill" style="height:0;background:#ec4899" id="bar7"></div><div class="bar-label">Sun</div></div>
+        </div>
+      </div>
+      <span class="component-source">SVG Charts</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    88 interactive components from design-taste-frontend, Magic UI, remotion-bits, shadcn/ui, Creative Arsenal, CSS 3D, and Charts
+  </div>
+</div>
+
+<script>
+  // ── SCROLL PROGRESS ──────────────────────────────
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ── MAGNETIC BUTTON ──────────────────────────────
+  const magBtn = document.getElementById('magneticBtn');
+  magBtn.addEventListener('mousemove', e => {
+    const r = magBtn.getBoundingClientRect();
+    magBtn.style.transform = `translate(${(e.clientX - r.left - r.width/2)*0.3}px, ${(e.clientY - r.top - r.height/2)*0.3}px)`;
+  });
+  magBtn.addEventListener('mouseleave', () => magBtn.style.transform = '');
+
+  // ── TILT CARD ────────────────────────────────────
+  const tc = document.getElementById('tiltCard');
+  tc.addEventListener('mousemove', e => {
+    const r = tc.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    tc.style.transform = `perspective(600px) rotateY(${x*20}deg) rotateX(${-y*20}deg) scale(1.02)`;
+    tc.style.boxShadow = `${-x*20}px ${y*20}px 40px rgba(0,0,0,0.3)`;
+  });
+  tc.addEventListener('mouseleave', () => { tc.style.transform = ''; tc.style.boxShadow = ''; });
+
+  // ── SPOTLIGHT CARD ───────────────────────────────
+  const sc = document.getElementById('spotlightCard');
+  sc.addEventListener('mousemove', e => {
+    const r = sc.getBoundingClientRect();
+    sc.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    sc.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+
+  // ── HOLO CARD ────────────────────────────────────
+  const hc = document.getElementById('holoCard');
+  hc.addEventListener('mousemove', e => {
+    const r = hc.getBoundingClientRect();
+    hc.style.setProperty('--holo-angle', `${((e.clientX - r.left) / r.width) * 360}deg`);
+  });
+
+  // ── TEXT SCRAMBLE ────────────────────────────────
+  const scrambleEl = document.getElementById('scrambleText');
+  const target = 'FRONTEND DESIGN';
+  const chars = '!@#$%^&*_+-=[]{}|<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let si;
+  function scramble() {
+    let it = 0; clearInterval(si);
+    si = setInterval(() => {
+      scrambleEl.textContent = target.split('').map((c,i) => i < it ? target[i] : chars[Math.floor(Math.random()*chars.length)]).join('');
+      it += 0.5; if (it >= target.length) clearInterval(si);
+    }, 30);
+  }
+  scrambleEl.addEventListener('mouseenter', scramble);
+  setTimeout(scramble, 1000); setInterval(scramble, 8000);
+
+  // ── PARTICLE EXPLOSION ───────────────────────────
+  const pb = document.getElementById('particleBtn');
+  pb.addEventListener('click', e => {
+    pb.classList.add('exploded'); pb.textContent = 'Boom!';
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div'); p.className = 'particle';
+      const a = (Math.PI*2*i)/20, d = 60+Math.random()*80;
+      p.style.left = e.offsetX+'px'; p.style.top = e.offsetY+'px';
+      p.style.background = ['#10b981','#3b82f6','#8b5cf6','#eab308'][Math.floor(Math.random()*4)];
+      pb.appendChild(p);
+      requestAnimationFrame(() => {
+        p.style.transition = `all ${0.4+Math.random()*0.4}s cubic-bezier(0.16,1,0.3,1)`;
+        p.style.transform = `translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px) scale(0)`;
+        p.style.opacity = '0';
+      });
+      setTimeout(() => p.remove(), 1000);
+    }
+    setTimeout(() => { pb.classList.remove('exploded'); pb.textContent = 'Click to explode'; }, 1500);
+  });
+
+  // ── RIPPLE CLICK ─────────────────────────────────
+  document.getElementById('rippleArea').addEventListener('click', e => {
+    const el = e.currentTarget, r = el.getBoundingClientRect(), rp = document.createElement('div');
+    rp.className = 'ripple'; const s = Math.max(r.width, r.height);
+    rp.style.width = rp.style.height = s+'px';
+    rp.style.left = (e.clientX-r.left-s/2)+'px'; rp.style.top = (e.clientY-r.top-s/2)+'px';
+    el.appendChild(rp); setTimeout(() => rp.remove(), 600);
+  });
+
+  // ── DIRECTIONAL HOVER ────────────────────────────
+  document.querySelectorAll('.dir-btn').forEach(b => {
+    const f = b.querySelector('.fill');
+    b.addEventListener('mouseenter', e => {
+      const r = b.getBoundingClientRect(), left = e.clientX - r.left < r.width/2;
+      f.style.transition = 'none'; f.style.transform = left ? 'translateX(-101%)' : 'translateX(101%)';
+      requestAnimationFrame(() => { f.style.transition = ''; f.style.transform = 'translateX(0)'; });
+    });
+    b.addEventListener('mouseleave', e => {
+      const r = b.getBoundingClientRect();
+      f.style.transform = (e.clientX - r.left < r.width/2) ? 'translateX(-101%)' : 'translateX(101%)';
+    });
+  });
+
+  // ── NUMBER TICKER ────────────────────────────────
+  const tickerWrap = document.getElementById('tickerWrap');
+  const tickerTarget = '47,291';
+  function createTicker() {
+    tickerWrap.innerHTML = '';
+    const container = document.createElement('div');
+    container.style.cssText = 'display:flex;flex-direction:column;align-items:center';
+    const digits = document.createElement('div');
+    digits.style.cssText = 'display:flex;gap:2px';
+    tickerTarget.split('').forEach((ch, i) => {
+      if (ch === ',') {
+        const comma = document.createElement('span');
+        comma.textContent = ',';
+        comma.style.cssText = 'font-family:"JetBrains Mono",monospace;font-size:3.5rem;font-weight:500;line-height:1.2';
+        digits.appendChild(comma); return;
+      }
+      const d = document.createElement('div'); d.className = 'ticker-digit';
+      const inner = document.createElement('div'); inner.className = 'ticker-digit-inner';
+      for (let n = 0; n <= 9; n++) { const s = document.createElement('span'); s.textContent = n; inner.appendChild(s); }
+      d.appendChild(inner); digits.appendChild(d);
+      setTimeout(() => { inner.style.transform = `translateY(-${parseInt(ch) * 1.2}em)`; }, 200 + i * 120);
+    });
+    const label = document.createElement('div'); label.className = 'ticker-label'; label.textContent = 'Active users';
+    container.appendChild(digits); container.appendChild(label);
+    tickerWrap.appendChild(container);
+  }
+  createTicker();
+  setInterval(createTicker, 5000);
+
+  // ── TYPEWRITER ───────────────────────────────────
+  const twEl = document.getElementById('typewriterText');
+  const twTexts = ['npm install magic-ui', 'npx remotion-bits find hero', 'Building something amazing...', 'Design without apology.'];
+  let twi = 0, twc = 0, twDel = false;
+  function typewrite() {
+    const txt = twTexts[twi];
+    if (!twDel) {
+      twEl.textContent = txt.slice(0, twc++);
+      if (twc > txt.length) { twDel = true; setTimeout(typewrite, 2000); return; }
+    } else {
+      twEl.textContent = txt.slice(0, twc--);
+      if (twc < 0) { twDel = false; twi = (twi + 1) % twTexts.length; twc = 0; }
+    }
+    setTimeout(typewrite, twDel ? 30 : 60);
+  }
+  typewrite();
+
+  // ── MORPHING TEXT ────────────────────────────────
+  const morphEl = document.getElementById('morphText');
+  const morphWords = ['DESIGN', 'CREATE', 'BUILD', 'SHIP', 'DREAM'];
+  let mi = 0;
+  function morphText() {
+    morphEl.textContent = morphWords[mi];
+    morphEl.style.opacity = '0'; morphEl.style.transform = 'translateY(20px) scale(0.9)';
+    morphEl.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    requestAnimationFrame(() => { morphEl.style.opacity = '1'; morphEl.style.transform = ''; });
+    mi = (mi + 1) % morphWords.length;
+  }
+  morphText(); setInterval(morphText, 2500);
+
+  // ── SPINNING TEXT ────────────────────────────────
+  const spinWrap = document.getElementById('spinText');
+  const spinStr = ' FRONTEND DESIGN SKILL ';
+  spinStr.split('').forEach((ch, i) => {
+    const s = document.createElement('span'); s.className = 'spin-text-char';
+    s.textContent = ch; s.style.transform = `rotate(${i * (360 / spinStr.length)}deg)`;
+    spinWrap.appendChild(s);
+  });
+
+  // ── METEORS ──────────────────────────────────────
+  const meteorScene = document.getElementById('meteorScene');
+  for (let i = 0; i < 8; i++) {
+    const m = document.createElement('div'); m.className = 'meteor';
+    m.style.left = (Math.random() * 100) + '%';
+    m.style.animationDelay = (Math.random() * 4) + 's';
+    m.style.animationDuration = (1 + Math.random() * 2) + 's';
+    meteorScene.appendChild(m);
+  }
+
+  // ── MATRIX RAIN ──────────────────────────────────
+  const matrixScene = document.getElementById('matrixScene');
+  for (let i = 0; i < 15; i++) {
+    const col = document.createElement('div'); col.className = 'matrix-col';
+    col.style.left = (i * 7) + '%';
+    col.style.animationDuration = (2 + Math.random() * 3) + 's';
+    col.style.animationDelay = (Math.random() * 3) + 's';
+    col.style.opacity = 0.3 + Math.random() * 0.5;
+    let str = ''; for (let j = 0; j < 20; j++) str += String.fromCharCode(0x30A0 + Math.random() * 96);
+    col.textContent = str;
+    matrixScene.appendChild(col);
+  }
+
+  // ── ANIMATED LIST ────────────────────────────────
+  const listEl = document.getElementById('animatedList');
+  const listItems = [
+    { color: '#10b981', text: 'New deployment live — v2.4.1' },
+    { color: '#3b82f6', text: 'PR #847 merged by @marina' },
+    { color: '#eab308', text: 'Latency spike detected — us-east-1' },
+    { color: '#8b5cf6', text: 'Design review scheduled — 3pm' },
+    { color: '#ef4444', text: 'Build failed — test/auth.spec.ts' },
+    { color: '#10b981', text: 'SSL cert renewed — *.acme.dev' },
+    { color: '#3b82f6', text: 'New signup: Tobias Richter' },
+    { color: '#eab308', text: 'Memory usage alert — 87%' },
+    { color: '#10b981', text: 'CDN cache purged successfully' },
+  ];
+  let li = 0;
+  function addListItem() {
+    const item = listItems[li % listItems.length];
+    const el = document.createElement('div'); el.className = 'animated-list-item';
+    el.innerHTML = `<div class="dot" style="background:${item.color};box-shadow:0 0 8px ${item.color}60"></div>${item.text}`;
+    listEl.insertBefore(el, listEl.firstChild);
+    el.offsetHeight;
+    requestAnimationFrame(() => el.classList.add('visible'));
+    if (listEl.children.length > 5) {
+      const last = listEl.lastChild;
+      last.style.opacity = '0'; last.style.transform = 'translateY(16px)';
+      setTimeout(() => last.remove(), 300);
+    }
+    li++;
+  }
+  for (let i = 0; i < 3; i++) setTimeout(() => addListItem(), i * 400);
+  setInterval(addListItem, 3000);
+
+  // ── TOAST NOTIFICATIONS ───────────────────────────
+  const toastStack = document.getElementById('toastStack');
+  const toastMessages = [
+    { icon: '&#10003;', title: 'Deployed successfully', desc: 'v2.4.1 is now live on production', type: 'success' },
+    { icon: '&#9888;', title: 'Build warning', desc: 'Unused dependencies detected', type: 'warn' },
+    { icon: '&#10005;', title: 'Test failed', desc: 'auth.spec.ts — assertion error line 47', type: 'error' },
+    { icon: '&#9733;', title: 'New achievement', desc: 'You shipped 10 features this week', type: 'info' },
+  ];
+  let toastIdx = 0;
+  document.getElementById('toastBtn').addEventListener('click', () => {
+    const msg = toastMessages[toastIdx % toastMessages.length];
+    const existing = toastStack.querySelectorAll('.toast');
+    existing.forEach((t, i) => {
+      if (i === 0) { t.classList.add('stacked-1'); t.classList.remove('stacked-2'); }
+      else { t.classList.add('exiting'); setTimeout(() => t.remove(), 400); }
+    });
+    const toast = document.createElement('div'); toast.className = 'toast';
+    toast.innerHTML = `<span class="toast-icon">${msg.icon}</span><div class="toast-content"><div class="toast-title">${msg.title}</div><div class="toast-desc">${msg.desc}</div></div>`;
+    toast.style.transform = 'translateY(20px) scale(0.95)'; toast.style.opacity = '0';
+    toastStack.insertBefore(toast, toastStack.firstChild);
+    requestAnimationFrame(() => { toast.style.transform = ''; toast.style.opacity = '1'; });
+    setTimeout(() => { toast.classList.add('exiting'); setTimeout(() => toast.remove(), 400); }, 4000);
+    toastIdx++;
+  });
+
+  // ── ACCORDION ────────────────────────────────────
+  function toggleAccordion(btn) {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // ── TABS ─────────────────────────────────────────
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    btn.classList.add('active');
+    document.getElementById(tabId).style.display = 'block';
+  }
+
+  // ── PROGRESS BARS ────────────────────────────────
+  function animateProgress() {
+    const vals = [87, 72, 45];
+    ['prog1','prog2','prog3'].forEach((id, i) => {
+      setTimeout(() => {
+        document.getElementById(id).style.width = vals[i] + '%';
+        document.getElementById(id + 'val').textContent = vals[i] + '%';
+      }, 300 + i * 400);
+    });
+  }
+  const progObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) { animateProgress(); progObs.disconnect(); }
+  });
+  progObs.observe(document.getElementById('progressDemo'));
+
+  // ── SPARKLINE CHART ──────────────────────────────
+  const sparkData = [20, 35, 25, 45, 30, 55, 40, 50, 35, 60, 45, 52, 48, 58, 42, 55, 50, 65, 55, 48, 62, 70, 58, 72, 65, 68, 60, 75, 70, 78];
+  const sparkSvg = document.getElementById('sparklineSvg');
+  const maxV = Math.max(...sparkData), minV = Math.min(...sparkData);
+  const points = sparkData.map((v, i) => `${(i / (sparkData.length - 1)) * 300},${60 - ((v - minV) / (maxV - minV)) * 55}`);
+  const area = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  area.setAttribute('points', `0,60 ${points.join(' ')} 300,60`);
+  area.setAttribute('fill', 'url(#sparkGrad)');
+  const grad = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  grad.innerHTML = '<linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient>';
+  sparkSvg.appendChild(grad); sparkSvg.appendChild(area);
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  line.setAttribute('points', points.join(' '));
+  line.setAttribute('fill', 'none'); line.setAttribute('stroke', '#10b981');
+  line.setAttribute('stroke-width', '2'); line.setAttribute('stroke-linecap', 'round');
+  sparkSvg.appendChild(line);
+
+  // ── DRAG & DROP SORTABLE ─────────────────────────
+  const sortList = document.getElementById('sortableList');
+  let dragItem = null;
+  sortList.querySelectorAll('.sortable-item').forEach(item => {
+    item.addEventListener('dragstart', () => { dragItem = item; item.classList.add('dragging'); });
+    item.addEventListener('dragend', () => { item.classList.remove('dragging'); dragItem = null; });
+    item.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (item !== dragItem) {
+        const rect = item.getBoundingClientRect();
+        const after = e.clientY > rect.top + rect.height / 2;
+        sortList.insertBefore(dragItem, after ? item.nextSibling : item);
+      }
+    });
+  });
+
+  // ── CAROUSEL ─────────────────────────────────────
+  let currentSlide = 0;
+  const track = document.getElementById('carouselTrack');
+  const dots = document.getElementById('carouselDots');
+  function goToSlide(n) {
+    currentSlide = n;
+    track.style.transform = `translateX(-${n * 100}%)`;
+    dots.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === n));
+  }
+  setInterval(() => goToSlide((currentSlide + 1) % 3), 4000);
+
+  // ── CONFETTI ─────────────────────────────────────
+  document.getElementById('confettiBtn').addEventListener('click', () => {
+    const wrap = document.getElementById('confettiWrap');
+    const colors = ['#ef4444','#f97316','#eab308','#22c55e','#3b82f6','#8b5cf6','#ec4899'];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div'); p.className = 'confetti-piece';
+      p.style.left = (40 + Math.random()*20)+'%'; p.style.top = '50%';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      p.style.width = (4+Math.random()*8)+'px'; p.style.height = (4+Math.random()*8)+'px';
+      const x = (Math.random()-0.5)*200, y = -50-Math.random()*150;
+      p.style.animation = 'none';
+      wrap.appendChild(p);
+      requestAnimationFrame(() => {
+        p.style.transition = `all ${0.8+Math.random()*0.8}s cubic-bezier(0.16,1,0.3,1)`;
+        p.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*720}deg) scale(0)`;
+        p.style.opacity = '0';
+      });
+      setTimeout(() => p.remove(), 2000);
+    }
+  });
+
+  // ═══════════════════════════════════════════════
+  // NEW COMPONENT SCRIPTS
+  // ═══════════════════════════════════════════════
+
+  // ── SHEET/DRAWER ─────────────────────────────────
+  function openSheet() {
+    document.getElementById('sheetOverlay').classList.add('open');
+    document.getElementById('sheetPanel').classList.add('open');
+  }
+  function closeSheet() {
+    document.getElementById('sheetOverlay').classList.remove('open');
+    document.getElementById('sheetPanel').classList.remove('open');
+  }
+
+  // ── DROPDOWN MENU ────────────────────────────────
+  document.getElementById('dropdownTrigger').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('dropdownMenu').classList.toggle('open');
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('dropdownMenu').classList.remove('open');
+  });
+
+  // ── CUSTOM SELECT ────────────────────────────────
+  document.getElementById('customSelectBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = document.getElementById('customSelectBtn');
+    const list = document.getElementById('customSelectList');
+    btn.classList.toggle('open');
+    list.classList.toggle('open');
+  });
+  function selectOption(el) {
+    document.getElementById('customSelectValue').textContent = el.textContent;
+    document.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('customSelectBtn').classList.remove('open');
+    document.getElementById('customSelectList').classList.remove('open');
+  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#customSelectWrap')) {
+      document.getElementById('customSelectBtn').classList.remove('open');
+      document.getElementById('customSelectList').classList.remove('open');
+    }
+  });
+
+  // ── SLIDER ───────────────────────────────────────
+  (function() {
+    const track = document.getElementById('sliderTrack');
+    const fill = document.getElementById('sliderFill');
+    const thumb = document.getElementById('sliderThumb');
+    const valEl = document.getElementById('sliderVal');
+    let dragging = false;
+
+    function updateSlider(e) {
+      const rect = track.getBoundingClientRect();
+      let pct = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+      fill.style.width = pct + '%';
+      thumb.style.left = pct + '%';
+      valEl.textContent = Math.round(pct);
+    }
+
+    thumb.addEventListener('mousedown', () => { dragging = true; });
+    track.addEventListener('click', updateSlider);
+    document.addEventListener('mousemove', (e) => { if (dragging) updateSlider(e); });
+    document.addEventListener('mouseup', () => { dragging = false; });
+  })();
+
+  // ── POPOVER ──────────────────────────────────────
+  document.getElementById('popoverTrigger').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('popoverContent').classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#popoverWrap')) {
+      document.getElementById('popoverContent').classList.remove('open');
+    }
+  });
+
+  // ── MAGIC CARD ───────────────────────────────────
+  const magicCard = document.getElementById('magicCard');
+  magicCard.addEventListener('mousemove', e => {
+    const r = magicCard.getBoundingClientRect();
+    magicCard.style.setProperty('--mmx', `${e.clientX - r.left}px`);
+    magicCard.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+
+  // ── SPARKLES TEXT ────────────────────────────────
+  function addSparkle() {
+    const wrap = document.getElementById('sparklesWrap');
+    if (!wrap) return;
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.background = ['#10b981','#3b82f6','#8b5cf6','#eab308','#ec4899'][Math.floor(Math.random()*5)];
+    s.style.width = (3 + Math.random()*5) + 'px';
+    s.style.height = s.style.width;
+    wrap.appendChild(s);
+    setTimeout(() => s.remove(), 1500);
+  }
+  setInterval(addSparkle, 300);
+
+  // ── WORD ROTATE ──────────────────────────────────
+  (function() {
+    const inner = document.getElementById('wordRotateInner');
+    const words = inner.querySelectorAll('span');
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % words.length;
+      inner.style.transform = `translateY(-${idx * 1.2}em)`;
+    }, 2000);
+  })();
+
+  // ── COOL MODE ────────────────────────────────────
+  document.getElementById('coolModeBtn').addEventListener('click', (e) => {
+    const wrap = document.getElementById('coolModeWrap');
+    const emojis = ['🎉','🔥','⚡','✨','💫','🚀','⭐','💥'];
+    const rect = wrap.getBoundingClientRect();
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.className = 'cool-particle';
+      p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = (e.clientX - rect.left + (Math.random()-0.5)*40) + 'px';
+      p.style.top = (e.clientY - rect.top) + 'px';
+      p.style.animationDuration = (0.6 + Math.random()*0.6) + 's';
+      wrap.appendChild(p);
+      setTimeout(() => p.remove(), 1200);
+    }
+  });
+
+  // ── FLICKERING GRID ──────────────────────────────
+  (function() {
+    const grid = document.getElementById('flickerGrid');
+    for (let i = 0; i < 72; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'flicker-cell';
+      cell.style.setProperty('--dur', (2 + Math.random()*4) + 's');
+      cell.style.setProperty('--del', (Math.random()*4) + 's');
+      cell.style.setProperty('--peak', (0.2 + Math.random()*0.8).toFixed(2));
+      grid.appendChild(cell);
+    }
+  })();
+
+  // ── WARP BACKGROUND ──────────────────────────────
+  (function() {
+    const scene = document.getElementById('warpScene');
+    for (let i = 0; i < 60; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'warp-dot';
+      dot.style.left = Math.random()*100 + '%';
+      dot.style.top = Math.random()*100 + '%';
+      dot.style.setProperty('--wd', (4 + Math.random()*6) + 's');
+      dot.style.setProperty('--wx', (Math.random()*40-20) + 'px');
+      dot.style.setProperty('--wy', (Math.random()*40-20) + 'px');
+      dot.style.setProperty('--wx2', (Math.random()*40-20) + 'px');
+      dot.style.setProperty('--wy2', (Math.random()*40-20) + 'px');
+      dot.style.setProperty('--wx3', (Math.random()*40-20) + 'px');
+      dot.style.setProperty('--wy3', (Math.random()*40-20) + 'px');
+      dot.style.animationDelay = (Math.random()*4) + 's';
+      scene.appendChild(dot);
+    }
+  })();
+
+  // ── GLOBE ────────────────────────────────────────
+  (function() {
+    const wrap = document.getElementById('globeWrap');
+    // Add meridians at various rotations
+    for (let i = 0; i < 6; i++) {
+      const m = document.createElement('div');
+      m.className = 'globe-meridian';
+      m.style.transform = `rotateY(${i * 30}deg)`;
+      wrap.appendChild(m);
+    }
+    // Horizontal rings
+    for (let i = 1; i < 4; i++) {
+      const r = document.createElement('div');
+      r.className = 'globe-circle';
+      r.style.transform = `rotateX(${i * 22}deg)`;
+      r.style.inset = (i*8)+'px';
+      wrap.appendChild(r);
+    }
+  })();
+
+  // ── LIGHT RAYS ───────────────────────────────────
+  (function() {
+    const scene = document.getElementById('lightRaysScene');
+    for (let i = 0; i < 12; i++) {
+      const ray = document.createElement('div');
+      ray.className = 'light-ray';
+      ray.style.left = (50 + (Math.random()-0.5)*60) + '%';
+      ray.style.transform = `rotate(${-20 + Math.random()*40}deg)`;
+      ray.style.animationDelay = (Math.random()*3) + 's';
+      ray.style.animationDuration = (3 + Math.random()*3) + 's';
+      ray.style.opacity = 0.1 + Math.random()*0.3;
+      scene.insertBefore(ray, scene.firstChild);
+    }
+  })();
+
+  // ── ICON CLOUD ───────────────────────────────────
+  (function() {
+    const cloud = document.getElementById('iconCloud');
+    const icons = ['⚛️','🔷','🟢','📦','🔧','💎','🌐','🎨','⚡','🔒','🎯','🛠️'];
+    icons.forEach((icon, i) => {
+      const el = document.createElement('div');
+      el.className = 'icon-cloud-item';
+      el.textContent = icon;
+      el.style.setProperty('--start', (i * 30) + 'deg');
+      el.style.setProperty('--cd', (6 + Math.random()*6) + 's');
+      el.style.left = '85px'; el.style.top = '85px';
+      cloud.appendChild(el);
+    });
+  })();
+
+  // ── LENS ─────────────────────────────────────────
+  (function() {
+    const scene = document.getElementById('lensScene');
+    const lens = document.getElementById('lensCircle');
+    scene.addEventListener('mousemove', e => {
+      const r = scene.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      lens.style.left = (x - 50) + 'px';
+      lens.style.top = (y - 50) + 'px';
+    });
+  })();
+
+  // ── HOVER IMAGE TRAIL ────────────────────────────
+  (function() {
+    const scene = document.getElementById('trailScene');
+    const colors = ['#10b981','#3b82f6','#8b5cf6','#ec4899','#eab308'];
+    let lastTime = 0;
+    scene.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastTime < 60) return;
+      lastTime = now;
+      const r = scene.getBoundingClientRect();
+      const ghost = document.createElement('div');
+      ghost.className = 'trail-ghost';
+      ghost.style.left = (e.clientX - r.left - 30) + 'px';
+      ghost.style.top = (e.clientY - r.top - 20) + 'px';
+      ghost.style.background = colors[Math.floor(Math.random()*colors.length)];
+      ghost.style.opacity = '0.5';
+      scene.appendChild(ghost);
+      setTimeout(() => { ghost.style.opacity = '0'; }, 50);
+      setTimeout(() => ghost.remove(), 600);
+    });
+  })();
+
+  // ── TERMINAL ─────────────────────────────────────
+  (function() {
+    const cmdEl = document.getElementById('terminalCmd');
+    const body = document.getElementById('terminalBody');
+    const cmds = [
+      { cmd: 'npm run build', output: '✓ Compiled successfully in 2.4s' },
+      { cmd: 'git push origin main', output: '→ main → main (forced update)' },
+      { cmd: 'npx last30days "AI trends"', output: '✓ 47 results across 4 sources' },
+    ];
+    let ci = 0, cc = 0;
+    function termType() {
+      const c = cmds[ci % cmds.length];
+      if (cc <= c.cmd.length) {
+        cmdEl.textContent = c.cmd.slice(0, cc++);
+        setTimeout(termType, 40 + Math.random()*30);
+      } else {
+        setTimeout(() => {
+          const out = document.createElement('div');
+          out.style.color = 'var(--accent)';
+          out.textContent = c.output;
+          body.insertBefore(out, body.lastElementChild);
+          if (body.children.length > 8) body.removeChild(body.children[0]);
+          ci++; cc = 0; cmdEl.textContent = '';
+          setTimeout(termType, 1000);
+        }, 500);
+      }
+    }
+    termType();
+  })();
+
+  // ── KINETIC TYPOGRAPHY GRID ──────────────────────
+  (function() {
+    const grid = document.getElementById('kineticGrid');
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
+    for (let i = 0; i < 50; i++) {
+      const l = document.createElement('div');
+      l.className = 'kinetic-letter';
+      l.textContent = letters[Math.floor(Math.random()*letters.length)];
+      grid.appendChild(l);
+    }
+    grid.addEventListener('mousemove', e => {
+      const rect = grid.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      grid.querySelectorAll('.kinetic-letter').forEach(l => {
+        const lr = l.getBoundingClientRect();
+        const lx = lr.left - rect.left + lr.width/2;
+        const ly = lr.top - rect.top + lr.height/2;
+        const dx = lx - mx, dy = ly - my;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 80) {
+          const force = (80 - dist) / 80;
+          l.style.transform = `translate(${dx*force*0.5}px, ${dy*force*0.5}px)`;
+          l.style.color = 'var(--accent)';
+        } else {
+          l.style.transform = '';
+          l.style.color = '';
+        }
+      });
+    });
+    grid.addEventListener('mouseleave', () => {
+      grid.querySelectorAll('.kinetic-letter').forEach(l => {
+        l.style.transform = ''; l.style.color = '';
+      });
+    });
+  })();
+
+  // ── BLUR FADE (IntersectionObserver) ─────────────
+  (function() {
+    const items = document.querySelectorAll('#blurFadeDemo .blur-fade-item');
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 200);
+        });
+        obs.disconnect();
+      }
+    });
+    obs.observe(document.getElementById('blurFadeDemo'));
+  })();
+
+  // ── CIRCULAR PROGRESS (IntersectionObserver) ─────
+  (function() {
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const vals = [75, 58, 92];
+        const circum = 213.6;
+        vals.forEach((v, i) => {
+          const n = i + 1;
+          setTimeout(() => {
+            document.getElementById('circFill' + n).style.strokeDashoffset = circum - (circum * v / 100);
+            document.getElementById('circLabel' + n).textContent = v + '%';
+          }, 200 + i * 300);
+        });
+        obs.disconnect();
+      }
+    });
+    obs.observe(document.getElementById('circProgressRow'));
+  })();
+
+  // ── RESIZABLE PANELS ─────────────────────────────
+  (function() {
+    const divider = document.getElementById('resizableDivider');
+    const wrap = document.getElementById('resizableWrap');
+    const left = document.getElementById('resizableLeft');
+    let resizing = false;
+    divider.addEventListener('mousedown', () => { resizing = true; });
+    document.addEventListener('mousemove', e => {
+      if (!resizing) return;
+      const rect = wrap.getBoundingClientRect();
+      const pct = Math.max(15, Math.min(85, ((e.clientX - rect.left) / rect.width) * 100));
+      left.style.flex = 'none';
+      left.style.width = pct + '%';
+    });
+    document.addEventListener('mouseup', () => { resizing = false; });
+  })();
+
+  // ── FORM VALIDATION ──────────────────────────────
+  function validateField(input, type) {
+    const val = input.value;
+    if (type === 'email') {
+      if (val.length === 0) { input.className = ''; }
+      else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { input.className = 'valid'; }
+      else { input.className = 'error'; }
+    }
+    if (type === 'password') {
+      if (val.length === 0) { input.className = ''; }
+      else if (val.length >= 8) { input.className = 'valid'; }
+      else { input.className = 'error'; }
+    }
+  }
+
+  // ── BAR CHART (IntersectionObserver) ─────────────
+  (function() {
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const heights = [65, 80, 45, 90, 55, 70, 40];
+        heights.forEach((h, i) => {
+          setTimeout(() => {
+            document.getElementById('bar' + (i+1)).style.height = h + '%';
+          }, 100 + i * 100);
+        });
+        obs.disconnect();
+      }
+    });
+    obs.observe(document.getElementById('barChartWrap'));
+  })();
+
+  // ── SMOOTH SCROLL NAV ────────────────────────────
+  (function() {
+    const items = document.querySelectorAll('#smoothScrollDemo .smooth-scroll-item');
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        items.forEach(it => it.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  })();
+
+</script>
+</body>
+</html>
