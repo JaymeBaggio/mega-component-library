@@ -1216,17 +1216,17 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .ca-backdrop>*{position:relative;z-index:1}
 .ca-white-card{transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),box-shadow 0.5s ease}
 /* Card Stack Into Box */
-.stack-box-scene{display:flex;align-items:center;justify-content:center;flex:1;perspective:800px}
-.stack-box-container{position:relative;width:180px;height:220px}
-.stack-box-slot{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:160px;height:70px;background:linear-gradient(145deg,#4a6b5a,#3a5548);border-radius:35px;box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 2px 4px rgba(255,255,255,0.1),inset 0 -4px 8px rgba(0,0,0,0.2);z-index:10}
-.stack-box-slot::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:130px;height:24px;background:rgba(0,0,0,0.25);border-radius:12px}
-.stack-card-fly{position:absolute;left:50%;width:140px;padding:10px 14px;background:#1a1a1e;border-radius:14px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.4);transform-origin:center bottom;opacity:0}
-.stack-card-fly .card-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;color:var(--muted)}
-.stack-card-fly .card-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.8rem}
-@keyframes cardDrop0{0%{opacity:0;transform:translateX(-50%) translateY(-180px) rotate(-8deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-90px) rotate(-3deg) scale(1)}85%{transform:translateX(-50%) translateY(-70px) rotate(-5deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-80px) rotate(-4deg) scale(1)}}
-@keyframes cardDrop1{0%{opacity:0;transform:translateX(-50%) translateY(-200px) rotate(5deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-105px) rotate(1deg) scale(1)}85%{transform:translateX(-50%) translateY(-95px) rotate(2deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-100px) rotate(1deg) scale(1)}}
-@keyframes cardDrop2{0%{opacity:0;transform:translateX(-50%) translateY(-220px) rotate(-3deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-125px) rotate(-1deg) scale(1)}85%{transform:translateX(-50%) translateY(-118px) rotate(-2deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-122px) rotate(-1deg) scale(1)}}
-@keyframes cardDrop3{0%{opacity:0;transform:translateX(-50%) translateY(-240px) rotate(6deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-148px) rotate(2deg) scale(1)}85%{transform:translateX(-50%) translateY(-140px) rotate(3deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-145px) rotate(2deg) scale(1)}}
+.stack-box-scene{display:flex;align-items:flex-end;justify-content:center;flex:1;padding-bottom:20px;overflow:hidden}
+.stack-box-container{position:relative;width:180px;height:200px}
+.stack-box-slot{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:150px;height:60px;background:linear-gradient(145deg,#4a6b5a,#3a5548);border-radius:30px;box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 2px 4px rgba(255,255,255,0.1),inset 0 -4px 8px rgba(0,0,0,0.2);z-index:10}
+.stack-box-slot::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:120px;height:20px;background:rgba(0,0,0,0.25);border-radius:10px}
+.stack-card-fly{position:absolute;bottom:50px;left:50%;width:130px;padding:8px 12px;background:#1a1a1e;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.4);opacity:0}
+.stack-card-fly .card-icon{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.65rem}
+.stack-card-fly .card-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.75rem}
+@keyframes cardDrop0{0%{opacity:0;transform:translateX(-50%) translateY(-120px) rotate(-6deg)}30%{opacity:1}100%{opacity:1;transform:translateX(-50%) translateY(0px) rotate(-3deg)}}
+@keyframes cardDrop1{0%{opacity:0;transform:translateX(-50%) translateY(-120px) rotate(4deg)}30%{opacity:1}100%{opacity:1;transform:translateX(-50%) translateY(-18px) rotate(1deg)}}
+@keyframes cardDrop2{0%{opacity:0;transform:translateX(-50%) translateY(-120px) rotate(-2deg)}30%{opacity:1}100%{opacity:1;transform:translateX(-50%) translateY(-36px) rotate(-1deg)}}
+@keyframes cardDrop3{0%{opacity:0;transform:translateX(-50%) translateY(-120px) rotate(5deg)}30%{opacity:1}100%{opacity:1;transform:translateX(-50%) translateY(-54px) rotate(2deg)}}
 .ca-white-card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),0 30px 70px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.03),0 0 40px rgba(37,99,235,0.03)!important}
 
 .ca-card-bg{position:relative}
