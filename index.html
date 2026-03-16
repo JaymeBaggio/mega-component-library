@@ -873,6 +873,163 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .morph-dialog-close{display:none;position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.1);border:none;border-radius:6px;color:var(--text);padding:4px 8px;font-size:0.7rem;cursor:pointer}
 .morph-dialog-trigger.morph-open .morph-dialog-close{display:block}
 
+/* ── WAVY TEXT ── */
+.wavy-text-wrap{display:flex;align-items:center;justify-content:center;flex:1}
+.wavy-text{font-family:'Cabinet Grotesk',sans-serif;font-size:2.5rem;font-weight:900;display:flex}
+.wavy-text .wl{display:inline-block;animation:wavyBounce 1.5s ease-in-out infinite}
+@keyframes wavyBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+
+/* ── LETTER PULLUP ── */
+.letter-pullup-wrap{display:flex;align-items:center;justify-content:center;flex:1}
+.letter-pullup{font-family:'Cabinet Grotesk',sans-serif;font-size:2.2rem;font-weight:900;display:flex;gap:2px}
+.letter-pullup .lp{display:inline-block;opacity:0;transform:translateY(40px);animation:lpUp 0.5s forwards}
+@keyframes lpUp{to{opacity:1;transform:translateY(0)}}
+
+/* ── WORD FADE IN ── */
+.word-fade-wrap{display:flex;align-items:center;justify-content:center;flex:1;text-align:center}
+.word-fade{font-family:'Cabinet Grotesk',sans-serif;font-size:1.6rem;font-weight:700;line-height:1.5}
+.word-fade .wf{display:inline-block;opacity:0;filter:blur(8px);animation:wfIn 0.6s forwards}
+@keyframes wfIn{to{opacity:1;filter:blur(0)}}
+
+/* ── FLIP TEXT ── */
+.flip-text-wrap{display:flex;align-items:center;justify-content:center;flex:1}
+.flip-text{font-family:'Cabinet Grotesk',sans-serif;font-size:2.4rem;font-weight:900;perspective:400px}
+.flip-text-word{display:inline-block;transition:transform 0.6s, opacity 0.3s;transform-origin:center bottom}
+.flip-text-word.flipping{transform:rotateX(90deg);opacity:0}
+
+/* ── SEPARATE AWAY ── */
+.separate-wrap{display:flex;align-items:center;justify-content:center;flex:1;cursor:pointer}
+.separate-text{font-family:'Cabinet Grotesk',sans-serif;font-size:2.4rem;font-weight:900;display:flex}
+.separate-text .sl{display:inline-block;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),opacity 0.5s}
+.separate-text.scattered .sl{opacity:0.4}
+
+/* ── BOX REVEAL ── */
+.box-reveal-wrap{display:flex;align-items:center;justify-content:center;flex:1;position:relative;overflow:hidden}
+.box-reveal-content{font-family:'Cabinet Grotesk',sans-serif;font-size:1.4rem;font-weight:700}
+.box-reveal-mask{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--accent);transform:translateX(-101%);animation:boxRevealIn 0.6s 0.3s forwards,boxRevealOut 0.6s 1.2s forwards}
+@keyframes boxRevealIn{to{transform:translateX(0)}}
+@keyframes boxRevealOut{to{transform:translateX(101%)}}
+
+/* ── FOCUS CARDS ── */
+.focus-cards-wrap{display:flex;gap:16px;flex:1;align-items:stretch}
+.focus-card{flex:1;background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:filter 0.4s,opacity 0.4s,transform 0.4s;cursor:pointer;min-height:160px}
+.focus-card h4{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:1rem;margin-bottom:4px}
+.focus-card p{font-size:0.75rem;color:var(--muted)}
+.focus-cards-wrap:hover .focus-card{filter:blur(2px);opacity:0.5;transform:scale(0.97)}
+.focus-cards-wrap:hover .focus-card:hover{filter:blur(0);opacity:1;transform:scale(1.03)}
+
+/* ── VERTICAL MARQUEE ── */
+.vmarquee-wrap{overflow:hidden;flex:1;display:flex;align-items:center;justify-content:center;position:relative;max-height:220px}
+.vmarquee-track{display:flex;flex-direction:column;animation:vmarqueeScroll 10s linear infinite}
+.vmarquee-item{padding:10px 20px;font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--muted);white-space:nowrap;border-bottom:1px solid rgba(255,255,255,0.04)}
+@keyframes vmarqueeScroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+
+/* ── SPARKLES STANDALONE ── */
+.sparkles-container{position:relative;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:200px}
+.sparkle-particle{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);pointer-events:none;animation:sparkleFade 1.5s ease-out forwards}
+@keyframes sparkleFade{0%{opacity:1;transform:scale(0) translateY(0)}50%{opacity:1;transform:scale(1) translateY(-20px)}100%{opacity:0;transform:scale(0.5) translateY(-40px)}}
+
+/* ── WAVY DOT PATTERN ── */
+.wavy-dots-wrap{flex:1;display:flex;align-items:center;justify-content:center}
+.wavy-dots-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
+.wavy-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:wavyDotPulse 2s ease-in-out infinite}
+@keyframes wavyDotPulse{0%,100%{opacity:0.2;transform:scale(0.5)}50%{opacity:1;transform:scale(1.2)}}
+
+/* ── COMBOBOX ── */
+.combobox-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:20px}
+.combobox{position:relative;width:280px}
+.combobox-input{width:100%;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--text);font-family:'Satoshi',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s}
+.combobox-input:focus{border-color:var(--accent)}
+.combobox-list{position:absolute;top:100%;left:0;right:0;background:#1a1a1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin-top:4px;max-height:180px;overflow-y:auto;display:none;z-index:50}
+.combobox-list.open{display:block}
+.combobox-option{padding:8px 14px;font-size:0.8rem;color:var(--muted);cursor:pointer;transition:background 0.15s}
+.combobox-option:hover{background:rgba(16,185,129,0.12);color:var(--text)}
+.combobox-option.selected{color:var(--accent)}
+
+/* ── MULTI-SELECT ── */
+.multiselect-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:20px}
+.multiselect{position:relative;width:300px}
+.multiselect-field{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;min-height:42px;cursor:pointer;transition:border-color 0.2s}
+.multiselect-field:focus-within{border-color:var(--accent)}
+.multiselect-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);border-radius:999px;font-size:0.7rem;color:var(--accent);font-family:'JetBrains Mono',monospace}
+.multiselect-tag-x{cursor:pointer;opacity:0.7;transition:opacity 0.15s}
+.multiselect-tag-x:hover{opacity:1}
+.multiselect-dd{position:absolute;top:100%;left:0;right:0;background:#1a1a1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin-top:4px;max-height:160px;overflow-y:auto;display:none;z-index:50}
+.multiselect-dd.open{display:block}
+.multiselect-dd-item{padding:8px 14px;font-size:0.8rem;color:var(--muted);cursor:pointer;transition:background 0.15s}
+.multiselect-dd-item:hover{background:rgba(16,185,129,0.12);color:var(--text)}
+.multiselect-dd-item.picked{color:var(--accent);opacity:0.5;pointer-events:none}
+
+/* ── COLLAPSIBLE ── */
+.collapsible-wrap{flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.collapsible-item{border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden}
+.collapsible-header{padding:14px 18px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.02);transition:background 0.2s}
+.collapsible-header:hover{background:rgba(255,255,255,0.04)}
+.collapsible-arrow{transition:transform 0.3s;color:var(--muted);font-size:0.7rem}
+.collapsible-item.open .collapsible-arrow{transform:rotate(180deg)}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.collapsible-body-inner{padding:0 18px 14px;font-size:0.8rem;color:var(--muted);line-height:1.6}
+
+/* ── MENUBAR ── */
+.menubar-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:20px}
+.menubar{display:flex;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:visible;position:relative}
+.menubar-item{position:relative;padding:8px 18px;font-family:'Satoshi',sans-serif;font-size:0.8rem;color:var(--muted);cursor:pointer;transition:background 0.2s,color 0.2s;user-select:none}
+.menubar-item:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.menubar-sub{position:absolute;top:100%;left:0;min-width:160px;background:#1a1a1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:6px 0;display:none;z-index:60;margin-top:2px}
+.menubar-item:hover .menubar-sub{display:block}
+.menubar-sub-item{padding:7px 16px;font-size:0.75rem;color:var(--muted);cursor:pointer;transition:background 0.15s}
+.menubar-sub-item:hover{background:rgba(16,185,129,0.12);color:var(--text)}
+.menubar-sub-divider{height:1px;background:rgba(255,255,255,0.06);margin:4px 0}
+
+/* ── KANBAN ── */
+.kanban-wrap{flex:1;display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.kanban-col{flex:1;min-width:140px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.kanban-col-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px}
+.kanban-card{padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;font-size:0.78rem;cursor:grab;transition:transform 0.2s,box-shadow 0.2s,background 0.2s;user-select:none}
+.kanban-card:active{cursor:grabbing;transform:scale(1.04);box-shadow:0 8px 24px rgba(0,0,0,0.4);background:rgba(255,255,255,0.08);z-index:10}
+.kanban-card.dragging{opacity:0.4}
+.kanban-col.drag-over{border-color:var(--accent);background:rgba(16,185,129,0.04)}
+
+/* ── NESTED DRAWER ── */
+.nested-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.nested-drawer-overlay.open{opacity:1;pointer-events:auto}
+.nested-drawer{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:min(480px,90vw);background:#1a1a1e;border:1px solid rgba(255,255,255,0.1);border-radius:20px 20px 0 0;padding:24px;z-index:1001;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.nested-drawer.open{transform:translateX(-50%) translateY(0)}
+.nested-drawer-handle{width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:4px;margin:0 auto 16px}
+.nested-drawer h4{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;margin-bottom:8px}
+.nested-drawer p{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.nested-drawer-btn{padding:10px 24px;background:var(--accent);color:#0a0a0b;border:none;border-radius:8px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer}
+.nested-drawer-inner{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:min(420px,85vw);background:#222226;border:1px solid rgba(255,255,255,0.12);border-radius:20px 20px 0 0;padding:24px;z-index:1002;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.nested-drawer-inner.open{transform:translateX(-50%) translateY(0)}
+
+/* ── SCATTER CHART ── */
+.scatter-chart-wrap{flex:1;display:flex;align-items:center;justify-content:center}
+.scatter-chart-svg{width:100%;max-width:360px}
+.scatter-dot{animation:scatterAppear 0.5s ease-out forwards;opacity:0}
+@keyframes scatterAppear{to{opacity:1}}
+
+/* ── TREEMAP ── */
+.treemap-wrap{flex:1;display:flex;align-items:center;justify-content:center}
+.treemap-svg{width:100%;max-width:360px}
+.treemap-rect{rx:4;ry:4;transition:opacity 0.2s}
+.treemap-rect:hover{opacity:0.8}
+
+/* ── SEPARATOR ── */
+.separator-wrap{flex:1;display:flex;flex-direction:column;gap:24px;justify-content:center;padding:0 16px}
+.separator-h{display:flex;align-items:center;gap:12px}
+.separator-line{flex:1;height:1px;background:rgba(255,255,255,0.1)}
+.separator-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+.separator-v-row{display:flex;align-items:center;justify-content:center;gap:16px;height:40px}
+.separator-v{width:1px;height:100%;background:rgba(255,255,255,0.1)}
+
+/* ── TEXTAREA ── */
+.textarea-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding-top:10px}
+.textarea-field{width:280px;min-height:80px;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--text);font-family:'Satoshi',sans-serif;font-size:0.85rem;resize:none;outline:none;overflow:hidden;transition:border-color 0.2s}
+.textarea-field:focus{border-color:var(--accent)}
+.textarea-counter{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted)}
+.textarea-counter.near-max{color:#eab308}
+.textarea-counter.at-max{color:#ef4444}
+
 .footer{text-align:center;padding:80px 0 40px;color:var(--muted);font-size:0.8rem}
 </style>
 </head>
@@ -2218,6 +2375,268 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
 
+  <!-- ══ NEW COMPONENTS SECTION ═══════════════════════ -->
+  <div class="section-title">Visual Showstoppers &amp; Functional Essentials</div>
+
+  <!-- Row 1: Wavy Text, Letter Pullup, Word Fade In -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Wavy Text" data-category="text" data-library="magic-ui">
+      <div class="component-label">Wavy Text</div>
+      <div class="wavy-text-wrap"><div class="wavy-text" id="wavyText"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Letter Pullup" data-category="text" data-library="magic-ui">
+      <div class="component-label">Letter Pullup</div>
+      <div class="letter-pullup-wrap"><div class="letter-pullup" id="letterPullup"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Word Fade In" data-category="text" data-library="magic-ui">
+      <div class="component-label">Word Fade In</div>
+      <div class="word-fade-wrap"><div class="word-fade" id="wordFade"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- Row 2: Flip Text, Separate Away, Box Reveal -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Flip Text" data-category="text" data-library="magic-ui">
+      <div class="component-label">Flip Text</div>
+      <div class="flip-text-wrap"><div class="flip-text">Build <span class="flip-text-word" id="flipTextWord">faster</span></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Separate Away" data-category="text" data-library="magic-ui">
+      <div class="component-label">Separate Away</div>
+      <div class="separate-wrap" id="separateWrap"><div class="separate-text" id="separateText"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Box Reveal" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Box Reveal</div>
+      <div class="box-reveal-wrap" id="boxRevealWrap">
+        <div class="box-reveal-content" id="boxRevealContent" style="opacity:0">Hello, World!</div>
+        <div class="box-reveal-mask" id="boxRevealMask"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- Row 3: Focus Cards, Vertical Marquee, Sparkles -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Focus Cards" data-category="cards" data-library="magic-ui">
+      <div class="component-label">Focus Cards</div>
+      <div class="focus-cards-wrap">
+        <div class="focus-card"><h4>Design</h4><p>UI/UX</p></div>
+        <div class="focus-card"><h4>Develop</h4><p>Frontend</p></div>
+        <div class="focus-card"><h4>Deploy</h4><p>Cloud</p></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Vertical Marquee" data-category="text" data-library="magic-ui">
+      <div class="component-label">Vertical Marquee</div>
+      <div class="vmarquee-wrap">
+        <div class="vmarquee-track" id="vmarqueeTrack">
+          <div class="vmarquee-item">AAPL &nbsp; +2.4%</div>
+          <div class="vmarquee-item">GOOG &nbsp; -0.8%</div>
+          <div class="vmarquee-item">TSLA &nbsp; +5.1%</div>
+          <div class="vmarquee-item">MSFT &nbsp; +1.2%</div>
+          <div class="vmarquee-item">AMZN &nbsp; -0.3%</div>
+          <div class="vmarquee-item">META &nbsp; +3.7%</div>
+          <div class="vmarquee-item">AAPL &nbsp; +2.4%</div>
+          <div class="vmarquee-item">GOOG &nbsp; -0.8%</div>
+          <div class="vmarquee-item">TSLA &nbsp; +5.1%</div>
+          <div class="vmarquee-item">MSFT &nbsp; +1.2%</div>
+          <div class="vmarquee-item">AMZN &nbsp; -0.3%</div>
+          <div class="vmarquee-item">META &nbsp; +3.7%</div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Sparkles Standalone" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Sparkles Standalone</div>
+      <div class="sparkles-container" id="sparklesContainer">
+        <span style="font-family:'Cabinet Grotesk',sans-serif;font-size:1.5rem;font-weight:800;z-index:1">Sparkle Zone</span>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
+  <!-- Row 4: Wavy Dot Pattern, Combobox, Multi-select -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Wavy Dot Pattern" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Wavy Dot Pattern</div>
+      <div class="wavy-dots-wrap"><div class="wavy-dots-grid" id="wavyDotsGrid"></div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Combobox" data-category="forms" data-library="shadcn">
+      <div class="component-label">Combobox</div>
+      <div class="combobox-wrap">
+        <div class="combobox" id="combobox1">
+          <input class="combobox-input" id="comboInput1" type="text" placeholder="Search framework..." autocomplete="off">
+          <div class="combobox-list" id="comboList1"></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell" data-name="Multi-select" data-category="forms" data-library="shadcn">
+      <div class="component-label">Multi-select</div>
+      <div class="multiselect-wrap">
+        <div class="multiselect" id="multiselect1">
+          <div class="multiselect-field" id="msField1"></div>
+          <div class="multiselect-dd" id="msDd1"></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <!-- Row 5: Collapsible, Menubar, Kanban Board -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Collapsible" data-category="layout" data-library="shadcn">
+      <div class="component-label">Collapsible</div>
+      <div class="collapsible-wrap" id="collapsibleWrap">
+        <div class="collapsible-item">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">What is this? <span class="collapsible-arrow">&#9660;</span></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">A smooth animated expand/collapse panel built with CSS max-height transitions.</div></div>
+        </div>
+        <div class="collapsible-item">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">How does it work? <span class="collapsible-arrow">&#9660;</span></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">It uses max-height and overflow hidden to create a smooth slide animation when toggled.</div></div>
+        </div>
+        <div class="collapsible-item">
+          <div class="collapsible-header" onclick="toggleCollapsible(this)">Is it accessible? <span class="collapsible-arrow">&#9660;</span></div>
+          <div class="collapsible-body"><div class="collapsible-body-inner">Yes, it uses semantic HTML and supports keyboard navigation for accessibility.</div></div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell" data-name="Menubar" data-category="navigation" data-library="shadcn">
+      <div class="component-label">Menubar</div>
+      <div class="menubar-wrap">
+        <div class="menubar">
+          <div class="menubar-item">File
+            <div class="menubar-sub">
+              <div class="menubar-sub-item">New File</div>
+              <div class="menubar-sub-item">Open...</div>
+              <div class="menubar-sub-divider"></div>
+              <div class="menubar-sub-item">Save</div>
+              <div class="menubar-sub-item">Export</div>
+            </div>
+          </div>
+          <div class="menubar-item">Edit
+            <div class="menubar-sub">
+              <div class="menubar-sub-item">Undo</div>
+              <div class="menubar-sub-item">Redo</div>
+              <div class="menubar-sub-divider"></div>
+              <div class="menubar-sub-item">Cut</div>
+              <div class="menubar-sub-item">Copy</div>
+              <div class="menubar-sub-item">Paste</div>
+            </div>
+          </div>
+          <div class="menubar-item">View
+            <div class="menubar-sub">
+              <div class="menubar-sub-item">Zoom In</div>
+              <div class="menubar-sub-item">Zoom Out</div>
+              <div class="menubar-sub-divider"></div>
+              <div class="menubar-sub-item">Fullscreen</div>
+            </div>
+          </div>
+          <div class="menubar-item">Help
+            <div class="menubar-sub">
+              <div class="menubar-sub-item">Documentation</div>
+              <div class="menubar-sub-item">About</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell" data-name="Kanban Board" data-category="layout" data-library="other">
+      <div class="component-label">Kanban Board</div>
+      <div class="kanban-wrap" id="kanbanWrap">
+        <div class="kanban-col" data-col="todo" ondragover="kanbanDragOver(event)" ondrop="kanbanDrop(event,this)">
+          <div class="kanban-col-title">To Do</div>
+          <div class="kanban-card" draggable="true" ondragstart="kanbanDragStart(event,this)">Design homepage</div>
+          <div class="kanban-card" draggable="true" ondragstart="kanbanDragStart(event,this)">Write tests</div>
+        </div>
+        <div class="kanban-col" data-col="progress" ondragover="kanbanDragOver(event)" ondrop="kanbanDrop(event,this)">
+          <div class="kanban-col-title">In Progress</div>
+          <div class="kanban-card" draggable="true" ondragstart="kanbanDragStart(event,this)">Build API</div>
+        </div>
+        <div class="kanban-col" data-col="done" ondragover="kanbanDragOver(event)" ondrop="kanbanDrop(event,this)">
+          <div class="kanban-col-title">Done</div>
+          <div class="kanban-card" draggable="true" ondragstart="kanbanDragStart(event,this)">Setup CI/CD</div>
+        </div>
+      </div>
+      <span class="component-source">dnd-kit</span>
+    </div>
+  </div>
+
+  <!-- Row 6: Nested Drawer, Scatter Chart, Treemap -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Nested Drawer" data-category="navigation" data-library="other">
+      <div class="component-label">Nested Drawer</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <button onclick="openNestedDrawer()" style="padding:12px 28px;background:var(--accent);color:#0a0a0b;border:none;border-radius:10px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer">Open Drawer</button>
+      </div>
+      <span class="component-source">Vaul</span>
+    </div>
+    <div class="demo-cell" data-name="Scatter Chart" data-category="data" data-library="other">
+      <div class="component-label">Scatter Chart</div>
+      <div class="scatter-chart-wrap">
+        <svg class="scatter-chart-svg" viewBox="0 0 360 200" id="scatterChart"></svg>
+      </div>
+      <span class="component-source">Recharts</span>
+    </div>
+    <div class="demo-cell" data-name="Treemap" data-category="data" data-library="other">
+      <div class="component-label">Treemap</div>
+      <div class="treemap-wrap">
+        <svg class="treemap-svg" viewBox="0 0 360 200" id="treemapChart"></svg>
+      </div>
+      <span class="component-source">Recharts</span>
+    </div>
+  </div>
+
+  <!-- Row 7: Separator, Textarea -->
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Separator" data-category="layout" data-library="shadcn">
+      <div class="component-label">Separator</div>
+      <div class="separator-wrap">
+        <div class="separator-h"><span class="separator-line"></span><span class="separator-label">or</span><span class="separator-line"></span></div>
+        <div class="separator-h"><span class="separator-line"></span><span class="separator-label">Section</span><span class="separator-line"></span></div>
+        <div class="separator-v-row">
+          <span style="font-size:0.8rem;color:var(--muted)">Left</span>
+          <span class="separator-v"></span>
+          <span style="font-size:0.8rem;color:var(--muted)">Center</span>
+          <span class="separator-v"></span>
+          <span style="font-size:0.8rem;color:var(--muted)">Right</span>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell" data-name="Textarea" data-category="forms" data-library="shadcn">
+      <div class="component-label">Textarea</div>
+      <div class="textarea-wrap">
+        <textarea class="textarea-field" id="textareaField" maxlength="200" placeholder="Type something..." oninput="updateTextareaCounter()"></textarea>
+        <div class="textarea-counter" id="textareaCounter">0 / 200</div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
+  <!-- Nested Drawer Overlays (global) -->
+  <div class="nested-drawer-overlay" id="nestedDrawerOverlay" onclick="closeNestedDrawer()"></div>
+  <div class="nested-drawer" id="nestedDrawer1">
+    <div class="nested-drawer-handle"></div>
+    <h4>First Drawer</h4>
+    <p>This is the first level bottom drawer. Click below to open a nested second drawer on top.</p>
+    <button class="nested-drawer-btn" onclick="openNestedDrawerInner()">Open Nested Drawer</button>
+  </div>
+  <div class="nested-drawer-inner" id="nestedDrawer2">
+    <div class="nested-drawer-handle"></div>
+    <h4>Nested Drawer</h4>
+    <p>This is a second drawer stacked on top of the first one. Close to go back.</p>
+    <button class="nested-drawer-btn" onclick="closeNestedDrawerInner()" style="background:#ef4444">Close Inner</button>
+  </div>
+
   <!-- ══ REMOTION-BITS EXPANDED ═════════════════════ -->
   <div class="section-title">remotion-bits — Full Library</div>
   <div class="demo-row">
@@ -2742,6 +3161,360 @@ renderDP()})();
 // ── MORPHING DIALOG ─────────────────────────────
 function toggleMorphDialog(){const el=document.getElementById('morphDialogTrigger');if(el.classList.contains('morph-open')){closeMorphDialog()}else{el.classList.add('morph-open');el.querySelector('.morph-dialog-label').textContent='Dialog Title'}}
 function closeMorphDialog(){const el=document.getElementById('morphDialogTrigger');el.classList.remove('morph-open');el.querySelector('.morph-dialog-label').textContent='Open Dialog'}
+
+// ── WAVY TEXT ────────────────────────────────────
+(function(){
+  var text='WAVE MOTION';
+  var el=document.getElementById('wavyText');
+  if(!el)return;
+  text.split('').forEach(function(ch,i){
+    var span=document.createElement('span');
+    span.className='wl';
+    span.textContent=ch==='' ? '\u00A0' : ch;
+    span.style.animationDelay=(i*0.08)+'s';
+    if(ch===' ')span.style.width='0.4em';
+    el.appendChild(span);
+  });
+})();
+
+// ── LETTER PULLUP ────────────────────────────────
+(function(){
+  var text='PULL UP';
+  var el=document.getElementById('letterPullup');
+  if(!el)return;
+  function render(){
+    el.innerHTML='';
+    text.split('').forEach(function(ch,i){
+      var span=document.createElement('span');
+      span.className='lp';
+      span.textContent=ch===' '?'\u00A0':ch;
+      span.style.animationDelay=(i*0.07)+'s';
+      el.appendChild(span);
+    });
+  }
+  render();
+  setInterval(function(){render()},3000);
+})();
+
+// ── WORD FADE IN ─────────────────────────────────
+(function(){
+  var words='Design beautiful interfaces with ease'.split(' ');
+  var el=document.getElementById('wordFade');
+  if(!el)return;
+  function render(){
+    el.innerHTML='';
+    words.forEach(function(w,i){
+      var span=document.createElement('span');
+      span.className='wf';
+      span.textContent=w+' ';
+      span.style.animationDelay=(i*0.18)+'s';
+      el.appendChild(span);
+    });
+  }
+  render();
+  setInterval(function(){render()},4000);
+})();
+
+// ── FLIP TEXT ────────────────────────────────────
+(function(){
+  var words=['faster','better','smarter','bolder','stronger'];
+  var idx=0;
+  var el=document.getElementById('flipTextWord');
+  if(!el)return;
+  setInterval(function(){
+    el.classList.add('flipping');
+    setTimeout(function(){
+      idx=(idx+1)%words.length;
+      el.textContent=words[idx];
+      el.classList.remove('flipping');
+    },300);
+  },2000);
+})();
+
+// ── SEPARATE AWAY ────────────────────────────────
+(function(){
+  var text='EXPLODE';
+  var el=document.getElementById('separateText');
+  var wrap=document.getElementById('separateWrap');
+  if(!el||!wrap)return;
+  text.split('').forEach(function(ch){
+    var span=document.createElement('span');
+    span.className='sl';
+    span.textContent=ch;
+    el.appendChild(span);
+  });
+  wrap.addEventListener('mouseenter',function(){
+    el.classList.add('scattered');
+    var letters=el.querySelectorAll('.sl');
+    letters.forEach(function(l){
+      var rx=(Math.random()-0.5)*120;
+      var ry=(Math.random()-0.5)*80;
+      var rot=(Math.random()-0.5)*60;
+      l.style.transform='translate('+rx+'px,'+ry+'px) rotate('+rot+'deg)';
+    });
+  });
+  wrap.addEventListener('mouseleave',function(){
+    el.classList.remove('scattered');
+    var letters=el.querySelectorAll('.sl');
+    letters.forEach(function(l){l.style.transform='translate(0,0) rotate(0)'});
+  });
+})();
+
+// ── BOX REVEAL ───────────────────────────────────
+(function(){
+  var content=document.getElementById('boxRevealContent');
+  var mask=document.getElementById('boxRevealMask');
+  if(!content||!mask)return;
+  function runReveal(){
+    content.style.opacity='0';
+    mask.style.animation='none';
+    void mask.offsetWidth;
+    mask.style.animation='boxRevealIn 0.6s 0.3s forwards, boxRevealOut 0.6s 1.2s forwards';
+    setTimeout(function(){content.style.opacity='1'},800);
+  }
+  runReveal();
+  setInterval(runReveal,4000);
+})();
+
+// ── SPARKLES STANDALONE ──────────────────────────
+(function(){
+  var container=document.getElementById('sparklesContainer');
+  if(!container)return;
+  function spawnSparkle(){
+    var s=document.createElement('div');
+    s.className='sparkle-particle';
+    var size=3+Math.random()*6;
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDuration=(1+Math.random()*1.5)+'s';
+    var hue=Math.random()>0.5?'var(--accent)':'var(--accent2)';
+    s.style.background=hue;
+    container.appendChild(s);
+    setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s)},2500);
+  }
+  setInterval(spawnSparkle,200);
+})();
+
+// ── WAVY DOT PATTERN ─────────────────────────────
+(function(){
+  var grid=document.getElementById('wavyDotsGrid');
+  if(!grid)return;
+  for(var r=0;r<8;r++){
+    for(var c=0;c<12;c++){
+      var dot=document.createElement('div');
+      dot.className='wavy-dot';
+      var delay=((r+c)*0.1)%2;
+      dot.style.animationDelay=delay+'s';
+      grid.appendChild(dot);
+    }
+  }
+})();
+
+// ── COMBOBOX ─────────────────────────────────────
+(function(){
+  var items=['React','Vue','Angular','Svelte','Solid','Next.js','Nuxt','Astro','Remix','Qwik'];
+  var input=document.getElementById('comboInput1');
+  var list=document.getElementById('comboList1');
+  if(!input||!list)return;
+  var selected='';
+  function renderList(filter){
+    list.innerHTML='';
+    var f=filter.toLowerCase();
+    var filtered=items.filter(function(it){return it.toLowerCase().indexOf(f)!==-1});
+    if(filtered.length===0){list.classList.remove('open');return}
+    filtered.forEach(function(it){
+      var opt=document.createElement('div');
+      opt.className='combobox-option'+(it===selected?' selected':'');
+      opt.textContent=it;
+      opt.addEventListener('click',function(){
+        selected=it;
+        input.value=it;
+        list.classList.remove('open');
+      });
+      list.appendChild(opt);
+    });
+    list.classList.add('open');
+  }
+  input.addEventListener('focus',function(){renderList(input.value)});
+  input.addEventListener('input',function(){renderList(input.value)});
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('#combobox1'))list.classList.remove('open');
+  });
+})();
+
+// ── MULTI-SELECT ─────────────────────────────────
+(function(){
+  var options=['React','Vue','Svelte','Angular','Solid','Astro'];
+  var picked=[];
+  var field=document.getElementById('msField1');
+  var dd=document.getElementById('msDd1');
+  if(!field||!dd)return;
+  function render(){
+    field.innerHTML='';
+    picked.forEach(function(p){
+      var tag=document.createElement('span');
+      tag.className='multiselect-tag';
+      tag.innerHTML=p+' <span class="multiselect-tag-x" data-val="'+p+'">&times;</span>';
+      tag.querySelector('.multiselect-tag-x').addEventListener('click',function(e){
+        e.stopPropagation();
+        picked=picked.filter(function(v){return v!==p});
+        render();
+      });
+      field.appendChild(tag);
+    });
+    dd.innerHTML='';
+    options.forEach(function(o){
+      var item=document.createElement('div');
+      item.className='multiselect-dd-item'+(picked.indexOf(o)!==-1?' picked':'');
+      item.textContent=o;
+      item.addEventListener('click',function(){
+        if(picked.indexOf(o)===-1){picked.push(o);render();dd.classList.add('open')}
+      });
+      dd.appendChild(item);
+    });
+  }
+  field.addEventListener('click',function(){dd.classList.toggle('open')});
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('#multiselect1'))dd.classList.remove('open');
+  });
+  render();
+})();
+
+// ── COLLAPSIBLE ──────────────────────────────────
+function toggleCollapsible(header){
+  var item=header.parentElement;
+  var body=item.querySelector('.collapsible-body');
+  if(item.classList.contains('open')){
+    item.classList.remove('open');
+    body.style.maxHeight='0';
+  }else{
+    item.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
+}
+
+// ── KANBAN BOARD ─────────────────────────────────
+var kanbanDraggedCard=null;
+function kanbanDragStart(e,card){
+  kanbanDraggedCard=card;
+  card.classList.add('dragging');
+  e.dataTransfer.effectAllowed='move';
+}
+function kanbanDragOver(e){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  var col=e.currentTarget;
+  col.classList.add('drag-over');
+}
+function kanbanDrop(e,col){
+  e.preventDefault();
+  col.classList.remove('drag-over');
+  if(kanbanDraggedCard){
+    kanbanDraggedCard.classList.remove('dragging');
+    col.appendChild(kanbanDraggedCard);
+    kanbanDraggedCard=null;
+  }
+}
+document.addEventListener('dragend',function(){
+  if(kanbanDraggedCard)kanbanDraggedCard.classList.remove('dragging');
+  document.querySelectorAll('.kanban-col').forEach(function(c){c.classList.remove('drag-over')});
+});
+
+// ── NESTED DRAWER ────────────────────────────────
+function openNestedDrawer(){
+  document.getElementById('nestedDrawerOverlay').classList.add('open');
+  document.getElementById('nestedDrawer1').classList.add('open');
+}
+function closeNestedDrawer(){
+  document.getElementById('nestedDrawer2').classList.remove('open');
+  document.getElementById('nestedDrawer1').classList.remove('open');
+  document.getElementById('nestedDrawerOverlay').classList.remove('open');
+}
+function openNestedDrawerInner(){
+  document.getElementById('nestedDrawer2').classList.add('open');
+}
+function closeNestedDrawerInner(){
+  document.getElementById('nestedDrawer2').classList.remove('open');
+}
+
+// ── SCATTER CHART ────────────────────────────────
+(function(){
+  var svg=document.getElementById('scatterChart');
+  if(!svg)return;
+  svg.innerHTML='<line x1="30" y1="170" x2="350" y2="170" stroke="rgba(255,255,255,0.1)" stroke-width="1"/><line x1="30" y1="170" x2="30" y2="10" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>';
+  var series=[
+    {color:'#10b981',data:[[50,140],[80,100],[120,120],[160,60],[200,90],[250,40],[300,70]]},
+    {color:'#3b82f6',data:[[60,150],[100,80],[140,110],[180,50],[220,130],[270,30],[320,100]]},
+    {color:'#8b5cf6',data:[[70,120],[110,90],[150,70],[190,140],[230,55],[280,110],[330,45]]}
+  ];
+  series.forEach(function(s){
+    s.data.forEach(function(pt,i){
+      var circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx',pt[0]);
+      circle.setAttribute('cy',pt[1]);
+      circle.setAttribute('r','5');
+      circle.setAttribute('fill',s.color);
+      circle.setAttribute('class','scatter-dot');
+      circle.style.animationDelay=(i*0.12)+'s';
+      svg.appendChild(circle);
+    });
+  });
+})();
+
+// ── TREEMAP ──────────────────────────────────────
+(function(){
+  var svg=document.getElementById('treemapChart');
+  if(!svg)return;
+  var rects=[
+    {x:0,y:0,w:200,h:110,fill:'#10b981',label:'React'},
+    {x:200,y:0,w:160,h:65,fill:'#3b82f6',label:'Vue'},
+    {x:200,y:65,w:160,h:45,fill:'#8b5cf6',label:'Angular'},
+    {x:0,y:110,w:120,h:90,fill:'#eab308',label:'Svelte'},
+    {x:120,y:110,w:100,h:90,fill:'#ec4899',label:'Solid'},
+    {x:220,y:110,w:80,h:50,fill:'#06b6d4',label:'Astro'},
+    {x:300,y:110,w:60,h:50,fill:'#ef4444',label:'Qwik'},
+    {x:220,y:160,w:140,h:40,fill:'#fb923c',label:'Next.js'}
+  ];
+  rects.forEach(function(r){
+    var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x',r.x+1);
+    rect.setAttribute('y',r.y+1);
+    rect.setAttribute('width',r.w-2);
+    rect.setAttribute('height',r.h-2);
+    rect.setAttribute('fill',r.fill);
+    rect.setAttribute('class','treemap-rect');
+    rect.setAttribute('opacity','0.7');
+    svg.appendChild(rect);
+    if(r.w>50&&r.h>25){
+      var text=document.createElementNS('http://www.w3.org/2000/svg','text');
+      text.setAttribute('x',r.x+r.w/2);
+      text.setAttribute('y',r.y+r.h/2+4);
+      text.setAttribute('text-anchor','middle');
+      text.setAttribute('fill','#fff');
+      text.setAttribute('font-size','11');
+      text.setAttribute('font-family','JetBrains Mono, monospace');
+      text.textContent=r.label;
+      svg.appendChild(text);
+    }
+  });
+})();
+
+// ── TEXTAREA ─────────────────────────────────────
+function updateTextareaCounter(){
+  var field=document.getElementById('textareaField');
+  var counter=document.getElementById('textareaCounter');
+  if(!field||!counter)return;
+  var len=field.value.length;
+  var max=parseInt(field.getAttribute('maxlength'),10);
+  counter.textContent=len+' / '+max;
+  counter.className='textarea-counter';
+  if(len>=max)counter.classList.add('at-max');
+  else if(len>=max*0.8)counter.classList.add('near-max');
+  field.style.height='auto';
+  field.style.height=field.scrollHeight+'px';
+}
 
 // ── INIT FILTER COUNT ────────────────────────────
 filterComponents();
