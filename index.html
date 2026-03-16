@@ -2880,9 +2880,9 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
   <div class="demo-row">
-    <div class="demo-cell" data-name="Draft Post Card" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:500px;grid-column:span 2">
+    <div class="demo-cell" data-name="Draft Post Card" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:340px">
       <div class="component-label" style="padding:12px 16px 0">Draft Post Card</div>
-      <div style="background:#f8f9fa;border-radius:0 0 16px 16px;flex:1;font-family:'Satoshi',sans-serif;color:#1a1a2e;padding:24px 28px;overflow-y:auto;max-height:600px">
+      <div style="background:#f8f9fa;border-radius:0 0 16px 16px;flex:1;font-family:'Satoshi',sans-serif;color:#1a1a2e;padding:16px 20px;overflow-y:auto;max-height:380px">
         <!-- Title + badges -->
         <div style="font-weight:800;font-size:1.15rem;margin-bottom:8px;font-family:'Cabinet Grotesk',sans-serif">Three Critical Questions for Financial Clarity</div>
         <div style="display:flex;gap:6px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
@@ -2930,8 +2930,19 @@ function <span class="hl">Analytics</span>() {
           <div style="padding:7px 16px;background:white;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px">&#8635; Rewrite</div>
           <div style="padding:7px 16px;background:white;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px">&#9993; Email</div>
         </div>
-        <div style="margin-top:8px">
+        <div style="margin-top:8px;margin-bottom:16px">
           <div style="padding:7px 16px;background:#ef4444;color:white;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px">&#128465; Delete</div>
+        </div>
+        <!-- Structure dropdown -->
+        <div style="border-top:1px solid #e5e7eb;padding-top:14px">
+          <div style="font-size:0.75rem;font-weight:600;margin-bottom:6px">Post structure</div>
+          <div style="padding:10px 14px;background:white;border:1px solid #e5e7eb;border-radius:8px;font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;margin-bottom:4px">Auto (match my natural style) <span style="color:#9ca3af">&#9660;</span></div>
+          <div style="background:white;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+            <div style="padding:8px 14px;font-size:0.75rem;display:flex;align-items:center;gap:6px;color:#374151">&#10003; Auto (match my natural style)</div>
+            <div style="padding:8px 14px;font-size:0.75rem;color:#2563eb;background:#eff6ff;padding-left:28px;border-top:1px solid #f3f4f6;cursor:pointer">Story &#8594; Tension &#8594; Resolution</div>
+            <div style="padding:8px 14px;font-size:0.75rem;padding-left:28px;border-top:1px solid #f3f4f6;cursor:pointer" onmouseenter="this.style.background='#f9fafb'" onmouseleave="this.style.background=''">Problem &#8594; Solution &#8594; Outcome</div>
+            <div style="padding:8px 14px;font-size:0.75rem;padding-left:28px;border-top:1px solid #f3f4f6;cursor:pointer" onmouseenter="this.style.background='#f9fafb'" onmouseleave="this.style.background=''">Insight &#8594; Why &#8594; Action</div>
+          </div>
         </div>
       </div>
       <span class="component-source">Calm Authority</span>
