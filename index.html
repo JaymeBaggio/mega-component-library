@@ -2640,46 +2640,57 @@ function <span class="hl">Analytics</span>() {
   <!-- ══ APP PATTERNS (Calm Authority) ═════════════ -->
   <div class="section-title">App Patterns — Calm Authority</div>
   <div class="demo-row">
-    <div class="demo-cell" data-name="Dashboard Home" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:380px">
+    <div class="demo-cell" data-name="Dashboard Home" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:320px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Dashboard Home</div>
-      <div style="background:#f8f9fa;border-radius:0 0 16px 16px;flex:1;padding:0;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden">
-        <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 16px;border-bottom:1px solid #e5e7eb;background:white;font-size:0.7rem">
-          <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-weight:600">&#8962; Home</span>
-          <span style="color:#6b7280">&#128196; Content Studio</span>
-          <span style="color:#6b7280">&#9881; Settings</span>
-          <span style="color:#6b7280">&#8594; Sign out</span>
+      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#f8f9fa;border-radius:14px;width:100%;max-width:700px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
+        <!-- Nav -->
+        <div style="display:flex;align-items:center;gap:28px;padding:14px 24px;border-bottom:1px solid #e5e7eb;background:white;font-size:0.8rem">
+          <span style="background:#4472c4;color:white;padding:8px 18px;border-radius:8px;font-weight:600;display:flex;align-items:center;gap:6px">&#8962; Home</span>
+          <span style="color:#6b7280;display:flex;align-items:center;gap:5px">&#128196; Content Studio</span>
+          <span style="color:#6b7280;display:flex;align-items:center;gap:5px">&#9881; Settings</span>
+          <span style="color:#6b7280;display:flex;align-items:center;gap:5px">&#8594; Sign out</span>
         </div>
-        <div style="text-align:center;padding:16px 16px 8px">
-          <div style="font-family:serif;font-weight:700;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase">Calm Authority</div>
-          <div style="font-size:0.55rem;letter-spacing:0.2em;color:#999;margin-top:2px">EST 25</div>
-          <div style="font-size:0.7rem;color:#6b7280;margin-top:6px;font-style:italic">Your own expertise. At scale.</div>
+        <!-- Brand -->
+        <div style="text-align:center;padding:24px 24px 12px">
+          <div style="font-family:serif;font-weight:700;font-size:1.1rem;letter-spacing:0.15em;text-transform:uppercase;color:#1a1a2e">Calm Authority</div>
+          <div style="font-size:0.6rem;letter-spacing:0.2em;color:#999;margin-top:3px">EST 25</div>
+          <div style="font-size:0.85rem;color:#6b7280;margin-top:8px;font-style:italic">Your own expertise. At scale.</div>
         </div>
-        <div style="margin:8px 12px;background:white;border:1px solid #e5e7eb;border-radius:10px;padding:12px">
-          <div style="font-weight:600;font-size:0.7rem;margin-bottom:8px">Overview</div>
+        <!-- Overview -->
+        <div style="margin:10px 20px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px">
+          <div style="font-weight:700;font-size:0.8rem;margin-bottom:12px">Overview</div>
           <div style="display:flex;text-align:center">
-            <div style="flex:1"><div style="font-weight:700;font-size:1rem">1</div><div style="font-size:0.55rem;color:#6b7280">Posts this week</div></div>
-            <div style="flex:1;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb"><div style="font-weight:700;font-size:1rem">1</div><div style="font-size:0.55rem;color:#6b7280">Drafts to review</div></div>
-            <div style="flex:1"><div style="font-weight:700;font-size:1rem">0</div><div style="font-size:0.55rem;color:#6b7280">Posts approved</div></div>
+            <div style="flex:1"><div style="font-weight:800;font-size:1.3rem">4</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Posts this week</div></div>
+            <div style="flex:1;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb"><div style="font-weight:800;font-size:1.3rem">836</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Drafts to review</div></div>
+            <div style="flex:1"><div style="font-weight:800;font-size:1.3rem">31</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Posts approved</div></div>
           </div>
         </div>
-        <div style="margin:8px 12px;background:white;border:1px solid #e5e7eb;border-radius:10px;padding:12px">
-          <div style="font-weight:600;font-size:0.7rem;margin-bottom:8px">Recent drafts</div>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <div><div style="font-size:0.7rem;font-weight:500">The Rise of the Liquidity Fortress</div><div style="font-size:0.55rem;color:#6b7280">16/03/2026</div></div>
-            <span style="background:#dbeafe;color:#2563eb;padding:3px 10px;border-radius:999px;font-size:0.55rem;font-weight:600">Draft</span>
+        <!-- Recent drafts -->
+        <div style="margin:10px 20px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px">
+          <div style="font-weight:700;font-size:0.8rem;margin-bottom:12px">Recent drafts</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #f3f4f6">
+            <div><div style="font-size:0.8rem;font-weight:500">The Munger Formula: Simple Wealth Building for Busy UK Professionals</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">16/03/2026</div></div>
+            <span style="background:#4472c4;color:white;padding:4px 14px;border-radius:999px;font-size:0.6rem;font-weight:600;flex-shrink:0;margin-left:12px">Draft</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3f4f6">
+            <div><div style="font-size:0.8rem;font-weight:500">Mitigating UK Capital Gains Tax Impact After Threshold Reductions</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">16/03/2026</div></div>
+            <span style="background:#4472c4;color:white;padding:4px 14px;border-radius:999px;font-size:0.6rem;font-weight:600;flex-shrink:0;margin-left:12px">Draft</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-top:10px">
+            <div><div style="font-size:0.8rem;font-weight:500">Navigating the 2026 UK Budget: Strategic Financial Planning</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">16/03/2026</div></div>
+            <span style="background:#4472c4;color:white;padding:4px 14px;border-radius:999px;font-size:0.6rem;font-weight:600;flex-shrink:0;margin-left:12px">Draft</span>
           </div>
         </div>
-        <div style="margin:8px 12px 12px;background:white;border:1px solid #e5e7eb;border-radius:10px;padding:12px">
-          <div style="font-weight:600;font-size:0.7rem;margin-bottom:8px">Quick links</div>
-          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f3f4f6"><div style="width:24px;height:24px;border-radius:6px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#2563eb">&#128196;</div><div style="flex:1"><div style="font-size:0.65rem;font-weight:500">Generate weekly posts</div><div style="font-size:0.5rem;color:#9ca3af">Start your weekly batch</div></div><span style="color:#d1d5db">&#8250;</span></div>
-          <div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div style="width:24px;height:24px;border-radius:6px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#2563eb">&#128161;</div><div style="flex:1"><div style="font-size:0.65rem;font-weight:500">Generate from idea</div><div style="font-size:0.5rem;color:#9ca3af">Write from a concept</div></div><span style="color:#d1d5db">&#8250;</span></div>
-        </div>
+        <div style="height:16px"></div>
+      </div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
-    <div class="demo-cell" data-name="Feature Selection Grid" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:380px">
+    <div class="demo-cell" data-name="Feature Selection Grid" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Feature Selection Grid</div>
-      <div style="background:#f8f9fa;border-radius:0 0 16px 16px;flex:1;padding:0;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden">
+      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#f8f9fa;border-radius:14px;width:100%;max-width:340px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
         <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 16px;border-bottom:1px solid #e5e7eb;background:white;font-size:0.7rem">
           <span style="color:#6b7280">&#8962; Home</span>
           <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-weight:600">&#128196; Content Studio</span>
@@ -2693,26 +2704,28 @@ function <span class="hl">Analytics</span>() {
           <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e5e7eb'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128161;</div><div style="font-weight:700;font-size:0.75rem">Generate from Idea</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create a post from your own topic</div></div>
         </div>
       </div>
+      </div>
       <span class="component-source">Calm Authority</span>
     </div>
   </div>
   <div class="demo-row">
-    <div class="demo-cell" data-name="Step Progress Indicator" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
+    <div class="demo-cell" data-name="Step Progress Indicator" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Step Progress Indicator</div>
-      <div style="background:#f8f9fa;border-radius:0 0 16px 16px;flex:1;padding:20px 24px;font-family:'Satoshi',sans-serif;color:#1a1a2e">
-        <div style="text-align:center;margin-bottom:16px"><div style="font-weight:800;font-size:1rem">Generate Weekly Posts</div><div style="font-size:0.65rem;color:#6b7280;margin-top:4px">Generate AI-powered LinkedIn posts from trending topics</div></div>
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px">
-          <div style="padding:6px 14px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;color:#6b7280">5 &#9660;</div>
-          <div style="padding:6px 14px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;color:#6b7280;flex:1">Auto (match my natural style)</div>
-          <div style="padding:8px 20px;background:#93b4e8;border-radius:8px;font-size:0.7rem;color:white;font-weight:600;display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border:2px solid white;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite"></span>Generating 5...</div>
+      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:white;border-radius:14px;width:100%;max-width:500px;padding:24px 28px;font-family:'Satoshi',sans-serif;color:#1a1a2e;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
+        <div style="text-align:center;margin-bottom:16px"><div style="font-weight:800;font-size:1.1rem">Generate Weekly Posts</div><div style="font-size:0.7rem;color:#6b7280;margin-top:4px">Generate AI-powered LinkedIn posts from trending topics</div></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:20px">
+          <div style="padding:8px 16px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.75rem;color:#6b7280;background:#f9fafb">5 posts &#9660;</div>
+          <div style="padding:10px 32px;background:#2563eb;border-radius:8px;font-size:0.8rem;color:white;font-weight:600;cursor:pointer;white-space:nowrap" id="caGenerateBtn" onclick="startCaProgress()">Generate</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:white;font-size:0.6rem">&#10003;</span></div><span style="font-size:0.75rem;text-decoration:line-through;color:#9ca3af">Reading your tone of voice settings</span></div>
-          <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="color:white;font-size:0.6rem">&#10003;</span></div><span style="font-size:0.75rem;text-decoration:line-through;color:#9ca3af">Researching trending topics</span></div>
-          <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #2563eb;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="display:inline-block;width:10px;height:10px;border:2px solid #2563eb;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite"></span></div><span style="font-size:0.75rem;font-weight:600">Finding fresh angles for your audience</span></div>
-          <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:0.6rem;color:#d1d5db">4</span></div><span style="font-size:0.75rem;color:#d1d5db">Drafting your posts</span></div>
-          <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:0.6rem;color:#d1d5db">5</span></div><span style="font-size:0.75rem;color:#d1d5db">Adding finishing touches</span></div>
+        <div style="display:flex;flex-direction:column;gap:12px" id="caSteps">
+          <div class="ca-step" data-step="0" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">1</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Reading your tone of voice settings</span></div>
+          <div class="ca-step" data-step="1" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">2</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Researching trending topics</span></div>
+          <div class="ca-step" data-step="2" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">3</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Finding fresh angles for your audience</span></div>
+          <div class="ca-step" data-step="3" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">4</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Drafting your posts</span></div>
+          <div class="ca-step" data-step="4" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">5</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Adding finishing touches</span></div>
         </div>
+      </div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
@@ -2756,24 +2769,39 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
   <div class="demo-row">
-    <div class="demo-cell" data-name="Generated Content Review" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
+    <div class="demo-cell" data-name="Generated Content Review" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:420px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Generated Content Review</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
+      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div style="background:white;border-radius:14px;width:100%;max-width:600px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
           <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:28%;background:#2563eb;border-radius:0 2px 2px 0"></div></div>
-          <div style="padding:16px 20px;text-align:center">
-            <div style="font-family:serif;font-weight:700;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
-            <div style="font-size:0.5rem;letter-spacing:0.1em;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">Tone of Voice</div>
-            <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px">Your tone of voice</div>
-            <div style="font-size:0.6rem;color:#6b7280;line-height:1.5;margin-bottom:10px">We will analyse rhythm, structure and phrasing so every draft matches your own tone-of-voice blueprint.</div>
-            <div style="border:1px solid #22c55e;border-radius:10px;padding:12px;text-align:left;margin-bottom:10px;max-height:100px;overflow-y:auto">
-              <div style="font-size:0.55rem;color:#22c55e;font-weight:600;margin-bottom:6px">&#10003; GENERATED TONE OF VOICE</div>
-              <div style="font-size:0.6rem;font-weight:600;margin-bottom:2px">Tone personality</div>
-              <div style="font-size:0.55rem;color:#6b7280;margin-bottom:6px">Urgent, provocative, and authoritative with a focus on fiscal realism.</div>
-              <div style="font-size:0.6rem;font-weight:600;margin-bottom:2px">Structural patterns</div>
-              <div style="font-size:0.55rem;color:#6b7280">Short, punchy paragraphs that build a logical argument through contrast.</div>
+          <div style="padding:24px 32px;text-align:center;font-family:'Satoshi',sans-serif">
+            <div style="text-align:right;font-size:0.65rem;color:#9ca3af;margin-bottom:8px">2/7 &times;</div>
+            <div style="font-family:serif;font-weight:700;font-size:1rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
+            <div style="font-size:0.6rem;letter-spacing:0.2em;color:#999;margin:4px 0 16px">EST 25</div>
+            <div style="font-size:0.6rem;letter-spacing:0.1em;color:#9ca3af;text-transform:uppercase;margin-bottom:4px">Tone of Voice</div>
+            <div style="font-weight:700;font-size:1.1rem;margin-bottom:8px">Your tone of voice</div>
+            <div style="font-size:0.7rem;color:#6b7280;line-height:1.6;margin-bottom:16px">We will analyse rhythm, structure and phrasing so every draft matches your own tone-of-voice blueprint, not a generic AI script. The better the samples, the stronger the output.</div>
+            <!-- Scrollable green tone card -->
+            <div style="border:1px solid #22c55e;border-radius:12px;padding:16px 18px;text-align:left;margin-bottom:12px;max-height:180px;overflow-y:auto;background:rgba(34,197,94,0.03)">
+              <div style="font-size:0.65rem;color:#22c55e;font-weight:600;margin-bottom:10px">&#10003; GENERATED TONE OF VOICE</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Tone personality</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Authoritative and pragmatic with a focus on financial logic. The voice is professional yet slightly provocative regarding fiscal policy.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Structural patterns</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Short, punchy paragraphs often consisting of a single sentence. Information is delivered in a logical flow from problem to solution.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Opening hooks</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Starts with a specific data point or a future projection to create immediate relevance. Uses provocative statements about tax thresholds.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Sentence rhythm</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Staccato rhythm with frequent use of short, declarative sentences. Minimalist phrasing creates a sense of urgency and clarity.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Closing style</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Ends with a concise, philosophical summary or a value-driven mission statement. Focuses on the outcome of 'keeping more' rather than just 'earning more'.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Signature phrases</div>
+              <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Tax trap, fiscal cliff, uncontrollable income, tax levers, default settings.</div>
+              <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Recurring themes</div>
+              <div style="font-size:0.7rem;color:#4b5563;line-height:1.5">Tax efficiency, the impact of the personal allowance taper, and the gap between gross and net pay.</div>
             </div>
-            <div style="display:flex;gap:8px;align-items:center"><span style="font-size:0.65rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.65rem;color:#6b7280;padding:4px 12px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:5px 14px;border-radius:6px;font-size:0.65rem;font-weight:600;cursor:pointer">Save & continue</span></div>
+            <div style="text-align:left;font-size:0.65rem;color:#6b7280;margin-bottom:4px;cursor:pointer">&#8592; Edit samples and regenerate</div>
+            <div style="text-align:left;font-size:0.6rem;color:#9ca3af;line-height:1.5;margin-bottom:14px">This version will be saved in your settings as V1. You can regenerate your tone of voice using new examples at any time and save each version to your history.</div>
+            <div style="display:flex;gap:10px;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.7rem;color:#6b7280;padding:5px 14px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 18px;border-radius:6px;font-size:0.7rem;font-weight:600;cursor:pointer">Save & continue</span></div>
           </div>
         </div>
       </div>
@@ -3259,6 +3287,47 @@ function setStep(n){const el=document.getElementById('stepResponsiveEl');const b
 
 // ── SPAWNER + BEHAVIOR PARTICLES ────────────────
 (function(){const scene=document.getElementById('spawnerDemo');if(!scene)return;function spawnParticle(){const p=document.createElement('div');p.className='spawner-particle';const size=3+Math.random()*5;p.style.width=size+'px';p.style.height=size+'px';const colors=['#10b981','#3b82f6','#8b5cf6','#ec4899','#eab308'];p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.boxShadow='0 0 6px '+p.style.background;p.style.left=(Math.random()*100)+'%';p.style.top='100%';const vx=(Math.random()-0.5)*2;let vy=-1.5-Math.random()*2;let x=parseFloat(p.style.left);let y=100;let life=0;scene.appendChild(p);function update(){life++;vy+=0.03;x+=vx;y+=vy;p.style.left=x+'%';p.style.top=y+'%';p.style.opacity=Math.max(0,1-life/80);if(life>80||y>110){p.remove();return}requestAnimationFrame(update)}requestAnimationFrame(update)}setInterval(spawnParticle,80)})();
+
+// ── CALM AUTHORITY STEP PROGRESS ─────────────────
+let caRunning=false;
+function startCaProgress(){
+  if(caRunning)return;caRunning=true;
+  const btn=document.getElementById('caGenerateBtn');
+  const steps=document.querySelectorAll('#caSteps .ca-step');
+  // Reset all
+  steps.forEach(s=>{
+    const icon=s.querySelector('.ca-step-icon');
+    const text=s.querySelector('.ca-step-text');
+    const num=parseInt(s.dataset.step)+1;
+    icon.innerHTML='<span style="font-size:0.65rem;color:#9ca3af;font-weight:500">'+num+'</span>';
+    icon.style.background='#e8eaed';icon.style.border='none';
+    text.style.color='#1a1a2e';text.style.textDecoration='none';text.style.fontWeight='400';
+  });
+  btn.innerHTML='<span style="display:inline-block;width:12px;height:12px;border:2px solid white;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite"></span> Generating...';
+  btn.style.background='#93b4e8';btn.style.cursor='default';
+  let i=0;
+  function doStep(){
+    if(i>=steps.length){
+      btn.innerHTML='&#10003; Done!';btn.style.background='#22c55e';
+      setTimeout(()=>{btn.innerHTML='Generate';btn.style.background='#2563eb';btn.style.cursor='pointer';caRunning=false},2000);
+      return;
+    }
+    const s=steps[i];const icon=s.querySelector('.ca-step-icon');const text=s.querySelector('.ca-step-text');
+    // Set current to filled blue with white spinner
+    icon.style.background='#4472c4';icon.style.border='none';
+    icon.innerHTML='<span style="display:inline-block;width:12px;height:12px;border:2px solid white;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite"></span>';
+    text.style.color='#1a1a2e';text.style.fontWeight='700';text.style.textDecoration='none';
+    setTimeout(()=>{
+      // Complete current — green filled with white check
+      icon.style.background='#22c55e';icon.style.border='none';
+      icon.innerHTML='<span style="color:white;font-size:0.7rem;font-weight:700">&#10003;</span>';
+      text.style.color='#9ca3af';text.style.fontWeight='400';text.style.textDecoration='line-through';
+      i++;
+      setTimeout(doStep,300);
+    },800+Math.random()*600);
+  }
+  doStep();
+}
 
 // ── CODE COMPARISON SLIDER ───────────────────────
 (function(){const wrap=document.getElementById('codeCompareWrap');const handle=document.getElementById('codeCompareHandle');const after=document.getElementById('codeCompareAfter');if(!wrap||!handle||!after)return;let dragging=false;function setPosition(x){const rect=wrap.getBoundingClientRect();let pct=Math.max(0,Math.min(100,((x-rect.left)/rect.width)*100));handle.style.left=pct+'%';after.style.clipPath='inset(0 '+(100-pct)+'% 0 0)'}handle.addEventListener('mousedown',()=>{dragging=true});document.addEventListener('mousemove',e=>{if(dragging)setPosition(e.clientX)});document.addEventListener('mouseup',()=>{dragging=false});handle.addEventListener('touchstart',()=>{dragging=true});document.addEventListener('touchmove',e=>{if(dragging&&e.touches[0])setPosition(e.touches[0].clientX)});document.addEventListener('touchend',()=>{dragging=false});wrap.addEventListener('click',e=>{setPosition(e.clientX)})})();
