@@ -1212,6 +1212,16 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 @keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 @keyframes gentleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .ca-backdrop{position:relative;isolation:isolate}
+/* Motion Techniques */
+@keyframes zDive{0%{transform:scale(1) translateZ(0);opacity:0.6}50%{transform:scale(3) translateZ(200px);opacity:0}100%{transform:scale(1) translateZ(0);opacity:0.6}}
+@keyframes portalPulse{0%,100%{transform:scale(1);box-shadow:0 0 30px rgba(16,185,129,0.4)}50%{transform:scale(1.2);box-shadow:0 0 50px rgba(16,185,129,0.6)}}
+@keyframes parallaxBg{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
+@keyframes parallaxMid{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
+@keyframes parallaxFg{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
+@keyframes linearMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
+@keyframes expoMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
+@keyframes overshootMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
+.sg-bad,.sg-good{transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
 @keyframes docZoomAnim{0%,20%{transform:scale(1) translateY(0)}40%,60%{transform:scale(2.8) translateY(15%)}80%,100%{transform:scale(1) translateY(0)}}
 .ca-backdrop::after{content:'';position:absolute;inset:0;border-radius:inherit;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");mix-blend-mode:overlay;pointer-events:none;z-index:0}
 .ca-backdrop>*{position:relative;z-index:1}
@@ -3443,6 +3453,130 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
 
+  <!-- ══ MOTION TECHNIQUES ═════════════════════════ -->
+  <div class="section-title">Motion Techniques — Reference</div>
+
+  <div class="demo-row">
+    <!-- Z-AXIS DIVE -->
+    <div class="demo-cell" data-name="Z-Axis Dive (Portal)" data-category="motion" data-library="creative-arsenal" style="min-height:300px">
+      <div class="component-label">Z-Axis Dive (Portal)</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;perspective:500px;overflow:hidden;position:relative" id="zAxisScene">
+        <!-- Layers that zoom past -->
+        <div id="zAxisLayer3" style="position:absolute;width:200px;height:200px;border:2px solid rgba(16,185,129,0.1);border-radius:16px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) infinite"></div>
+        <div id="zAxisLayer2" style="position:absolute;width:140px;height:140px;border:2px solid rgba(16,185,129,0.2);border-radius:12px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) 0.5s infinite"></div>
+        <div id="zAxisLayer1" style="position:absolute;width:80px;height:80px;border:2px solid rgba(16,185,129,0.4);border-radius:8px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) 1s infinite"></div>
+        <!-- Portal hole -->
+        <div style="width:30px;height:30px;border-radius:50%;background:var(--accent);box-shadow:0 0 30px rgba(16,185,129,0.4),0 0 60px rgba(16,185,129,0.2);z-index:5;animation:portalPulse 2s ease-in-out infinite"></div>
+      </div>
+      <div style="padding:0 16px 12px">
+        <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Z-Axis Dive (Portal)</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Camera rapidly accelerates through a "hole" in a graphic to break into the next scene. Use for key transitions — solution reveals, logo breakouts.</div>
+      </div>
+      <span class="component-source">Motion Technique</span>
+    </div>
+
+    <!-- LATERAL PARALLAX TRUCKING -->
+    <div class="demo-cell" data-name="Lateral Parallax Trucking" data-category="motion" data-library="creative-arsenal" style="min-height:300px">
+      <div class="component-label">Lateral Parallax Trucking</div>
+      <div style="flex:1;overflow:hidden;position:relative;display:flex;align-items:center">
+        <!-- Background layer (slow) -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;gap:80px;animation:parallaxBg 6s linear infinite">
+          <div style="width:60px;height:100px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+          <div style="width:80px;height:120px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+          <div style="width:50px;height:80px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+          <div style="width:70px;height:110px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+          <div style="width:60px;height:100px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+          <div style="width:80px;height:120px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+        </div>
+        <!-- Midground layer (medium) -->
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;gap:60px;padding-bottom:30px;animation:parallaxMid 4s linear infinite">
+          <div style="width:40px;height:60px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+          <div style="width:50px;height:80px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+          <div style="width:35px;height:50px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+          <div style="width:45px;height:70px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+          <div style="width:40px;height:60px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+          <div style="width:50px;height:80px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
+        </div>
+        <!-- Foreground layer (fast) — silhouettes -->
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;gap:40px;padding-bottom:10px;animation:parallaxFg 2.5s linear infinite">
+          <div style="width:30px;height:70px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+          <div style="width:25px;height:90px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+          <div style="width:35px;height:60px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+          <div style="width:28px;height:80px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+          <div style="width:30px;height:70px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+          <div style="width:25px;height:90px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
+        </div>
+      </div>
+      <div style="padding:0 16px 12px">
+        <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Lateral Parallax Trucking</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Foreground elements move faster than background when panning horizontally. Creates 3D depth perception with layered movement speeds.</div>
+      </div>
+      <span class="component-source">Motion Technique</span>
+    </div>
+  </div>
+
+  <div class="demo-row">
+    <!-- EXPONENTIAL EASING -->
+    <div class="demo-cell" data-name="Exponential Easing" data-category="motion" data-library="creative-arsenal" style="min-height:300px">
+      <div class="component-label">Exponential Easing</div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:0 20px">
+        <!-- Linear (bad) -->
+        <div style="width:100%;position:relative;height:24px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:var(--muted);top:-10px">Linear (avoid)</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,0.3);border:1px solid rgba(239,68,68,0.5);position:absolute;top:2px;animation:linearMove 3s linear infinite"></div>
+        </div>
+        <!-- Exponential (good) -->
+        <div style="width:100%;position:relative;height:24px;margin-top:12px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:var(--accent);top:-10px;font-weight:600">Exponential (use this)</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,0.3);border:1px solid rgba(16,185,129,0.5);position:absolute;top:2px;animation:expoMove 3s cubic-bezier(0.16,1,0.3,1) infinite;box-shadow:0 0 12px rgba(16,185,129,0.3)"></div>
+        </div>
+        <!-- Overshoot (best) -->
+        <div style="width:100%;position:relative;height:24px;margin-top:12px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:#8b5cf6;top:-10px;font-weight:600">Overshoot "thud"</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);position:absolute;top:2px;animation:overshootMove 3s cubic-bezier(0.34,1.56,0.64,1) infinite;box-shadow:0 0 12px rgba(139,92,246,0.3)"></div>
+        </div>
+      </div>
+      <div style="padding:0 16px 12px">
+        <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Exponential Easing</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Motion starts slow, ramps to peak velocity, then settles with a heavy "thud" (overshoot). Never use linear start-stop movement.</div>
+      </div>
+      <span class="component-source">Motion Technique</span>
+    </div>
+
+    <!-- STAGGERED ORCHESTRATION -->
+    <div class="demo-cell" data-name="Staggered Orchestration" data-category="motion" data-library="creative-arsenal" style="min-height:300px">
+      <div class="component-label">Staggered Orchestration</div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:0 20px">
+        <!-- Bad: all at once -->
+        <div style="font-size:0.5rem;color:var(--muted);margin-bottom:-8px">All at once (avoid):</div>
+        <div style="display:flex;gap:6px" id="staggerBad">
+          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+        </div>
+        <!-- Good: staggered -->
+        <div style="font-size:0.5rem;color:var(--accent);font-weight:600;margin-top:8px;margin-bottom:-8px">Staggered (use this):</div>
+        <div style="display:flex;gap:6px" id="staggerGood">
+          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+        </div>
+      </div>
+      <div style="padding:0 16px 12px">
+        <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Staggered Orchestration</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Never animate a whole group at once. Stagger entry by 3-5 frames to create a mechanical, deliberate build effect.</div>
+      </div>
+      <span class="component-source">Motion Technique</span>
+    </div>
+  </div>
+
   <!-- ══ DOCUMENT ZOOM ANIMATION ═══════════════════ -->
   <div class="demo-row">
     <div class="demo-cell" data-name="Document Zoom Animation" data-category="motion" data-library="creative-arsenal" style="padding:0;overflow:hidden;min-height:420px;grid-column:span 2">
@@ -4958,6 +5092,27 @@ function updateTextareaCounter(){
   wrap.addEventListener('scroll',checkReveal);
   // Initial reveal
   setTimeout(checkReveal,100);
+})();
+
+// ── STAGGERED ORCHESTRATION DEMO ─────────────────
+(function(){
+  function runStagger(){
+    var bad=document.querySelectorAll('#staggerBad .sg-bad');
+    var good=document.querySelectorAll('#staggerGood .sg-good');
+    // Reset
+    bad.forEach(function(el){el.style.transform='scale(0)';el.style.opacity='0'});
+    good.forEach(function(el){el.style.transform='scale(0)';el.style.opacity='0'});
+    // Bad: all at once
+    setTimeout(function(){
+      bad.forEach(function(el){el.style.transform='scale(1)';el.style.opacity='1'});
+    },300);
+    // Good: staggered
+    good.forEach(function(el,i){
+      setTimeout(function(){el.style.transform='scale(1)';el.style.opacity='1'},400+i*120);
+    });
+  }
+  runStagger();
+  setInterval(runStagger,4000);
 })();
 
 // ── TERMINAL ART LINE REVEAL ────────────────────
