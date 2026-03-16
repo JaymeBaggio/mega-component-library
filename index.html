@@ -373,8 +373,8 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .dot-pattern-demo{flex:1;border-radius:12px;position:relative;overflow:hidden;background-image:radial-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:20px 20px;display:flex;align-items:center;justify-content:center}
 .dot-pattern-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.4rem;background:var(--card);padding:12px 24px;border-radius:12px;border:1px solid var(--border)}
 .flicker-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;flex:1;align-content:center;padding:20px 0}
-.flicker-cell{aspect-ratio:1;border-radius:2px;background:rgba(16,185,129,0.05);animation:flicker var(--dur,3s) var(--del,0s) ease-in-out infinite}
-@keyframes flicker{0%,100%{opacity:0.1}50%{opacity:var(--peak,0.8)}}
+.flicker-cell{aspect-ratio:1;border-radius:2px;background:var(--fc,rgba(16,185,129,0.6));opacity:0.08;animation:flicker var(--dur,3s) var(--del,0s) ease-in-out infinite alternate}
+@keyframes flicker{0%{opacity:0.05}100%{opacity:var(--peak,0.8)}}
 .retro-grid-scene{flex:1;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;perspective:400px}
 .retro-grid{width:200%;height:300px;position:absolute;bottom:-40%;background-image:linear-gradient(rgba(16,185,129,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(16,185,129,0.15) 1px,transparent 1px);background-size:40px 40px;transform:rotateX(60deg);transform-origin:center top;animation:retroScroll 4s linear infinite;mask-image:linear-gradient(to top,white 30%,transparent 90%);-webkit-mask-image:linear-gradient(to top,white 30%,transparent 90%)}
 @keyframes retroScroll{to{background-position:0 40px}}
@@ -389,9 +389,10 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .shine-border-card::before{content:'';position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(var(--shine-pos,-45deg),transparent 40%,rgba(255,255,255,0.3) 50%,transparent 60%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:shineMove 3s linear infinite}
 @property --shine-pos{syntax:'<angle>';initial-value:-45deg;inherits:false}
 @keyframes shineMove{to{--shine-pos:315deg}}
-.icon-cloud{position:relative;width:200px;height:200px;margin:auto;perspective:600px}
-.icon-cloud-item{position:absolute;font-size:1.5rem;animation:cloudOrbit var(--cd,8s) linear infinite;transform-origin:100px 100px}
-@keyframes cloudOrbit{0%{transform:rotateY(var(--start,0deg)) translateZ(80px) rotateY(calc(-1 * var(--start,0deg)))}100%{transform:rotateY(calc(var(--start,0deg) + 360deg)) translateZ(80px) rotateY(calc(-1 * var(--start,0deg) - 360deg))}}
+.icon-cloud{position:relative;width:200px;height:200px;margin:auto;perspective:800px;transform-style:preserve-3d}
+.icon-cloud-inner{position:absolute;inset:0;transform-style:preserve-3d;animation:cloudSpin 20s linear infinite}
+.icon-cloud-item{position:absolute;font-size:1.5rem;left:50%;top:50%;transform:translate(-50%,-50%) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg)) translateZ(90px);backface-visibility:hidden;transition:transform 0.3s}
+@keyframes cloudSpin{0%{transform:rotateY(0) rotateX(10deg)}100%{transform:rotateY(360deg) rotateX(10deg)}}
 .terminal-window{width:100%;background:#0c0c0e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:0.75rem}
 .terminal-header{display:flex;align-items:center;gap:6px;padding:10px 14px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06)}
 .terminal-dot{width:10px;height:10px;border-radius:50%}
@@ -565,9 +566,16 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .custom-pointer{position:absolute;width:24px;height:24px;border-radius:50%;border:2px solid var(--accent);pointer-events:none;transition:transform 0.15s cubic-bezier(0.16,1,0.3,1);z-index:10}
 .pointer-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:11}
 /* NEW: Progressive Blur */
-.prog-blur-wrap{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:12px;min-height:180px}
-.prog-blur-content{font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.2rem;text-align:center;padding:20px;line-height:1.6}
-.prog-blur-overlay{position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to bottom,transparent,rgba(10,10,11,0.3));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to bottom,transparent,black);-webkit-mask-image:linear-gradient(to bottom,transparent,black)}
+.prog-blur-wrap{flex:1;position:relative;display:flex;align-items:flex-start;overflow:hidden;border-radius:12px;min-height:200px}
+.prog-blur-content{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:1rem;padding:20px;line-height:1.8;color:var(--text)}
+.prog-blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:none}
+.prog-blur-layer{flex:1;backdrop-filter:blur(var(--bl,0px));-webkit-backdrop-filter:blur(var(--bl,0px))}
+.prog-blur-layer:nth-child(1){--bl:0px}
+.prog-blur-layer:nth-child(2){--bl:1px}
+.prog-blur-layer:nth-child(3){--bl:2px}
+.prog-blur-layer:nth-child(4){--bl:4px}
+.prog-blur-layer:nth-child(5){--bl:8px}
+.prog-blur-layer:nth-child(6){--bl:12px;background:linear-gradient(to bottom,transparent,rgba(10,10,11,0.4))}
 /* NEW: Scroll Progress Indicator */
 .scroll-indicator-wrap{display:flex;align-items:center;justify-content:center;flex:1;gap:20px}
 .scroll-indicator-circle{position:relative;width:80px;height:80px}
@@ -778,6 +786,93 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .stagger-item.visible{opacity:1;transform:translateX(0)}
 .step-btn-active{background:rgba(16,185,129,0.15)!important;border-color:rgba(16,185,129,0.3)!important;color:#10b981!important}
 .spawner-particle{position:absolute;border-radius:50%;pointer-events:none}
+
+/* NEW: Dotted Map */
+.dotted-map-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:200px}
+.dotted-map-svg{width:100%;max-width:500px;height:auto}
+
+/* NEW: Hero Video Dialog */
+.hero-video-wrap{flex:1;display:flex;align-items:center;justify-content:center}
+.hero-video-thumb{position:relative;width:100%;max-width:340px;height:180px;border-radius:14px;background:linear-gradient(135deg,#1a2a3a,#2a1a3a,#1a3a2a);overflow:hidden;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;border:1px solid rgba(255,255,255,0.06)}
+.hero-video-thumb:hover{transform:scale(1.02);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+.hero-video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.hero-video-play-btn{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.hero-video-play-btn::after{content:'';display:block;width:0;height:0;border-style:solid;border-width:10px 0 10px 18px;border-color:transparent transparent transparent #fff;margin-left:3px}
+.hero-video-thumb:hover .hero-video-play-btn{background:rgba(16,185,129,0.3);transform:scale(1.1)}
+.hero-video-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:1000;align-items:center;justify-content:center}
+.hero-video-modal.open{display:flex}
+.hero-video-player{width:90%;max-width:640px;aspect-ratio:16/9;background:#000;border-radius:16px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.1);animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1)}
+.hero-video-player-gradient{position:absolute;inset:0;background:linear-gradient(135deg,#10b981,#3b82f6,#8b5cf6);animation:gradientShift 4s ease-in-out infinite;background-size:300% 300%}
+.hero-video-controls{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.8));display:flex;align-items:center;gap:12px;font-size:0.75rem;color:rgba(255,255,255,0.7);font-family:'JetBrains Mono',monospace}
+.hero-video-progress{flex:1;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;overflow:hidden}
+.hero-video-progress-fill{height:100%;width:35%;background:var(--accent);border-radius:2px;animation:spotifyProgress 8s linear infinite}
+.hero-video-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* NEW: Video Text */
+.video-text-wrap{display:flex;align-items:center;justify-content:center;flex:1}
+.video-text{font-family:'Cabinet Grotesk',sans-serif;font-size:4rem;font-weight:900;letter-spacing:-0.05em;background:linear-gradient(90deg,#10b981,#3b82f6,#8b5cf6,#ec4899,#eab308,#10b981);background-size:400% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:videoTextMove 3s linear infinite}
+@keyframes videoTextMove{0%{background-position:0% 50%}100%{background-position:400% 50%}}
+
+/* NEW: Text Reveal Card */
+.text-reveal-card{position:relative;width:100%;height:200px;border-radius:16px;background:var(--card);overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.06)}
+.text-reveal-content{font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.1rem;text-align:center;padding:24px;line-height:1.6;color:var(--text);filter:blur(6px);transition:filter 0.3s}
+.text-reveal-spotlight{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,0.25) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity 0.3s;transform:translate(-50%,-50%)}
+.text-reveal-card:hover .text-reveal-content{filter:blur(0)}
+.text-reveal-card:hover .text-reveal-spotlight{opacity:1}
+
+/* NEW: Data Table (sortable) */
+.sortable-data-table{width:100%;border-collapse:collapse;font-size:0.78rem}
+.sortable-data-table th{text-align:left;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--muted);font-weight:600;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;user-select:none;transition:color 0.2s;white-space:nowrap}
+.sortable-data-table th:hover{color:var(--accent)}
+.sortable-data-table th .sort-arrow{display:inline-block;margin-left:4px;font-size:0.55rem;opacity:0.4}
+.sortable-data-table th.sorted .sort-arrow{opacity:1;color:var(--accent)}
+.sortable-data-table td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sortable-data-table tbody tr:nth-child(even){background:rgba(255,255,255,0.02)}
+.sortable-data-table tbody tr:hover{background:rgba(16,185,129,0.04)}
+.status-badge{padding:2px 8px;border-radius:999px;font-size:0.65rem;font-weight:600;display:inline-block}
+.status-badge.active-badge{background:rgba(16,185,129,0.15);color:#10b981}
+.status-badge.inactive-badge{background:rgba(239,68,68,0.15);color:#ef4444}
+.status-badge.pending-badge{background:rgba(234,179,8,0.15);color:#eab308}
+
+/* NEW: Date Picker */
+.date-picker{width:100%;max-width:280px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;margin:auto;font-size:0.75rem}
+.dp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-family:'Cabinet Grotesk',sans-serif;font-weight:700}
+.dp-header button{background:none;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:var(--text);padding:4px 10px;cursor:pointer;font-size:0.75rem;transition:all 0.2s}
+.dp-header button:hover{border-color:var(--accent);color:var(--accent)}
+.dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.dp-day-label{color:var(--muted);font-size:0.6rem;font-weight:600;padding:4px}
+.dp-day{padding:7px;border-radius:8px;cursor:pointer;transition:all 0.2s;color:var(--muted)}
+.dp-day:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.dp-day.today{background:rgba(16,185,129,0.15);color:var(--accent);font-weight:700}
+.dp-day.selected{background:var(--accent);color:#0a0a0b;font-weight:700}
+.dp-day.empty{pointer-events:none}
+.dp-selected-display{text-align:center;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);min-height:1.2em}
+
+/* NEW: Mega Menu Reveal */
+.mega-menu-wrap{width:100%;position:relative}
+.mega-menu-bar{display:flex;gap:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:4px;font-size:0.8rem}
+.mega-menu-item{padding:10px 18px;cursor:pointer;color:var(--muted);transition:all 0.2s;border-radius:8px;position:relative}
+.mega-menu-item:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.mega-menu-dropdown{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#1a1a1e;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:50}
+.mega-menu-wrap:has(.mega-menu-item:hover) .mega-menu-dropdown{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;animation:dropIn 0.25s cubic-bezier(0.16,1,0.3,1)}
+.mega-menu-section{opacity:0;animation:megaStagger 0.3s forwards}
+.mega-menu-section:nth-child(1){animation-delay:0.05s}
+.mega-menu-section:nth-child(2){animation-delay:0.1s}
+.mega-menu-section:nth-child(3){animation-delay:0.15s}
+@keyframes megaStagger{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mega-menu-section h4{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.8rem;margin-bottom:8px;color:var(--accent)}
+.mega-menu-section a{display:block;font-size:0.75rem;color:var(--muted);padding:4px 0;cursor:pointer;transition:color 0.2s}
+.mega-menu-section a:hover{color:var(--text)}
+
+/* NEW: Morphing Dialog */
+.morph-dialog-wrap{display:flex;align-items:center;justify-content:center;flex:1}
+.morph-dialog-trigger{padding:14px 32px;background:var(--accent);color:#0a0a0b;border:none;border-radius:12px;font-family:'Cabinet Grotesk',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);overflow:hidden;max-width:200px;max-height:52px;position:relative}
+.morph-dialog-trigger.morph-open{padding:24px;border-radius:20px;max-width:320px;max-height:240px;background:#1a1a1e;color:var(--text);border:1px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.morph-dialog-body{opacity:0;max-height:0;overflow:hidden;transition:all 0.4s 0.1s;font-size:0.85rem;color:var(--muted);line-height:1.6}
+.morph-dialog-trigger.morph-open .morph-dialog-body{opacity:1;max-height:200px;margin-top:12px}
+.morph-dialog-close{display:none;position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.1);border:none;border-radius:6px;color:var(--text);padding:4px 8px;font-size:0.7rem;cursor:pointer}
+.morph-dialog-trigger.morph-open .morph-dialog-close{display:block}
+
 .footer{text-align:center;padding:80px 0 40px;color:var(--muted);font-size:0.8rem}
 </style>
 </head>
@@ -1182,7 +1277,7 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 <div class="demo-row">
 <div class="demo-cell" data-name="Icon Cloud" data-category="effects" data-library="magic-ui">
       <div class="component-label">Icon Cloud</div>
-      <div style="flex:1;display:flex;align-items:center"><div class="icon-cloud" id="iconCloud"></div></div>
+      <div style="flex:1;display:flex;align-items:center"><div class="icon-cloud" id="iconCloud"><div class="icon-cloud-inner" id="iconCloudInner"></div></div></div>
       <span class="component-source">Magic UI</span>
     </div><div class="demo-cell" data-name="Hover Image Trail" data-category="effects" data-library="creative-arsenal">
       <div class="component-label">Hover Image Trail</div>
@@ -1196,7 +1291,7 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 <div class="demo-row">
 <div class="demo-cell" data-name="Progressive Blur" data-category="effects" data-library="magic-ui">
       <div class="component-label">Progressive Blur</div>
-      <div class="prog-blur-wrap"><div class="prog-blur-content">This content progressively blurs towards the bottom, creating a beautiful fade effect often seen in hero sections and content teasers.</div><div class="prog-blur-overlay"></div></div>
+      <div class="prog-blur-wrap"><div class="prog-blur-content">This content progressively blurs towards the bottom, creating a beautiful fade effect often seen in hero sections and content teasers. It simulates depth of field and draws focus to the top.</div><div class="prog-blur-overlay"><div class="prog-blur-layer"></div><div class="prog-blur-layer"></div><div class="prog-blur-layer"></div><div class="prog-blur-layer"></div><div class="prog-blur-layer"></div><div class="prog-blur-layer"></div></div></div>
       <span class="component-source">Magic UI</span>
     </div><div class="demo-cell" data-name="Smooth Cursor" data-category="effects" data-library="magic-ui">
       <div class="component-label">Smooth Cursor</div>
@@ -1997,6 +2092,132 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
 
+  <!-- ══ NEW HIGH-IMPACT COMPONENTS ════════════════ -->
+  <div class="section-title">New High-Impact Components</div>
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Dotted Map" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Dotted Map</div>
+      <div class="dotted-map-wrap"><svg class="dotted-map-svg" id="dottedMapSvg" viewBox="0 0 500 260"></svg></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Hero Video Dialog" data-category="cards" data-library="magic-ui">
+      <div class="component-label">Hero Video Dialog</div>
+      <div class="hero-video-wrap">
+        <div class="hero-video-thumb" id="heroVideoThumb" onclick="document.getElementById('heroVideoModal').classList.add('open')">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a1a20,#1a0a20,#0a200a);opacity:0.8"></div>
+          <div style="position:absolute;bottom:12px;left:14px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted)">product-demo.mp4</div>
+          <div class="hero-video-play"><div class="hero-video-play-btn"></div></div>
+        </div>
+      </div>
+      <div class="hero-video-modal" id="heroVideoModal" onclick="if(event.target===this)this.classList.remove('open')">
+        <div class="hero-video-player">
+          <div class="hero-video-player-gradient"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:1.5rem;color:rgba(255,255,255,0.8)">Playing...</div>
+          <div class="hero-video-controls">
+            <span>&#9654;</span>
+            <div class="hero-video-progress"><div class="hero-video-progress-fill"></div></div>
+            <span>1:24 / 3:47</span>
+          </div>
+          <button class="hero-video-close" onclick="document.getElementById('heroVideoModal').classList.remove('open')">&times;</button>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Video Text" data-category="text" data-library="magic-ui">
+      <div class="component-label">Video Text</div>
+      <div class="video-text-wrap"><div class="video-text">MAGIC</div></div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Text Reveal Card" data-category="cards" data-library="magic-ui">
+      <div class="component-label">Text Reveal Card</div>
+      <div class="text-reveal-card" id="textRevealCard">
+        <div class="text-reveal-content">Hover to reveal this hidden text. A spotlight follows your cursor and unblurs the content beneath.</div>
+        <div class="text-reveal-spotlight" id="textRevealSpotlight"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <div class="demo-cell" data-name="Data Table" data-category="data" data-library="shadcn" style="min-height:320px">
+      <div class="component-label">Data Table</div>
+      <div style="flex:1;overflow-x:auto">
+        <table class="sortable-data-table" id="sortableDataTable">
+          <thead><tr>
+            <th data-col="name" onclick="sortDataTable('name',this)">Name <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="email" onclick="sortDataTable('email',this)">Email <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="role" onclick="sortDataTable('role',this)">Role <span class="sort-arrow">&#9650;</span></th>
+            <th data-col="status" onclick="sortDataTable('status',this)">Status <span class="sort-arrow">&#9650;</span></th>
+          </tr></thead>
+          <tbody id="dataTableBody"></tbody>
+        </table>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+    <div class="demo-cell" data-name="Date Picker" data-category="forms" data-library="shadcn">
+      <div class="component-label">Date Picker</div>
+      <div class="date-picker" id="datePicker">
+        <div class="dp-header">
+          <button onclick="dpChangeMonth(-1)">&larr;</button>
+          <span id="dpMonthYear"></span>
+          <button onclick="dpChangeMonth(1)">&rarr;</button>
+        </div>
+        <div class="dp-grid" id="dpGrid"></div>
+        <div class="dp-selected-display" id="dpSelected"></div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Mega Menu Reveal" data-category="navigation" data-library="creative-arsenal" style="min-height:300px">
+      <div class="component-label">Mega Menu Reveal</div>
+      <div style="flex:1;display:flex;align-items:flex-start;padding-top:12px">
+        <div class="mega-menu-wrap">
+          <div class="mega-menu-bar">
+            <div class="mega-menu-item">Products</div>
+            <div class="mega-menu-item">Solutions</div>
+            <div class="mega-menu-item">Resources</div>
+            <div class="mega-menu-item">Pricing</div>
+          </div>
+          <div class="mega-menu-dropdown">
+            <div class="mega-menu-section">
+              <h4>Products</h4>
+              <a>Analytics Dashboard</a>
+              <a>API Gateway</a>
+              <a>Edge Functions</a>
+              <a>Storage Buckets</a>
+            </div>
+            <div class="mega-menu-section">
+              <h4>Solutions</h4>
+              <a>Enterprise</a>
+              <a>Startups</a>
+              <a>Open Source</a>
+              <a>Education</a>
+            </div>
+            <div class="mega-menu-section">
+              <h4>Resources</h4>
+              <a>Documentation</a>
+              <a>Blog</a>
+              <a>Changelog</a>
+              <a>Community</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+    <div class="demo-cell" data-name="Morphing Dialog" data-category="layout" data-library="magic-ui">
+      <div class="component-label">Morphing Dialog</div>
+      <div class="morph-dialog-wrap">
+        <button class="morph-dialog-trigger" id="morphDialogTrigger" onclick="toggleMorphDialog()">
+          <span class="morph-dialog-label">Open Dialog</span>
+          <div class="morph-dialog-body">This dialog morphed from a button. It smoothly transitions between compact and expanded states using CSS transitions.</div>
+          <button class="morph-dialog-close" onclick="event.stopPropagation();closeMorphDialog()">&times; Close</button>
+        </button>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+
   <!-- ══ REMOTION-BITS EXPANDED ═════════════════════ -->
   <div class="section-title">remotion-bits — Full Library</div>
   <div class="demo-row">
@@ -2090,7 +2311,7 @@ function <span class="hl">Analytics</span>() {
   </div>
 
   <div class="footer">
-    144 interactive components from Magic UI, shadcn/ui, Creative Arsenal, remotion-bits, Framer Motion, GSAP, Recharts, Vaul, and more
+    152 interactive components from Magic UI, shadcn/ui, Creative Arsenal, remotion-bits, Framer Motion, GSAP, Recharts, Vaul, and more
   </div>
 </div>
 <script>
@@ -2291,7 +2512,7 @@ const coolBtn=document.getElementById('coolModeBtn');
 if(coolBtn){coolBtn.addEventListener('click',e=>{const wrap=document.getElementById('coolModeWrap');const emojis=['\u{1F389}','\u{1F525}','\u26A1','\u2728','\u{1F4AB}','\u{1F680}','\u2B50','\u{1F4A5}'];const rect=wrap.getBoundingClientRect();for(let i=0;i<8;i++){const p=document.createElement('div');p.className='cool-particle';p.textContent=emojis[Math.floor(Math.random()*emojis.length)];p.style.left=(e.clientX-rect.left+(Math.random()-0.5)*40)+'px';p.style.top=(e.clientY-rect.top)+'px';p.style.animationDuration=(0.6+Math.random()*0.6)+'s';wrap.appendChild(p);setTimeout(()=>p.remove(),1200)}})}
 
 // ── FLICKERING GRID ──────────────────────────────
-(function(){const grid=document.getElementById('flickerGrid');if(!grid)return;for(let i=0;i<72;i++){const cell=document.createElement('div');cell.className='flicker-cell';cell.style.setProperty('--dur',(2+Math.random()*4)+'s');cell.style.setProperty('--del',(Math.random()*4)+'s');cell.style.setProperty('--peak',(0.2+Math.random()*0.8).toFixed(2));grid.appendChild(cell)}})();
+(function(){const grid=document.getElementById('flickerGrid');if(!grid)return;const colors=['rgba(16,185,129,0.7)','rgba(59,130,246,0.6)','rgba(139,92,246,0.6)','rgba(236,72,153,0.5)','rgba(16,185,129,0.5)','rgba(59,130,246,0.4)'];for(let i=0;i<72;i++){const cell=document.createElement('div');cell.className='flicker-cell';cell.style.setProperty('--dur',(1.5+Math.random()*3)+'s');cell.style.setProperty('--del',(Math.random()*5)+'s');cell.style.setProperty('--peak',(0.3+Math.random()*0.7).toFixed(2));cell.style.setProperty('--fc',colors[Math.floor(Math.random()*colors.length)]);grid.appendChild(cell)}})();
 
 // ── WARP BACKGROUND ──────────────────────────────
 (function(){const scene=document.getElementById('warpScene');if(!scene)return;for(let i=0;i<60;i++){const dot=document.createElement('div');dot.className='warp-dot';dot.style.left=Math.random()*100+'%';dot.style.top=Math.random()*100+'%';dot.style.setProperty('--wd',(4+Math.random()*6)+'s');dot.style.setProperty('--wx',(Math.random()*40-20)+'px');dot.style.setProperty('--wy',(Math.random()*40-20)+'px');dot.style.setProperty('--wx2',(Math.random()*40-20)+'px');dot.style.setProperty('--wy2',(Math.random()*40-20)+'px');dot.style.setProperty('--wx3',(Math.random()*40-20)+'px');dot.style.setProperty('--wy3',(Math.random()*40-20)+'px');dot.style.animationDelay=(Math.random()*4)+'s';scene.appendChild(dot)}})();
@@ -2302,8 +2523,8 @@ if(coolBtn){coolBtn.addEventListener('click',e=>{const wrap=document.getElementB
 // ── LIGHT RAYS ───────────────────────────────────
 (function(){const scene=document.getElementById('lightRaysScene');if(!scene)return;for(let i=0;i<12;i++){const ray=document.createElement('div');ray.className='light-ray';ray.style.left=(50+(Math.random()-0.5)*60)+'%';ray.style.transform=`rotate(${-20+Math.random()*40}deg)`;ray.style.animationDelay=(Math.random()*3)+'s';ray.style.animationDuration=(3+Math.random()*3)+'s';ray.style.opacity=0.1+Math.random()*0.3;scene.insertBefore(ray,scene.firstChild)}})();
 
-// ── ICON CLOUD ───────────────────────────────────
-(function(){const cloud=document.getElementById('iconCloud');if(!cloud)return;const icons=['\u269B\uFE0F','\u{1F537}','\u{1F7E2}','\u{1F4E6}','\u{1F527}','\u{1F48E}','\u{1F310}','\u{1F3A8}','\u26A1','\u{1F512}','\u{1F3AF}','\u{1F6E0}\uFE0F'];icons.forEach((icon,i)=>{const el=document.createElement('div');el.className='icon-cloud-item';el.textContent=icon;el.style.setProperty('--start',(i*30)+'deg');el.style.setProperty('--cd',(6+Math.random()*6)+'s');el.style.left='85px';el.style.top='85px';cloud.appendChild(el)})})();
+// ── ICON CLOUD (3D SPHERE) ───────────────────────
+(function(){const inner=document.getElementById('iconCloudInner');if(!inner)return;const icons=['\u269B\uFE0F','\u{1F537}','\u{1F7E2}','\u{1F4E6}','\u{1F527}','\u{1F48E}','\u{1F310}','\u{1F3A8}','\u26A1','\u{1F512}','\u{1F3AF}','\u{1F6E0}\uFE0F','\u{1F4A1}','\u{1F680}'];const n=icons.length;icons.forEach((icon,i)=>{const el=document.createElement('div');el.className='icon-cloud-item';el.textContent=icon;const phi=Math.acos(1-2*(i+0.5)/n);const theta=(Math.PI*(1+Math.sqrt(5)))*i;const ry=(theta*180/Math.PI)%360;const rx=90-(phi*180/Math.PI);el.style.setProperty('--ry',ry+'deg');el.style.setProperty('--rx',rx+'deg');inner.appendChild(el)})})();
 
 // ── LENS ─────────────────────────────────────────
 (function(){const scene=document.getElementById('lensScene');const lens=document.getElementById('lensCircle');if(!scene||!lens)return;scene.addEventListener('mousemove',e=>{const r=scene.getBoundingClientRect();lens.style.left=(e.clientX-r.left-50)+'px';lens.style.top=(e.clientY-r.top-50)+'px'})})();
@@ -2457,6 +2678,70 @@ function setStep(n){const el=document.getElementById('stepResponsiveEl');const b
 
 // ── CODE COMPARISON SLIDER ───────────────────────
 (function(){const wrap=document.getElementById('codeCompareWrap');const handle=document.getElementById('codeCompareHandle');const after=document.getElementById('codeCompareAfter');if(!wrap||!handle||!after)return;let dragging=false;function setPosition(x){const rect=wrap.getBoundingClientRect();let pct=Math.max(0,Math.min(100,((x-rect.left)/rect.width)*100));handle.style.left=pct+'%';after.style.clipPath='inset(0 '+(100-pct)+'% 0 0)'}handle.addEventListener('mousedown',()=>{dragging=true});document.addEventListener('mousemove',e=>{if(dragging)setPosition(e.clientX)});document.addEventListener('mouseup',()=>{dragging=false});handle.addEventListener('touchstart',()=>{dragging=true});document.addEventListener('touchmove',e=>{if(dragging&&e.touches[0])setPosition(e.touches[0].clientX)});document.addEventListener('touchend',()=>{dragging=false});wrap.addEventListener('click',e=>{setPosition(e.clientX)})})();
+
+// ── DOTTED MAP ──────────────────────────────────
+(function(){const svg=document.getElementById('dottedMapSvg');if(!svg)return;
+const continents=[
+// North America (simplified)
+[[60,30],[70,35],[80,40],[90,50],[100,55],[110,60],[120,65],[130,70],[140,75],[150,70],[140,60],[130,55],[120,50],[115,45],[110,35],[105,30],[100,28],[95,25],[90,22],[85,25],[80,28],[75,30],[70,30]],
+[[155,80],[165,85],[175,90],[180,95],[185,100],[190,105],[195,100],[200,95],[195,90],[190,85],[185,80],[175,75],[165,72],[155,75]],
+[[100,60],[110,65],[120,70],[130,80],[140,85],[145,90],[148,95],[150,100],[145,105],[140,110],[130,105],[120,100],[110,95],[105,90],[100,85],[95,80],[90,70],[95,65]],
+// South America
+[[165,140],[170,145],[175,155],[180,165],[178,175],[175,185],[170,195],[165,200],[160,205],[155,210],[150,215],[148,220],[152,225],[155,218],[160,210],[165,200],[168,190],[170,180],[172,170],[170,160],[168,150],[165,145]],
+// Europe
+[[260,35],[265,40],[270,45],[275,42],[280,38],[285,35],[290,32],[295,35],[300,40],[295,45],[290,48],[285,50],[280,55],[275,58],[270,60],[265,55],[260,50],[255,45],[252,40],[255,38]],
+// Africa
+[[260,90],[265,85],[270,80],[275,82],[280,85],[285,90],[290,95],[295,100],[298,110],[300,120],[298,130],[295,140],[290,150],[285,158],[280,165],[275,170],[270,175],[265,172],[260,165],[258,155],[255,145],[250,135],[248,125],[250,115],[252,105],[255,100],[258,95]],
+// Asia
+[[310,30],[320,28],[330,25],[340,28],[350,30],[360,35],[370,38],[380,40],[390,45],[395,50],[398,55],[400,60],[395,65],[390,70],[385,75],[380,80],[375,85],[370,82],[365,78],[360,75],[355,70],[350,65],[345,60],[340,55],[335,50],[330,45],[325,40],[320,38],[315,35]],
+[[340,60],[345,65],[350,70],[355,75],[360,80],[365,85],[370,90],[368,95],[365,100],[360,98],[355,95],[350,90],[345,85],[340,80],[338,75],[340,70]],
+// Australia
+[[380,160],[385,155],[390,152],[395,150],[400,152],[405,155],[410,160],[412,165],[410,170],[405,175],[400,178],[395,180],[390,178],[385,175],[382,170],[380,165]],
+// India
+[[330,80],[335,85],[338,90],[340,95],[342,100],[340,105],[338,110],[335,115],[330,112],[328,107],[325,100],[323,95],[325,90],[328,85]],
+];
+const spacing=6;continents.forEach(function(outline){const minX=Math.min(...outline.map(function(p){return p[0]}))-5;const maxX=Math.max(...outline.map(function(p){return p[0]}))+5;const minY=Math.min(...outline.map(function(p){return p[1]}))-5;const maxY=Math.max(...outline.map(function(p){return p[1]}))+5;for(let x=minX;x<=maxX;x+=spacing){for(let y=minY;y<=maxY;y+=spacing){if(pointInPolygon(x,y,outline)){const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r','1.5');c.setAttribute('fill','#10b981');c.setAttribute('opacity',(0.3+Math.random()*0.6).toFixed(2));svg.appendChild(c)}}}});
+function pointInPolygon(x,y,poly){let inside=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))inside=!inside}return inside}
+})();
+
+// ── TEXT REVEAL CARD ────────────────────────────
+(function(){const card=document.getElementById('textRevealCard');const spot=document.getElementById('textRevealSpotlight');if(!card||!spot)return;card.addEventListener('mousemove',function(e){const r=card.getBoundingClientRect();spot.style.left=e.clientX-r.left+'px';spot.style.top=e.clientY-r.top+'px'})})();
+
+// ── SORTABLE DATA TABLE ─────────────────────────
+(function(){const tbody=document.getElementById('dataTableBody');if(!tbody)return;
+const data=[
+{name:'Alice Chen',email:'alice@acme.co',role:'Engineer',status:'Active'},
+{name:'Bob Martinez',email:'bob@acme.co',role:'Designer',status:'Active'},
+{name:'Clara Dubois',email:'clara@acme.co',role:'PM',status:'Pending'},
+{name:'David Kim',email:'david@acme.co',role:'Engineer',status:'Inactive'},
+{name:'Eva Singh',email:'eva@acme.co',role:'Marketing',status:'Active'},
+{name:'Frank Wu',email:'frank@acme.co',role:'Engineer',status:'Active'},
+{name:'Grace Lee',email:'grace@acme.co',role:'Designer',status:'Pending'},
+{name:'Hiro Tanaka',email:'hiro@acme.co',role:'DevOps',status:'Active'}
+];
+window._dtData=data;window._dtSortCol=null;window._dtSortDir=1;renderDT(data)})();
+function renderDT(data){const tbody=document.getElementById('dataTableBody');if(!tbody)return;tbody.innerHTML='';data.forEach(function(r){const cls=r.status==='Active'?'active-badge':r.status==='Inactive'?'inactive-badge':'pending-badge';tbody.innerHTML+='<tr><td>'+r.name+'</td><td style="color:var(--muted)">'+r.email+'</td><td>'+r.role+'</td><td><span class="status-badge '+cls+'">'+r.status+'</span></td></tr>'})}
+function sortDataTable(col,thEl){const ths=document.querySelectorAll('#sortableDataTable th');ths.forEach(function(t){t.classList.remove('sorted')});if(window._dtSortCol===col)window._dtSortDir*=-1;else{window._dtSortCol=col;window._dtSortDir=1}thEl.classList.add('sorted');thEl.querySelector('.sort-arrow').textContent=window._dtSortDir>0?'\u25B2':'\u25BC';const sorted=window._dtData.slice().sort(function(a,b){return a[col].localeCompare(b[col])*window._dtSortDir});renderDT(sorted)}
+
+// ── DATE PICKER ─────────────────────────────────
+(function(){const grid=document.getElementById('dpGrid');if(!grid)return;
+window._dpDate=new Date();window._dpSelected=null;
+const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+window.dpChangeMonth=function(dir){window._dpDate.setMonth(window._dpDate.getMonth()+dir);renderDP()};
+function renderDP(){const d=window._dpDate;const year=d.getFullYear();const month=d.getMonth();document.getElementById('dpMonthYear').textContent=months[month]+' '+year;const grid=document.getElementById('dpGrid');grid.innerHTML='';
+['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function(l){const el=document.createElement('div');el.className='dp-day-label';el.textContent=l;grid.appendChild(el)});
+const first=new Date(year,month,1).getDay();const daysInMonth=new Date(year,month+1,0).getDate();const today=new Date();
+for(let i=0;i<first;i++){const el=document.createElement('div');el.className='dp-day empty';grid.appendChild(el)}
+for(let day=1;day<=daysInMonth;day++){const el=document.createElement('div');el.className='dp-day';el.textContent=day;
+if(day===today.getDate()&&month===today.getMonth()&&year===today.getFullYear())el.classList.add('today');
+if(window._dpSelected&&day===window._dpSelected.d&&month===window._dpSelected.m&&year===window._dpSelected.y)el.classList.add('selected');
+el.addEventListener('click',function(){window._dpSelected={d:day,m:month,y:year};document.getElementById('dpSelected').textContent=months[month]+' '+day+', '+year;renderDP()});
+grid.appendChild(el)}}
+renderDP()})();
+
+// ── MORPHING DIALOG ─────────────────────────────
+function toggleMorphDialog(){const el=document.getElementById('morphDialogTrigger');if(el.classList.contains('morph-open')){closeMorphDialog()}else{el.classList.add('morph-open');el.querySelector('.morph-dialog-label').textContent='Dialog Title'}}
+function closeMorphDialog(){const el=document.getElementById('morphDialogTrigger');el.classList.remove('morph-open');el.querySelector('.morph-dialog-label').textContent='Open Dialog'}
 
 // ── INIT FILTER COUNT ────────────────────────────
 filterComponents();
