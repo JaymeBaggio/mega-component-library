@@ -1156,10 +1156,13 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
       <span class="component-source">Magic UI</span>
     </div></div>
 <div class="demo-row">
-<div class="demo-cell" data-name="Globe (wireframe)" data-category="effects" data-library="magic-ui">
-      <div class="component-label">Globe (wireframe)</div>
-      <div class="globe-scene"><div class="globe-wrap" id="globeWrap"><div class="globe-circle"></div></div></div>
-      <span class="component-source">Magic UI</span>
+<div class="demo-cell" data-name="Globe (COBE)" data-category="effects" data-library="magic-ui" style="min-height:320px">
+      <div class="component-label">Globe (COBE)</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        <canvas id="cobeGlobe" width="520" height="520" style="width:260px;height:260px;cursor:grab;opacity:0;transition:opacity 1s ease"></canvas>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace">drag to rotate &middot; built on COBE</div>
+      </div>
+      <span class="component-source">Magic UI (COBE)</span>
     </div><div class="demo-cell" data-name="Lens — magnify on hover" data-category="effects" data-library="magic-ui">
       <div class="component-label">Lens — magnify on hover</div>
       <div class="lens-scene" id="lensScene"><div class="lens-bg">Move cursor here to see magnification effect</div><div class="lens-circle" id="lensCircle"><div class="lens-magnified"></div></div></div>
@@ -2428,6 +2431,74 @@ window.addEventListener("scroll", () => {
   if(bar) bar.style.width = ((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100) + "%";
 });
 
+</script>
+<script type="module">
+import createGlobe from 'https://esm.sh/cobe@0.6.3';
+
+const canvas = document.getElementById('cobeGlobe');
+if (canvas) {
+  let phi = 0;
+  let pointerInteracting = null;
+  let pointerInteractionMovement = 0;
+  const width = canvas.offsetWidth;
+
+  const globe = createGlobe(canvas, {
+    devicePixelRatio: 2,
+    width: width * 2,
+    height: width * 2,
+    phi: 0,
+    theta: 0.3,
+    dark: 1,
+    diffuse: 1.2,
+    mapSamples: 16000,
+    mapBrightness: 6,
+    baseColor: [0.3, 0.3, 0.3],
+    markerColor: [251 / 255, 100 / 255, 21 / 255],
+    glowColor: [0.05, 0.05, 0.05],
+    markers: [
+      { location: [14.5995, 120.9842], size: 0.03 },
+      { location: [19.076, 72.8777], size: 0.1 },
+      { location: [23.8103, 90.4125], size: 0.05 },
+      { location: [30.0444, 31.2357], size: 0.07 },
+      { location: [39.9042, 116.4074], size: 0.08 },
+      { location: [-23.5505, -46.6333], size: 0.1 },
+      { location: [19.4326, -99.1332], size: 0.1 },
+      { location: [40.7128, -74.006], size: 0.1 },
+      { location: [34.6937, 135.5022], size: 0.05 },
+      { location: [41.0082, 28.9784], size: 0.06 },
+      { location: [-33.8688, 151.2093], size: 0.08 },
+      { location: [51.5074, -0.1278], size: 0.07 },
+    ],
+    onRender: (state) => {
+      if (!pointerInteracting) phi += 0.005;
+      state.phi = phi + pointerInteractionMovement;
+      state.width = width * 2;
+      state.height = width * 2;
+    },
+  });
+
+  canvas.style.opacity = '1';
+
+  canvas.addEventListener('pointerdown', (e) => {
+    pointerInteracting = e.clientX;
+    canvas.style.cursor = 'grabbing';
+  });
+  canvas.addEventListener('pointerup', () => {
+    pointerInteracting = null;
+    canvas.style.cursor = 'grab';
+  });
+  canvas.addEventListener('pointerout', () => {
+    pointerInteracting = null;
+    canvas.style.cursor = 'grab';
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (pointerInteracting !== null) {
+      const delta = e.clientX - pointerInteracting;
+      pointerInteractionMovement += delta / 200;
+      pointerInteracting = e.clientX;
+    }
+  });
+}
 </script>
 </body>
 </html>
