@@ -1209,6 +1209,9 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .spinner-wave span:nth-child(5){animation-delay:0.4s}
 @keyframes waveBar{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1.2)}}
 
+@keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes gentleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
 .footer{text-align:center;padding:80px 0 40px;color:var(--muted);font-size:0.8rem}
 </style>
 </head>
@@ -2821,10 +2824,10 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Dashboard Home" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:320px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Dashboard Home</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:#f8f9fa;border-radius:14px;width:100%;max-width:700px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:700px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
         <!-- Nav -->
-        <div style="display:flex;align-items:center;gap:28px;padding:14px 24px;border-bottom:1px solid #e5e7eb;background:white;font-size:0.8rem">
+        <div style="display:flex;align-items:center;gap:28px;padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06);background:#fefefe;font-size:0.8rem">
           <span style="background:#4472c4;color:white;padding:8px 18px;border-radius:8px;font-weight:600;display:flex;align-items:center;gap:6px">&#8962; Home</span>
           <span style="color:#6b7280;display:flex;align-items:center;gap:5px">&#128196; Content Studio</span>
           <span style="color:#6b7280;display:flex;align-items:center;gap:5px">&#9881; Settings</span>
@@ -2837,16 +2840,16 @@ function <span class="hl">Analytics</span>() {
           <div style="font-size:0.85rem;color:#6b7280;margin-top:8px;font-style:italic">Your own expertise. At scale.</div>
         </div>
         <!-- Overview -->
-        <div style="margin:10px 20px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px">
+        <div style="margin:10px 20px;background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="font-weight:700;font-size:0.8rem;margin-bottom:12px">Overview</div>
           <div style="display:flex;text-align:center">
             <div style="flex:1"><div style="font-weight:800;font-size:1.3rem">4</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Posts this week</div></div>
-            <div style="flex:1;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb"><div style="font-weight:800;font-size:1.3rem">836</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Drafts to review</div></div>
+            <div style="flex:1;border-left:1px solid rgba(0,0,0,0.06);border-right:1px solid rgba(0,0,0,0.06)"><div style="font-weight:800;font-size:1.3rem">836</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Drafts to review</div></div>
             <div style="flex:1"><div style="font-weight:800;font-size:1.3rem">31</div><div style="font-size:0.65rem;color:#6b7280;margin-top:2px">Posts approved</div></div>
           </div>
         </div>
         <!-- Recent drafts -->
-        <div style="margin:10px 20px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px">
+        <div style="margin:10px 20px;background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="font-weight:700;font-size:0.8rem;margin-bottom:12px">Recent drafts</div>
           <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #f3f4f6">
             <div><div style="font-size:0.8rem;font-weight:500">The Munger Formula: Simple Wealth Building for Busy UK Professionals</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">16/03/2026</div></div>
@@ -2868,19 +2871,19 @@ function <span class="hl">Analytics</span>() {
     </div>
     <div class="demo-cell" data-name="Feature Selection Grid" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Feature Selection Grid</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:#f8f9fa;border-radius:14px;width:100%;max-width:340px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-        <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 16px;border-bottom:1px solid #e5e7eb;background:white;font-size:0.7rem">
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:340px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+        <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 16px;border-bottom:1px solid rgba(0,0,0,0.06);background:#fefefe;font-size:0.7rem">
           <span style="color:#6b7280">&#8962; Home</span>
           <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-weight:600">&#128196; Content Studio</span>
           <span style="color:#6b7280">&#9881; Settings</span>
         </div>
         <div style="text-align:center;padding:20px 16px 8px"><div style="font-weight:800;font-size:1.2rem">Content Studio</div><div style="font-size:0.7rem;color:#6b7280;margin-top:4px">Choose how you want to create LinkedIn content</div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px">
-          <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e5e7eb'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128194;</div><div style="font-weight:700;font-size:0.75rem">Drafts Management</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">View, edit, and approve your draft posts</div></div>
-          <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e5e7eb'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128221;</div><div style="font-weight:700;font-size:0.75rem">Generate Weekly Posts</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create posts from trending topics</div></div>
-          <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e5e7eb'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128196;</div><div style="font-weight:700;font-size:0.75rem">Generate from Article</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Turn an article into a LinkedIn post</div></div>
-          <div style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e5e7eb'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128161;</div><div style="font-weight:700;font-size:0.75rem">Generate from Idea</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create a post from your own topic</div></div>
+          <div style="background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='rgba(0,0,0,0.06)'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128194;</div><div style="font-weight:700;font-size:0.75rem">Drafts Management</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">View, edit, and approve your draft posts</div></div>
+          <div style="background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='rgba(0,0,0,0.06)'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128221;</div><div style="font-weight:700;font-size:0.75rem">Generate Weekly Posts</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create posts from trending topics</div></div>
+          <div style="background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='rgba(0,0,0,0.06)'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128196;</div><div style="font-weight:700;font-size:0.75rem">Generate from Article</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Turn an article into a LinkedIn post</div></div>
+          <div style="background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='rgba(0,0,0,0.06)'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128161;</div><div style="font-weight:700;font-size:0.75rem">Generate from Idea</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create a post from your own topic</div></div>
         </div>
       </div>
       </div>
@@ -2890,12 +2893,12 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Step Progress Indicator" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Step Progress Indicator</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:white;border-radius:14px;width:100%;max-width:500px;padding:24px 28px;font-family:'Satoshi',sans-serif;color:#1a1a2e;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:500px;padding:24px 28px;font-family:'Satoshi',sans-serif;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
         <div style="text-align:center;margin-bottom:16px"><div style="font-weight:800;font-size:1.1rem">Generate Weekly Posts</div><div style="font-size:0.7rem;color:#6b7280;margin-top:4px">Generate AI-powered LinkedIn posts from trending topics</div></div>
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:20px">
           <div style="padding:8px 16px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.75rem;color:#6b7280;background:#f9fafb">5 posts &#9660;</div>
-          <div style="padding:10px 32px;background:#2563eb;border-radius:8px;font-size:0.8rem;color:white;font-weight:600;cursor:pointer;white-space:nowrap" id="caGenerateBtn" onclick="startCaProgress()">Generate</div>
+          <div style="padding:10px 32px;background:#2563eb;border-radius:8px;font-size:0.8rem;color:white;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s;transform:translateY(0)" id="caGenerateBtn" onclick="startCaProgress()" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Generate</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px" id="caSteps">
           <div class="ca-step" data-step="0" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">1</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Reading your tone of voice settings</span></div>
@@ -2910,9 +2913,9 @@ function <span class="hl">Analytics</span>() {
     </div>
     <div class="demo-cell" data-name="Onboarding Wizard" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Onboarding Wizard</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:14%;background:#2563eb;border-radius:0 2px 2px 0"></div></div>
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:14%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:20px 20px 16px;text-align:center">
             <div style="text-align:right;font-size:0.6rem;color:#9ca3af;margin-bottom:8px">1/7 &times;</div>
             <div style="font-family:serif;font-weight:700;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
@@ -2923,7 +2926,7 @@ function <span class="hl">Analytics</span>() {
             <div style="text-align:left;margin-bottom:4px;font-size:0.65rem;font-weight:600">Your name</div>
             <input type="text" value="Test Again" readonly style="width:100%;padding:8px 10px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;font-family:'Satoshi',sans-serif;margin-bottom:8px;box-sizing:border-box">
             <div style="font-size:0.5rem;color:#9ca3af;margin-bottom:12px">By continuing, you agree to our Terms of Service and Privacy Policy.</div>
-            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 16px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer">Continue</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 16px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Continue</span></div>
           </div>
         </div>
       </div>
@@ -2931,16 +2934,16 @@ function <span class="hl">Analytics</span>() {
     </div>
     <div class="demo-cell" data-name="Empty State with CTA" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Empty State with CTA</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:57%;background:#2563eb;border-radius:0 2px 2px 0"></div></div>
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:57%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:20px;text-align:center">
             <div style="font-family:serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase">Calm Authority</div>
             <div style="font-weight:700;font-size:0.8rem;margin:12px 0 4px">Watch us turn your inputs into a draft post</div>
             <div style="font-size:0.6rem;color:#6b7280;margin-bottom:16px">In a few seconds you will see a sample post that would normally take you 30-60 minutes to write.</div>
-            <div style="border:2px dashed #e5e7eb;border-radius:12px;padding:24px 16px;margin-bottom:12px"><div style="font-size:1.2rem;margin-bottom:6px">&#10024;</div><div style="font-size:0.65rem;color:#9ca3af;margin-bottom:10px">Your sample draft will appear here</div><div style="display:inline-block;background:#2563eb;color:white;padding:8px 20px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer">Generate a sample post</div></div>
+            <div style="border:2px dashed #e5e7eb;border-radius:12px;padding:24px 16px;margin-bottom:12px"><div style="font-size:1.2rem;margin-bottom:6px"><span style="display:inline-block;animation:gentleFloat 3s ease-in-out infinite">&#10024;</span></div><div style="font-size:0.65rem;color:#9ca3af;margin-bottom:10px">Your sample draft will appear here</div><div style="display:inline-block;background:#2563eb;color:white;padding:8px 20px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Generate a sample post</div></div>
             <div style="font-size:0.55rem;color:#9ca3af;line-height:1.5">This is proof that Calm Authority can do the heavy lifting while you focus on judgement and tweaks.</div>
-            <div style="display:flex;gap:8px;align-items:center;margin-top:12px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="margin-left:auto;background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer">Continue</span></div>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:12px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="margin-left:auto;background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Continue</span></div>
           </div>
         </div>
       </div>
@@ -2950,9 +2953,9 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Generated Content Review" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:420px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Generated Content Review</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:20px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:600px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:28%;background:#2563eb;border-radius:0 2px 2px 0"></div></div>
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:600px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:28%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:24px 32px;text-align:center;font-family:'Satoshi',sans-serif">
             <div style="text-align:right;font-size:0.65rem;color:#9ca3af;margin-bottom:8px">2/7 &times;</div>
             <div style="font-family:serif;font-weight:700;font-size:1rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
@@ -2961,7 +2964,7 @@ function <span class="hl">Analytics</span>() {
             <div style="font-weight:700;font-size:1.1rem;margin-bottom:8px">Your tone of voice</div>
             <div style="font-size:0.7rem;color:#6b7280;line-height:1.6;margin-bottom:16px">We will analyse rhythm, structure and phrasing so every draft matches your own tone-of-voice blueprint, not a generic AI script. The better the samples, the stronger the output.</div>
             <!-- Scrollable green tone card -->
-            <div style="border:1px solid #22c55e;border-radius:12px;padding:16px 18px;text-align:left;margin-bottom:12px;max-height:180px;overflow-y:auto;background:rgba(34,197,94,0.03)">
+            <div style="border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:16px 18px;text-align:left;margin-bottom:12px;max-height:180px;overflow-y:auto;background:linear-gradient(135deg, rgba(34,197,94,0.02), rgba(34,197,94,0.06))">
               <div style="font-size:0.65rem;color:#22c55e;font-weight:600;margin-bottom:10px">&#10003; GENERATED TONE OF VOICE</div>
               <div style="font-size:0.75rem;font-weight:700;margin-bottom:3px;color:#1a1a2e">Tone personality</div>
               <div style="font-size:0.7rem;color:#4b5563;margin-bottom:12px;line-height:1.5">Authoritative yet empathetic, blending technical financial expertise with philosophical life coaching.</div>
@@ -2980,7 +2983,7 @@ function <span class="hl">Analytics</span>() {
             </div>
             <div style="text-align:left;font-size:0.65rem;color:#6b7280;margin-bottom:4px;cursor:pointer">&#8592; Edit samples and regenerate</div>
             <div style="text-align:left;font-size:0.6rem;color:#9ca3af;line-height:1.5;margin-bottom:14px">This version will be saved in your settings as V1. You can regenerate your tone of voice using new examples at any time and save each version to your history.</div>
-            <div style="display:flex;gap:10px;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.7rem;color:#6b7280;padding:5px 14px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 18px;border-radius:6px;font-size:0.7rem;font-weight:600;cursor:pointer">Save & continue</span></div>
+            <div style="display:flex;gap:10px;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.7rem;color:#6b7280;padding:5px 14px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 18px;border-radius:6px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Save & continue</span></div>
           </div>
         </div>
       </div>
@@ -2988,9 +2991,9 @@ function <span class="hl">Analytics</span>() {
     </div>
     <div class="demo-cell" data-name="Multi-field Settings Form" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Multi-field Settings Form</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:42%;background:#2563eb;border-radius:0 2px 2px 0"></div></div>
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+          <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:42%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:16px 20px">
             <div style="font-family:serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center">Calm Authority</div>
             <div style="font-weight:700;font-size:0.8rem;text-align:center;margin:10px 0 4px">Become a calm authority in your industry</div>
@@ -3001,7 +3004,7 @@ function <span class="hl">Analytics</span>() {
               <div><div style="font-size:0.55rem;font-weight:600;margin-bottom:2px">Target Audience</div><input type="text" value="High Net Worth individuals" readonly style="width:100%;padding:5px 6px;border:1px solid #e5e7eb;border-radius:6px;font-size:0.55rem;font-family:'Satoshi',sans-serif;box-sizing:border-box;color:#1a1a2e"></div>
               <div><div style="font-size:0.55rem;font-weight:600;margin-bottom:2px">Your role</div><input type="text" value="Founder & Financial planner" readonly style="width:100%;padding:5px 6px;border:1px solid #e5e7eb;border-radius:6px;font-size:0.55rem;font-family:'Satoshi',sans-serif;box-sizing:border-box;color:#1a1a2e"></div>
             </div>
-            <div style="display:flex;gap:8px;align-items:center;margin-top:10px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer">Save & continue</span></div>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:10px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Save & continue</span></div>
           </div>
         </div>
       </div>
@@ -3012,8 +3015,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Generate from Idea" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Generate from Idea — Structure Picker</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:0 20px 50px rgba(0,0,0,0.3);font-family:'Satoshi',sans-serif;padding:22px 24px">
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;padding:22px 24px">
           <!-- Header -->
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
             <div>
@@ -3034,7 +3037,7 @@ function <span class="hl">Analytics</span>() {
             <div style="margin-left:auto;font-size:0.6rem;color:#9ca3af">Step 5 of 5</div>
           </div>
           <!-- Instruction -->
-          <div style="padding:10px 12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;font-size:0.65rem;color:#6b7280;margin-bottom:14px">Choose a structure and add any extra tone guidance for this post.</div>
+          <div style="padding:10px 12px;background:#f9fafb;border:1px solid rgba(0,0,0,0.06);border-radius:8px;font-size:0.65rem;color:#6b7280;margin-bottom:14px">Choose a structure and add any extra tone guidance for this post.</div>
           <!-- Structure select -->
           <div style="font-size:0.7rem;font-weight:600;margin-bottom:5px">Choose a structure (optional)</div>
           <div style="padding:9px 12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;font-size:0.7rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;margin-bottom:4px" id="ideaStructBtn" onclick="document.getElementById('ideaStructDrop').style.display=document.getElementById('ideaStructDrop').style.display==='none'?'block':'none'">Default – use my usual style <span style="color:#9ca3af">&#9660;</span></div>
@@ -3049,7 +3052,7 @@ function <span class="hl">Analytics</span>() {
             <div style="padding:6px 14px;border:1px solid #e5e7eb;border-radius:6px;font-size:0.65rem;font-weight:500;cursor:pointer">&#8592; Back</div>
             <div style="display:flex;align-items:center;gap:10px">
               <span style="font-size:0.65rem;color:#6b7280;cursor:pointer">Skip this step</span>
-              <div style="padding:8px 20px;background:#2563eb;border-radius:8px;font-size:0.7rem;color:white;font-weight:600;cursor:pointer">Generate Post</div>
+              <div style="padding:8px 20px;background:#2563eb;border-radius:8px;font-size:0.7rem;color:white;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Generate Post</div>
             </div>
           </div>
         </div>
@@ -3060,8 +3063,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Draft Post Card" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Draft Post Card</div>
-      <div style="background:#3a3a40;border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:white;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:0 20px 50px rgba(0,0,0,0.3);font-family:'Satoshi',sans-serif;display:flex;flex-direction:column;overflow:hidden">
+      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;display:flex;flex-direction:column;overflow:hidden">
           <!-- Scrollable post content -->
           <div style="padding:20px 22px 0;overflow-y:auto;max-height:220px;flex-shrink:0">
             <div style="font-weight:800;font-size:0.95rem;margin-bottom:6px;font-family:'Cabinet Grotesk',sans-serif">Three Critical Questions for Financial Clarity</div>
@@ -3096,6 +3099,7 @@ function <span class="hl">Analytics</span>() {
               <div style="font-size:0.6rem;color:#4b5563;line-height:1.5">This post reframes the conversation around personal values and long-term strategy. It targets high earners overwhelmed by economic noise.</div>
               <div style="font-size:0.55rem;color:#6b7280;margin-top:4px">Source: I'm a Financial Adviser (<span style="color:#2563eb;cursor:pointer">View source</span>)</div>
             </div>
+            <div style="position:sticky;bottom:0;height:30px;background:linear-gradient(transparent, #fefefe);pointer-events:none;margin-top:-30px"></div>
           </div>
           <!-- Fixed bottom: timestamp, buttons, structure -->
           <div style="padding:12px 22px 16px;border-top:1px solid #f3f4f6;flex-shrink:0">
