@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magic UI Components — Full Showcase</title>
-<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0a0b;--card:#141416;--border:rgba(255,255,255,0.06);--text:#e4e4e7;--muted:#71717a;--accent:#10b981;--accent2:#3b82f6;--accent3:#8b5cf6}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1211,7 +1211,16 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 
 @keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 @keyframes gentleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.ca-backdrop{position:relative;isolation:isolate}
+.ca-backdrop::after{content:'';position:absolute;inset:0;border-radius:inherit;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");mix-blend-mode:overlay;pointer-events:none;z-index:0}
+.ca-backdrop>*{position:relative;z-index:1}
+.ca-white-card{transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),box-shadow 0.5s ease}
+.ca-white-card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),0 30px 70px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.03),0 0 40px rgba(37,99,235,0.03)!important}
 
+.ca-card-bg{position:relative}
+.ca-card-bg::after{content:'';position:absolute;inset:0;border-radius:inherit;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;opacity:0.4;mix-blend-mode:overlay}
+.ca-white-card{transition:box-shadow 0.4s ease,transform 0.4s ease}
+.ca-white-card:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 30px 70px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.04), 0 0 30px rgba(37,99,235,0.04) !important;transform:translateY(-2px)}
 .footer{text-align:center;padding:80px 0 40px;color:var(--muted);font-size:0.8rem}
 </style>
 </head>
@@ -2824,8 +2833,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Dashboard Home" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:320px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Dashboard Home</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:700px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:700px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
         <!-- Nav -->
         <div style="display:flex;align-items:center;gap:28px;padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06);background:#fefefe;font-size:0.8rem">
           <span style="background:#4472c4;color:white;padding:8px 18px;border-radius:8px;font-weight:600;display:flex;align-items:center;gap:6px">&#8962; Home</span>
@@ -2835,7 +2844,7 @@ function <span class="hl">Analytics</span>() {
         </div>
         <!-- Brand -->
         <div style="text-align:center;padding:24px 24px 12px">
-          <div style="font-family:serif;font-weight:700;font-size:1.1rem;letter-spacing:0.15em;text-transform:uppercase;color:#1a1a2e">Calm Authority</div>
+          <div style="font-family:'Cormorant Garamond',serif;letter-spacing:0.18em;font-weight:700;font-size:1.1rem;text-transform:uppercase;color:#1a1a2e">Calm Authority</div>
           <div style="font-size:0.6rem;letter-spacing:0.2em;color:#999;margin-top:3px">EST 25</div>
           <div style="font-size:0.85rem;color:#6b7280;margin-top:8px;font-style:italic">Your own expertise. At scale.</div>
         </div>
@@ -2866,13 +2875,14 @@ function <span class="hl">Analytics</span>() {
         </div>
         <div style="height:16px"></div>
       </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
     <div class="demo-cell" data-name="Feature Selection Grid" data-category="layout" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Feature Selection Grid</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:340px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:340px;font-family:'Satoshi',sans-serif;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
         <div style="display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 16px;border-bottom:1px solid rgba(0,0,0,0.06);background:#fefefe;font-size:0.7rem">
           <span style="color:#6b7280">&#8962; Home</span>
           <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-weight:600">&#128196; Content Studio</span>
@@ -2886,6 +2896,7 @@ function <span class="hl">Analytics</span>() {
           <div style="background:#fefefe;border:1px solid rgba(0,0,0,0.06);border-radius:12px;padding:16px;cursor:pointer;transition:border-color 0.2s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='rgba(0,0,0,0.06)'"><div style="width:32px;height:32px;border-radius:8px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#2563eb;margin-bottom:8px">&#128161;</div><div style="font-weight:700;font-size:0.75rem">Generate from Idea</div><div style="font-size:0.6rem;color:#6b7280;margin-top:2px">Create a post from your own topic</div></div>
         </div>
       </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
@@ -2893,8 +2904,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Step Progress Indicator" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Step Progress Indicator</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div style="background:#fefefe;border-radius:14px;width:100%;max-width:500px;padding:24px 28px;font-family:'Satoshi',sans-serif;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:500px;padding:24px 28px;font-family:'Satoshi',sans-serif;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
         <div style="text-align:center;margin-bottom:16px"><div style="font-weight:800;font-size:1.1rem">Generate Weekly Posts</div><div style="font-size:0.7rem;color:#6b7280;margin-top:4px">Generate AI-powered LinkedIn posts from trending topics</div></div>
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:20px">
           <div style="padding:8px 16px;border:1px solid #e5e7eb;border-radius:8px;font-size:0.75rem;color:#6b7280;background:#f9fafb">5 posts &#9660;</div>
@@ -2908,17 +2919,18 @@ function <span class="hl">Analytics</span>() {
           <div class="ca-step" data-step="4" style="display:flex;align-items:center;gap:12px"><div class="ca-step-icon" style="width:28px;height:28px;border-radius:50%;background:#e8eaed;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.4s"><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">5</span></div><span class="ca-step-text" style="font-size:0.8rem;color:#1a1a2e;transition:all 0.4s">Adding finishing touches</span></div>
         </div>
       </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
     <div class="demo-cell" data-name="Onboarding Wizard" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Onboarding Wizard</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:14%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:20px 20px 16px;text-align:center">
             <div style="text-align:right;font-size:0.6rem;color:#9ca3af;margin-bottom:8px">1/7 &times;</div>
-            <div style="font-family:serif;font-weight:700;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
+            <div style="font-family:'Cormorant Garamond',serif;letter-spacing:0.18em;font-weight:700;font-size:0.8rem;text-transform:uppercase">Calm Authority</div>
             <div style="font-size:0.5rem;letter-spacing:0.2em;color:#999;margin:4px 0 12px">EST 25</div>
             <div style="font-size:0.5rem;letter-spacing:0.1em;color:#9ca3af;text-transform:uppercase;margin-bottom:4px">Welcome to Calm Authority</div>
             <div style="font-weight:700;font-size:0.85rem;margin-bottom:6px">Your own expertise. At scale.</div>
@@ -2929,16 +2941,17 @@ function <span class="hl">Analytics</span>() {
             <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 16px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Continue</span></div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
     <div class="demo-cell" data-name="Empty State with CTA" data-category="state" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Empty State with CTA</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:57%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:20px;text-align:center">
-            <div style="font-family:serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase">Calm Authority</div>
+            <div style="font-family:'Cormorant Garamond',serif;letter-spacing:0.18em;font-weight:700;font-size:0.7rem;text-transform:uppercase">Calm Authority</div>
             <div style="font-weight:700;font-size:0.8rem;margin:12px 0 4px">Watch us turn your inputs into a draft post</div>
             <div style="font-size:0.6rem;color:#6b7280;margin-bottom:16px">In a few seconds you will see a sample post that would normally take you 30-60 minutes to write.</div>
             <div style="border:2px dashed #e5e7eb;border-radius:12px;padding:24px 16px;margin-bottom:12px"><div style="font-size:1.2rem;margin-bottom:6px"><span style="display:inline-block;animation:gentleFloat 3s ease-in-out infinite">&#10024;</span></div><div style="font-size:0.65rem;color:#9ca3af;margin-bottom:10px">Your sample draft will appear here</div><div style="display:inline-block;background:#2563eb;color:white;padding:8px 20px;border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Generate a sample post</div></div>
@@ -2946,6 +2959,7 @@ function <span class="hl">Analytics</span>() {
             <div style="display:flex;gap:8px;align-items:center;margin-top:12px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="margin-left:auto;background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Continue</span></div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
@@ -2953,12 +2967,12 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Generated Content Review" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:420px;grid-column:span 2">
       <div class="component-label" style="padding:12px 16px 0">Generated Content Review</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:20px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:600px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:20px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:600px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:28%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:24px 32px;text-align:center;font-family:'Satoshi',sans-serif">
             <div style="text-align:right;font-size:0.65rem;color:#9ca3af;margin-bottom:8px">2/7 &times;</div>
-            <div style="font-family:serif;font-weight:700;font-size:1rem;letter-spacing:0.12em;text-transform:uppercase">Calm Authority</div>
+            <div style="font-family:'Cormorant Garamond',serif;letter-spacing:0.18em;font-weight:700;font-size:1rem;text-transform:uppercase">Calm Authority</div>
             <div style="font-size:0.6rem;letter-spacing:0.2em;color:#999;margin:4px 0 16px">EST 25</div>
             <div style="font-size:0.6rem;letter-spacing:0.1em;color:#9ca3af;text-transform:uppercase;margin-bottom:4px">Tone of Voice</div>
             <div style="font-weight:700;font-size:1.1rem;margin-bottom:8px">Your tone of voice</div>
@@ -2986,16 +3000,17 @@ function <span class="hl">Analytics</span>() {
             <div style="display:flex;gap:10px;align-items:center"><span style="font-size:0.7rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.7rem;color:#6b7280;padding:5px 14px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:6px 18px;border-radius:6px;font-size:0.7rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Save & continue</span></div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
     <div class="demo-cell" data-name="Multi-field Settings Form" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:360px">
       <div class="component-label" style="padding:12px 16px 0">Multi-field Settings Form</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:300px;color:#1a1a2e;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04)">
           <div style="height:3px;background:#e5e7eb"><div style="height:100%;width:42%;background:linear-gradient(90deg, #2563eb 0%, #4f8ff7 50%, #2563eb 100%);background-size:200% 100%;animation:progressShimmer 2s ease-in-out infinite;border-radius:0 2px 2px 0"></div></div>
           <div style="padding:16px 20px">
-            <div style="font-family:serif;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center">Calm Authority</div>
+            <div style="font-family:'Cormorant Garamond',serif;letter-spacing:0.18em;font-weight:700;font-size:0.7rem;text-transform:uppercase;text-align:center">Calm Authority</div>
             <div style="font-weight:700;font-size:0.8rem;text-align:center;margin:10px 0 4px">Become a calm authority in your industry</div>
             <div style="font-size:0.55rem;color:#6b7280;text-align:center;line-height:1.5;margin-bottom:10px">Use your expertise to direct your research engine.</div>
             <div style="font-size:0.6rem;font-weight:600;margin-bottom:3px">Research Focus</div>
@@ -3007,6 +3022,7 @@ function <span class="hl">Analytics</span>() {
             <div style="display:flex;gap:8px;align-items:center;margin-top:10px"><span style="font-size:0.6rem;color:#6b7280;cursor:pointer">&#8592; Back</span><span style="font-size:0.6rem;color:#6b7280;padding:3px 10px;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer">Skip</span><span style="background:#2563eb;color:white;padding:4px 12px;border-radius:6px;font-size:0.6rem;font-weight:600;cursor:pointer;transition:all 0.2s;transform:translateY(0)" onmouseenter="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">Save & continue</span></div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
@@ -3015,8 +3031,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Generate from Idea" data-category="forms" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Generate from Idea — Structure Picker</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;padding:22px 24px">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;padding:22px 24px">
           <!-- Header -->
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
             <div>
@@ -3056,6 +3072,7 @@ function <span class="hl">Analytics</span>() {
             </div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
@@ -3063,8 +3080,8 @@ function <span class="hl">Analytics</span>() {
   <div class="demo-row">
     <div class="demo-cell" data-name="Draft Post Card" data-category="data" data-library="other" style="padding:0;overflow:hidden;min-height:420px">
       <div class="component-label" style="padding:12px 16px 0">Draft Post Card</div>
-      <div style="background:radial-gradient(ellipse at 30% 20%, #484850, #2a2a2e 70%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
-        <div style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;display:flex;flex-direction:column;overflow:hidden">
+      <div class="ca-card-bg ca-backdrop" style="background:linear-gradient(145deg, #2d2d35 0%, #1e1e24 50%, #252530 100%);border-radius:0 0 16px 16px;flex:1;display:flex;align-items:center;justify-content:center;padding:16px">
+        <div class="ca-white-card" style="background:#fefefe;border-radius:14px;width:100%;max-width:400px;color:#1a1a2e;box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.04);font-family:'Satoshi',sans-serif;display:flex;flex-direction:column;overflow:hidden">
           <!-- Scrollable post content -->
           <div style="padding:20px 22px 0;overflow-y:auto;max-height:220px;flex-shrink:0">
             <div style="font-weight:800;font-size:0.95rem;margin-bottom:6px;font-family:'Cabinet Grotesk',sans-serif">Three Critical Questions for Financial Clarity</div>
@@ -3123,6 +3140,7 @@ function <span class="hl">Analytics</span>() {
             </div>
           </div>
         </div>
+      <div style="position:absolute;bottom:10px;right:14px;font-family:'Cormorant Garamond',serif;font-size:0.6rem;letter-spacing:0.15em;color:rgba(255,255,255,0.06);text-transform:uppercase">Calm Authority</div>
       </div>
       <span class="component-source">Calm Authority</span>
     </div>
