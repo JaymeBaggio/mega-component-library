@@ -4470,31 +4470,43 @@ function updateTextareaCounter(){
 (function initCounterCascade(){
   var wrap=document.getElementById('counterCascadeWrap');
   if(!wrap)return;
-  var stats=wrap.querySelectorAll('.cascade-stat');
-  stats.forEach(function(stat){
-    var target=parseInt(stat.getAttribute('data-target'),10);
-    var delay=parseInt(stat.getAttribute('data-delay'),10)||0;
-    var prefix=stat.getAttribute('data-prefix')||'';
-    var suffix=stat.getAttribute('data-suffix')||'';
-    var valEl=stat.querySelector('.stat-value');
-    var barFill=stat.querySelector('.stat-bar-fill');
-    var barWidth=barFill?barFill.getAttribute('data-width'):0;
-    setTimeout(function(){
-      var start=0;
-      var duration=1500;
-      var startTime=null;
-      function animate(ts){
-        if(!startTime)startTime=ts;
-        var progress=Math.min((ts-startTime)/duration,1);
-        var eased=1-Math.pow(1-progress,3);
-        var val=Math.round(eased*target);
-        valEl.textContent=prefix+val+suffix;
-        if(barFill)barFill.style.width=eased*barWidth+'%';
-        if(progress<1)requestAnimationFrame(animate);
-      }
-      requestAnimationFrame(animate);
-    },delay);
-  });
+  function runCascade(){
+    var stats=wrap.querySelectorAll('.cascade-stat');
+    // Reset all to 0
+    stats.forEach(function(stat){
+      var valEl=stat.querySelector('.stat-value');
+      var barFill=stat.querySelector('.stat-bar-fill');
+      var prefix=stat.getAttribute('data-prefix')||'';
+      var suffix=stat.getAttribute('data-suffix')||'';
+      valEl.textContent=prefix+'0'+suffix;
+      if(barFill)barFill.style.width='0%';
+    });
+    // Animate each
+    stats.forEach(function(stat){
+      var target=parseInt(stat.getAttribute('data-target'),10);
+      var delay=parseInt(stat.getAttribute('data-delay'),10)||0;
+      var prefix=stat.getAttribute('data-prefix')||'';
+      var suffix=stat.getAttribute('data-suffix')||'';
+      var valEl=stat.querySelector('.stat-value');
+      var barFill=stat.querySelector('.stat-bar-fill');
+      var barWidth=barFill?barFill.getAttribute('data-width'):0;
+      setTimeout(function(){
+        var duration=1500;var startTime=null;
+        function animate(ts){
+          if(!startTime)startTime=ts;
+          var progress=Math.min((ts-startTime)/duration,1);
+          var eased=1-Math.pow(1-progress,3);
+          var val=Math.round(eased*target);
+          valEl.textContent=prefix+val+suffix;
+          if(barFill)barFill.style.width=eased*barWidth+'%';
+          if(progress<1)requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+      },delay);
+    });
+  }
+  runCascade();
+  setInterval(runCascade,6000);
 })();
 
 // ── 8. ANIMATED PATH DRAWING ────────────────────
