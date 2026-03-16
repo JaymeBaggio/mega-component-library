@@ -545,13 +545,20 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .tweet-footer{display:flex;gap:20px;color:var(--muted);font-size:0.75rem}
 .tweet-footer span{cursor:pointer;transition:color 0.2s}
 .tweet-footer span:hover{color:var(--accent)}
-/* NEW: Code Comparison */
-.code-compare{display:flex;gap:2px;flex:1;font-family:'JetBrains Mono',monospace;font-size:0.7rem;overflow:hidden;border-radius:8px}
-.code-compare-side{flex:1;padding:12px;line-height:1.8}
-.code-compare-side.removed{background:rgba(239,68,68,0.06)}
-.code-compare-side.added{background:rgba(16,185,129,0.06)}
-.code-compare-side .line-rm{color:rgba(239,68,68,0.8)}
-.code-compare-side .line-add{color:rgba(16,185,129,0.8)}
+/* NEW: Code Comparison — slider reveal */
+.code-compare-wrap{position:relative;flex:1;border-radius:10px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:0.7rem;line-height:1.9;user-select:none}
+.code-compare-layer{position:absolute;inset:0;padding:16px;white-space:pre;overflow:hidden}
+.code-compare-before{background:#1a1215;color:#e4e4e7;z-index:1}
+.code-compare-after{background:#121a15;color:#e4e4e7;z-index:2;clip-path:inset(0 50% 0 0)}
+.code-compare-before .hl{color:rgba(239,68,68,0.9);background:rgba(239,68,68,0.08);display:inline;padding:0 4px;border-radius:3px}
+.code-compare-after .hl{color:rgba(16,185,129,0.9);background:rgba(16,185,129,0.08);display:inline;padding:0 4px;border-radius:3px}
+.code-compare-handle{position:absolute;top:0;bottom:0;left:50%;z-index:3;width:3px;background:var(--accent);cursor:col-resize;transform:translateX(-50%)}
+.code-compare-handle::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 8px rgba(16,185,129,0.4)}
+.code-compare-handle::after{content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:0.6rem;color:var(--bg);font-weight:700;z-index:1}
+.code-compare-labels{position:absolute;top:4px;left:0;right:0;display:flex;justify-content:space-between;padding:0 12px;z-index:4;pointer-events:none}
+.code-compare-label{font-size:0.55rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px}
+.code-compare-label.before{background:rgba(239,68,68,0.15);color:#ef4444}
+.code-compare-label.after{background:rgba(16,185,129,0.15);color:#10b981}
 .code-compare-side .line-neutral{color:var(--muted)}
 /* NEW: Pointer */
 .pointer-scene{flex:1;position:relative;overflow:hidden;border-radius:12px;min-height:180px;background:rgba(255,255,255,0.02);cursor:none;display:flex;align-items:center;justify-content:center}
@@ -1354,8 +1361,33 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
     </div></div>
 <div class="demo-row">
 <div class="demo-cell" data-name="Code Comparison" data-category="data" data-library="magic-ui">
-      <div class="component-label">Code Comparison</div>
-      <div class="code-compare"><div class="code-compare-side removed"><div class="line-rm">- const old = true;</div><div class="line-rm">- let count = 0;</div><div class="line-neutral">  return result;</div></div><div class="code-compare-side added"><div class="line-add">+ const updated = true;</div><div class="line-add">+ let count = 42;</div><div class="line-neutral">  return result;</div></div></div>
+      <div class="component-label">Code Comparison — drag slider</div>
+      <div class="code-compare-wrap" id="codeCompareWrap">
+        <div class="code-compare-labels"><span class="code-compare-label before">Before</span><span class="code-compare-label after">After</span></div>
+        <div class="code-compare-layer code-compare-before">
+import { useState } from "react"
+
+function <span class="hl">Counter</span>() {
+  const [<span class="hl">count, setCount</span>] = useState(0)
+  return (
+    &lt;button onClick={() =&gt; <span class="hl">setCount(count + 1)</span>}&gt;
+      Clicked {<span class="hl">count</span>} times
+    &lt;/button&gt;
+  )
+}</div>
+        <div class="code-compare-layer code-compare-after" id="codeCompareAfter">
+import { useState } from "react"
+
+function <span class="hl">Analytics</span>() {
+  const [<span class="hl">clicks, track</span>] = useState(0)
+  return (
+    &lt;button onClick={() =&gt; <span class="hl">track(prev =&gt; prev + 1)</span>}&gt;
+      Clicked {<span class="hl">clicks</span>} times
+    &lt;/button&gt;
+  )
+}</div>
+        <div class="code-compare-handle" id="codeCompareHandle"></div>
+      </div>
       <span class="component-source">Magic UI</span>
     </div><div class="demo-cell" data-name="CodeBlock (remotion)" data-category="data" data-library="remotion-bits">
       <div class="component-label">CodeBlock (remotion)</div>
@@ -2422,6 +2454,9 @@ function setStep(n){const el=document.getElementById('stepResponsiveEl');const b
 
 // ── SPAWNER + BEHAVIOR PARTICLES ────────────────
 (function(){const scene=document.getElementById('spawnerDemo');if(!scene)return;function spawnParticle(){const p=document.createElement('div');p.className='spawner-particle';const size=3+Math.random()*5;p.style.width=size+'px';p.style.height=size+'px';const colors=['#10b981','#3b82f6','#8b5cf6','#ec4899','#eab308'];p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.boxShadow='0 0 6px '+p.style.background;p.style.left=(Math.random()*100)+'%';p.style.top='100%';const vx=(Math.random()-0.5)*2;let vy=-1.5-Math.random()*2;let x=parseFloat(p.style.left);let y=100;let life=0;scene.appendChild(p);function update(){life++;vy+=0.03;x+=vx;y+=vy;p.style.left=x+'%';p.style.top=y+'%';p.style.opacity=Math.max(0,1-life/80);if(life>80||y>110){p.remove();return}requestAnimationFrame(update)}requestAnimationFrame(update)}setInterval(spawnParticle,80)})();
+
+// ── CODE COMPARISON SLIDER ───────────────────────
+(function(){const wrap=document.getElementById('codeCompareWrap');const handle=document.getElementById('codeCompareHandle');const after=document.getElementById('codeCompareAfter');if(!wrap||!handle||!after)return;let dragging=false;function setPosition(x){const rect=wrap.getBoundingClientRect();let pct=Math.max(0,Math.min(100,((x-rect.left)/rect.width)*100));handle.style.left=pct+'%';after.style.clipPath='inset(0 '+(100-pct)+'% 0 0)'}handle.addEventListener('mousedown',()=>{dragging=true});document.addEventListener('mousemove',e=>{if(dragging)setPosition(e.clientX)});document.addEventListener('mouseup',()=>{dragging=false});handle.addEventListener('touchstart',()=>{dragging=true});document.addEventListener('touchmove',e=>{if(dragging&&e.touches[0])setPosition(e.touches[0].clientX)});document.addEventListener('touchend',()=>{dragging=false});wrap.addEventListener('click',e=>{setPosition(e.clientX)})})();
 
 // ── INIT FILTER COUNT ────────────────────────────
 filterComponents();
