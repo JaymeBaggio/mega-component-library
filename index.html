@@ -1574,24 +1574,12 @@ function toggleCat(el) {
   el.classList.add('active');
   activeCat = el.dataset.cat;
   filterComponents();
-// Demo scroll bar in Scroll Progress component
-window.addEventListener("scroll", () => {
-  const bar = document.getElementById("demoScrollBar");
-  if(bar) bar.style.width = ((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100) + "%";
-});
-
 }
 function toggleLib(el) {
   document.querySelectorAll('[data-lib]').forEach(p => p.classList.remove('lib-active'));
   el.classList.add('lib-active');
   activeLib = el.dataset.lib;
   filterComponents();
-// Demo scroll bar in Scroll Progress component
-window.addEventListener("scroll", () => {
-  const bar = document.getElementById("demoScrollBar");
-  if(bar) bar.style.width = ((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100) + "%";
-});
-
 }
 document.getElementById('toolbarSearch').addEventListener('keyup', filterComponents);
 
