@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motion Techniques — Kinetic 3D Storytelling Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  body {
+    background: #08080a;
+    color: #e4e4e7;
+    font-family: 'Satoshi', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SECTION BASE ─────────────────────────────── */
+  .technique-section {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .technique-label {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+    pointer-events: none;
+  }
+  .technique-label h2 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .technique-label p {
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    color: #71717a;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .technique-label .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  .technique-number {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 6rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    z-index: 0;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.15);
+    font-family: 'JetBrains Mono', monospace;
+    animation: hintPulse 2s ease-in-out infinite;
+    z-index: 100;
+  }
+  @keyframes hintPulse { 0%,100%{opacity:0.15} 50%{opacity:0.4} }
+
+  /* Back link */
+  .back-link {
+    position: fixed;
+    top: 16px;
+    left: 20px;
+    z-index: 200;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #10b981; }
+
+  /* Nav dots */
+  .nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 200;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active { background: #10b981; box-shadow: 0 0 8px rgba(16,185,129,0.4); }
+  .nav-dot:hover { background: rgba(255,255,255,0.3); }
+
+  /* ════════════════════════════════════════════════ */
+  /* 1. Z-AXIS DIVE                                  */
+  /* ════════════════════════════════════════════════ */
+  #zaxis { background: #08080a; }
+  #zaxis .tag { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
+
+  .zdive-world {
+    position: absolute;
+    inset: 0;
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zdive-camera {
+    transform-style: preserve-3d;
+    animation: zCameraFly 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    position: relative;
+    width: 1px;
+    height: 1px;
+  }
+  .zdive-ring {
+    position: absolute;
+    border: 2px solid rgba(16,185,129,0.15);
+    border-radius: 12px;
+    left: 50%;
+    top: 50%;
+  }
+  .zdive-ring:nth-child(1) { width: 600px; height: 400px; margin: -200px 0 0 -300px; transform: translateZ(-1200px); }
+  .zdive-ring:nth-child(2) { width: 500px; height: 340px; margin: -170px 0 0 -250px; transform: translateZ(-900px); border-color: rgba(16,185,129,0.2); }
+  .zdive-ring:nth-child(3) { width: 400px; height: 280px; margin: -140px 0 0 -200px; transform: translateZ(-600px); border-color: rgba(16,185,129,0.3); }
+  .zdive-ring:nth-child(4) { width: 300px; height: 200px; margin: -100px 0 0 -150px; transform: translateZ(-300px); border-color: rgba(16,185,129,0.4); }
+  .zdive-ring:nth-child(5) { width: 200px; height: 140px; margin: -70px 0 0 -100px; transform: translateZ(-100px); border-color: rgba(16,185,129,0.6); }
+
+  .zdive-portal {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    margin: -40px 0 0 -40px;
+    transform: translateZ(-50px);
+    background: radial-gradient(circle, #10b981 0%, transparent 70%);
+    box-shadow: 0 0 60px rgba(16,185,129,0.4), 0 0 120px rgba(16,185,129,0.2);
+    animation: portalGlow 2s ease-in-out infinite;
+  }
+
+  /* Particles that rush past */
+  .zdive-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(16,185,129,0.6);
+    left: 50%;
+    top: 50%;
+  }
+  .zdive-particle:nth-child(7) { margin: -80px 0 0 120px; transform: translateZ(-400px); }
+  .zdive-particle:nth-child(8) { margin: 60px 0 0 -150px; transform: translateZ(-600px); }
+  .zdive-particle:nth-child(9) { margin: -40px 0 0 -80px; transform: translateZ(-800px); }
+  .zdive-particle:nth-child(10) { margin: 100px 0 0 60px; transform: translateZ(-500px); }
+  .zdive-particle:nth-child(11) { margin: -120px 0 0 -40px; transform: translateZ(-700px); }
+  .zdive-particle:nth-child(12) { margin: 30px 0 0 180px; transform: translateZ(-300px); }
+  .zdive-particle:nth-child(13) { margin: -60px 0 0 -200px; transform: translateZ(-900px); }
+  .zdive-particle:nth-child(14) { margin: 80px 0 0 -120px; transform: translateZ(-200px); }
+
+  @keyframes zCameraFly {
+    0% { transform: translateZ(0px); }
+    15% { transform: translateZ(50px); }
+    50% { transform: translateZ(1000px); }
+    55% { transform: translateZ(1100px); }
+    60% { transform: translateZ(0px); }
+    100% { transform: translateZ(0px); }
+  }
+  @keyframes portalGlow {
+    0%,100% { box-shadow: 0 0 60px rgba(16,185,129,0.4), 0 0 120px rgba(16,185,129,0.2); }
+    50% { box-shadow: 0 0 80px rgba(16,185,129,0.6), 0 0 160px rgba(16,185,129,0.3); }
+  }
+
+  /* ════════════════════════════════════════════════ */
+  /* 2. LATERAL PARALLAX TRUCKING                    */
+  /* ════════════════════════════════════════════════ */
+  #parallax { background: #08080a; }
+  #parallax .tag { background: rgba(59,130,246,0.1); color: #3b82f6; border: 1px solid rgba(59,130,246,0.2); }
+
+  .parallax-world {
+    position: absolute;
+    inset: 0;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .parallax-scene {
+    transform-style: preserve-3d;
+    animation: truckCamera 8s ease-in-out infinite;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .parallax-layer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 40px;
+    padding: 0 60px;
+    width: 200%;
+    left: -50%;
+  }
+  /* Deep background — z: -400px (moves least) */
+  .parallax-layer.deep { transform: translateZ(-400px) scale(1.4); }
+  .parallax-layer.deep .building { background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.06); }
+
+  /* Mid layer — z: -200px */
+  .parallax-layer.mid { transform: translateZ(-200px) scale(1.2); }
+  .parallax-layer.mid .building { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.1); }
+
+  /* Foreground — z: 0px (moves most) */
+  .parallax-layer.front { transform: translateZ(0px); }
+  .parallax-layer.front .building { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.2); }
+
+  .building { border-radius: 4px 4px 0 0; flex-shrink: 0; }
+
+  /* Ground plane */
+  .parallax-ground {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    transform-style: preserve-3d;
+  }
+
+  @keyframes truckCamera {
+    0% { transform: translateX(0px); }
+    50% { transform: translateX(-200px); }
+    100% { transform: translateX(0px); }
+  }
+
+  /* ════════════════════════════════════════════════ */
+  /* 3. EXPONENTIAL EASING                           */
+  /* ════════════════════════════════════════════════ */
+  #easing { background: #08080a; }
+  #easing .tag { background: rgba(139,92,246,0.1); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.2); }
+
+  .easing-track {
+    position: relative;
+    width: 70%;
+    max-width: 600px;
+    height: 60px;
+    margin: 0 auto;
+  }
+  .easing-track .rail {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 2px;
+  }
+  .easing-track .ball {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+  .easing-track .ball.linear {
+    background: rgba(239,68,68,0.15);
+    border: 2px solid rgba(239,68,68,0.4);
+    color: #ef4444;
+    animation: easeBall 3s linear infinite;
+  }
+  .easing-track .ball.expo {
+    background: rgba(16,185,129,0.15);
+    border: 2px solid rgba(16,185,129,0.4);
+    color: #10b981;
+    animation: easeBall 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    box-shadow: 0 0 20px rgba(16,185,129,0.2);
+  }
+  .easing-track .ball.overshoot {
+    background: rgba(139,92,246,0.15);
+    border: 2px solid rgba(139,92,246,0.4);
+    color: #8b5cf6;
+    animation: easeBall 3s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+    box-shadow: 0 0 20px rgba(139,92,246,0.2);
+  }
+  .easing-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .easing-sub {
+    font-size: 0.55rem;
+    color: #71717a;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @keyframes easeBall {
+    0%, 100% { left: 0; }
+    50% { left: calc(100% - 40px); }
+  }
+
+  /* ════════════════════════════════════════════════ */
+  /* 4. STAGGERED ORCHESTRATION                      */
+  /* ════════════════════════════════════════════════ */
+  #stagger { background: #08080a; }
+  #stagger .tag { background: rgba(234,179,8,0.1); color: #eab308; border: 1px solid rgba(234,179,8,0.2); }
+
+  .stagger-demo-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .stagger-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .stagger-box.bad {
+    background: rgba(239,68,68,0.08);
+    border: 2px solid rgba(239,68,68,0.2);
+    color: rgba(239,68,68,0.5);
+  }
+  .stagger-box.good {
+    background: rgba(16,185,129,0.08);
+    border: 2px solid rgba(16,185,129,0.2);
+    color: rgba(16,185,129,0.5);
+  }
+
+  /* ════════════════════════════════════════════════ */
+  /* TITLE SECTION                                   */
+  /* ════════════════════════════════════════════════ */
+  #title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #title-section h1 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  #title-section p {
+    color: #71717a;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">&#8592; Back to components</a>
+
+<nav class="nav-dots">
+  <div class="nav-dot active" onclick="document.getElementById('title-section').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="nav-dot" onclick="document.getElementById('zaxis').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="nav-dot" onclick="document.getElementById('parallax').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="nav-dot" onclick="document.getElementById('easing').scrollIntoView({behavior:'smooth'})"></div>
+  <div class="nav-dot" onclick="document.getElementById('stagger').scrollIntoView({behavior:'smooth'})"></div>
+</nav>
+
+<!-- ══ TITLE ══════════════════════════════════════ -->
+<section class="technique-section" id="title-section">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#10b981;margin-bottom:20px">Motion Reference</div>
+    <h1>Kinetic 3D Storytelling</h1>
+    <p>Four core motion techniques for cinematic video production. Each one demonstrated full-screen so you can feel the camera movement.</p>
+    <div style="margin-top:40px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center">
+      <div style="text-align:center;cursor:pointer" onclick="document.getElementById('zaxis').scrollIntoView({behavior:'smooth'})">
+        <div style="width:50px;height:50px;border-radius:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.2rem">&#8599;</div>
+        <div style="font-size:0.65rem;color:#71717a">Z-Axis Dive</div>
+      </div>
+      <div style="text-align:center;cursor:pointer" onclick="document.getElementById('parallax').scrollIntoView({behavior:'smooth'})">
+        <div style="width:50px;height:50px;border-radius:12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.2rem">&#8596;</div>
+        <div style="font-size:0.65rem;color:#71717a">Parallax Trucking</div>
+      </div>
+      <div style="text-align:center;cursor:pointer" onclick="document.getElementById('easing').scrollIntoView({behavior:'smooth'})">
+        <div style="width:50px;height:50px;border-radius:12px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.2rem">&#10132;</div>
+        <div style="font-size:0.65rem;color:#71717a">Exponential Easing</div>
+      </div>
+      <div style="text-align:center;cursor:pointer" onclick="document.getElementById('stagger').scrollIntoView({behavior:'smooth'})">
+        <div style="width:50px;height:50px;border-radius:12px;background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.2rem">&#9871;</div>
+        <div style="font-size:0.65rem;color:#71717a">Staggered Build</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll down &#8595;</div>
+  <div class="technique-number">0</div>
+</section>
+
+<!-- ══ 1. Z-AXIS DIVE ════════════════════════════ -->
+<section class="technique-section" id="zaxis">
+  <div class="technique-label">
+    <span class="tag">Camera moves forward through Z-space</span>
+    <h2>Z-Axis Dive</h2>
+    <p>The camera accelerates through a portal. Objects rush past the viewer creating a tunnel effect. Use for key moment transitions.</p>
+  </div>
+  <div class="zdive-world">
+    <div class="zdive-camera">
+      <div class="zdive-ring"></div>
+      <div class="zdive-ring"></div>
+      <div class="zdive-ring"></div>
+      <div class="zdive-ring"></div>
+      <div class="zdive-ring"></div>
+      <div class="zdive-portal"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+      <div class="zdive-particle"></div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll &#8595;</div>
+  <div class="technique-number">1</div>
+</section>
+
+<!-- ══ 2. LATERAL PARALLAX TRUCKING ══════════════ -->
+<section class="technique-section" id="parallax">
+  <div class="technique-label">
+    <span class="tag">Camera dollies sideways — depth creates speed difference</span>
+    <h2>Lateral Parallax Trucking</h2>
+    <p>Foreground objects move faster than background when panning horizontally. Real perspective depth, not faked animation speeds.</p>
+  </div>
+  <div class="parallax-world">
+    <div class="parallax-scene">
+      <!-- Deep background buildings -->
+      <div class="parallax-layer deep">
+        <div class="building" style="width:80px;height:200px"></div>
+        <div class="building" style="width:60px;height:280px"></div>
+        <div class="building" style="width:100px;height:220px"></div>
+        <div class="building" style="width:70px;height:260px"></div>
+        <div class="building" style="width:90px;height:190px"></div>
+        <div class="building" style="width:65px;height:240px"></div>
+        <div class="building" style="width:85px;height:210px"></div>
+        <div class="building" style="width:75px;height:270px"></div>
+      </div>
+      <!-- Mid buildings -->
+      <div class="parallax-layer mid">
+        <div class="building" style="width:50px;height:160px"></div>
+        <div class="building" style="width:70px;height:200px"></div>
+        <div class="building" style="width:45px;height:140px"></div>
+        <div class="building" style="width:60px;height:180px"></div>
+        <div class="building" style="width:55px;height:150px"></div>
+        <div class="building" style="width:65px;height:190px"></div>
+        <div class="building" style="width:50px;height:170px"></div>
+        <div class="building" style="width:75px;height:210px"></div>
+      </div>
+      <!-- Foreground silhouettes -->
+      <div class="parallax-layer front">
+        <div class="building" style="width:40px;height:120px"></div>
+        <div class="building" style="width:55px;height:160px"></div>
+        <div class="building" style="width:35px;height:100px"></div>
+        <div class="building" style="width:50px;height:140px"></div>
+        <div class="building" style="width:45px;height:130px"></div>
+        <div class="building" style="width:60px;height:150px"></div>
+        <div class="building" style="width:40px;height:110px"></div>
+        <div class="building" style="width:55px;height:145px"></div>
+      </div>
+      <div class="parallax-ground"></div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll &#8595;</div>
+  <div class="technique-number">2</div>
+</section>
+
+<!-- ══ 3. EXPONENTIAL EASING ═════════════════════ -->
+<section class="technique-section" id="easing">
+  <div class="technique-label">
+    <span class="tag">Slow start → peak velocity → heavy settle</span>
+    <h2>Exponential Easing</h2>
+    <p>Never use linear movement. Motion should accelerate and decelerate with weight. The overshoot "thud" sells physicality.</p>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 40px;gap:50px">
+    <!-- Linear -->
+    <div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;padding-left:calc(15% + 4px)">
+        <span class="easing-label" style="color:#ef4444">Linear</span>
+        <span class="easing-sub">animation-timing-function: linear</span>
+        <span style="font-size:0.55rem;color:rgba(239,68,68,0.5);background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:4px">AVOID</span>
+      </div>
+      <div class="easing-track">
+        <div class="rail"></div>
+        <div class="ball linear">Lin</div>
+      </div>
+    </div>
+    <!-- Exponential -->
+    <div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;padding-left:calc(15% + 4px)">
+        <span class="easing-label" style="color:#10b981">Exponential</span>
+        <span class="easing-sub">cubic-bezier(0.16, 1, 0.3, 1)</span>
+        <span style="font-size:0.55rem;color:rgba(16,185,129,0.7);background:rgba(16,185,129,0.08);padding:2px 8px;border-radius:4px">GOOD</span>
+      </div>
+      <div class="easing-track">
+        <div class="rail"></div>
+        <div class="ball expo">Exp</div>
+      </div>
+    </div>
+    <!-- Overshoot -->
+    <div>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;padding-left:calc(15% + 4px)">
+        <span class="easing-label" style="color:#8b5cf6">Overshoot "Thud"</span>
+        <span class="easing-sub">cubic-bezier(0.34, 1.56, 0.64, 1)</span>
+        <span style="font-size:0.55rem;color:rgba(139,92,246,0.7);background:rgba(139,92,246,0.08);padding:2px 8px;border-radius:4px">BEST</span>
+      </div>
+      <div class="easing-track">
+        <div class="rail"></div>
+        <div class="ball overshoot">Thd</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll &#8595;</div>
+  <div class="technique-number">3</div>
+</section>
+
+<!-- ══ 4. STAGGERED ORCHESTRATION ════════════════ -->
+<section class="technique-section" id="stagger">
+  <div class="technique-label">
+    <span class="tag">Never animate a whole group at once</span>
+    <h2>Staggered Orchestration</h2>
+    <p>Stagger element entry by 3-5 frames. Creates a mechanical, deliberate build that feels intentional and premium.</p>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:60px;padding-top:80px">
+    <!-- Bad -->
+    <div style="text-align:center">
+      <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:16px">
+        <span style="font-size:0.7rem;font-weight:600;color:#ef4444">All at once</span>
+        <span style="font-size:0.55rem;color:rgba(239,68,68,0.5);background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:4px">AVOID</span>
+      </div>
+      <div class="stagger-demo-row" id="staggerBadFull">
+        <div class="stagger-box bad">1</div>
+        <div class="stagger-box bad">2</div>
+        <div class="stagger-box bad">3</div>
+        <div class="stagger-box bad">4</div>
+        <div class="stagger-box bad">5</div>
+        <div class="stagger-box bad">6</div>
+        <div class="stagger-box bad">7</div>
+      </div>
+    </div>
+    <!-- Good -->
+    <div style="text-align:center">
+      <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:16px">
+        <span style="font-size:0.7rem;font-weight:600;color:#10b981">Staggered by 5 frames</span>
+        <span style="font-size:0.55rem;color:rgba(16,185,129,0.7);background:rgba(16,185,129,0.08);padding:2px 8px;border-radius:4px">USE THIS</span>
+      </div>
+      <div class="stagger-demo-row" id="staggerGoodFull">
+        <div class="stagger-box good">1</div>
+        <div class="stagger-box good">2</div>
+        <div class="stagger-box good">3</div>
+        <div class="stagger-box good">4</div>
+        <div class="stagger-box good">5</div>
+        <div class="stagger-box good">6</div>
+        <div class="stagger-box good">7</div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50);font-size:0.6rem;color:rgba(255,255,255,0.15);font-family:'JetBrains Mono',monospace"><a href="index.html" style="color:rgba(255,255,255,0.2);text-decoration:none">&#8592; back to component library</a></div>
+  <div class="technique-number">4</div>
+</section>
+
+<script>
+// ── NAV DOTS ──────────────────────────────────────
+const sections = document.querySelectorAll('.technique-section');
+const dots = document.querySelectorAll('.nav-dot');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+  });
+}, { threshold: 0.5 });
+sections.forEach(s => observer.observe(s));
+
+// ── STAGGER DEMO ──────────────────────────────────
+function runStaggerFull() {
+  const bad = document.querySelectorAll('#staggerBadFull .stagger-box');
+  const good = document.querySelectorAll('#staggerGoodFull .stagger-box');
+
+  // Reset
+  bad.forEach(b => { b.style.transform = 'scale(0)'; b.style.opacity = '0'; });
+  good.forEach(g => { g.style.transform = 'scale(0)'; g.style.opacity = '0'; });
+
+  // Bad: all at once
+  setTimeout(() => {
+    bad.forEach(b => { b.style.transform = 'scale(1)'; b.style.opacity = '1'; });
+  }, 500);
+
+  // Good: staggered
+  good.forEach((g, i) => {
+    setTimeout(() => { g.style.transform = 'scale(1)'; g.style.opacity = '1'; }, 600 + i * 100);
+  });
+}
+runStaggerFull();
+setInterval(runStaggerFull, 5000);
+</script>
+</body>
+</html>
