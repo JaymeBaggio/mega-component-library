@@ -3445,31 +3445,50 @@ function <span class="hl">Analytics</span>() {
   <!-- ══ TERMINAL ASCII ART ════════════════════════ -->
   <div class="section-title">Terminal ASCII Art Banners</div>
   <div class="demo-row">
-    <!-- CLAUDE CODE — Orange/Salmon -->
-    <div class="demo-cell" data-name="Terminal Art — Claude Code" data-category="text" data-library="other" style="padding:0;overflow:hidden;min-height:300px;grid-column:span 2">
-      <div class="component-label" style="padding:12px 16px 0">Terminal Art — Claude Code</div>
-      <div style="background:#1e1e1e;border-radius:0 0 16px 16px;flex:1;overflow:hidden;font-family:monospace">
-        <!-- macOS chrome -->
-        <div style="display:flex;align-items:center;gap:6px;padding:10px 14px;background:#2d2d2d;border-bottom:1px solid #3a3a3a">
-          <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></div>
-          <div style="width:10px;height:10px;border-radius:50%;background:#febc2e"></div>
-          <div style="width:10px;height:10px;border-radius:50%;background:#28c840"></div>
-          <span style="margin-left:auto;font-size:0.6rem;color:#888">jaymebaggio — -zsh — 80×24</span>
+    <!-- CLAUDE CODE Welcome Screen -->
+    <div class="demo-cell" data-name="Terminal Art — Claude Code Welcome" data-category="text" data-library="other" style="padding:0;overflow:hidden;min-height:320px;grid-column:span 2">
+      <div class="component-label" style="padding:12px 16px 0">Terminal Art — Claude Code Welcome</div>
+      <div style="background:#1a1a1e;border-radius:0 0 16px 16px;flex:1;overflow:hidden;font-family:'JetBrains Mono',monospace">
+        <!-- VS Code style tab bar -->
+        <div style="display:flex;align-items:center;gap:16px;padding:8px 16px;background:#252528;border-bottom:1px solid #333;font-size:0.65rem;color:#888">
+          <span>Problems</span><span>Output</span><span>Debug Console</span><span style="color:#e4e4e7;border-bottom:2px solid #e4e4e7;padding-bottom:6px">Terminal</span><span>Ports</span>
         </div>
-        <div style="padding:16px 20px;line-height:1.15;font-size:11px;white-space:pre;overflow-x:auto;color:#d4845a"><span style="color:#d4845a">  ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗
- ██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝
- ██║     ██║     ███████║██║   ██║██║  ██║█████╗
- ██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝
- ╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗
-  ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝</span>
-<span style="color:#c47050">  ██████╗ ██████╗ ██████╗ ███████╗
- ██╔════╝██╔═══██╗██╔══██╗██╔════╝
- ██║     ██║   ██║██║  ██║█████╗
- ██║     ██║   ██║██║  ██║██╔══╝
- ╚██████╗╚██████╔╝██████╔╝███████╗
-  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝</span>
-
- <span style="color:#888">🎆 Login successful. Press <span style="color:#d4845a;font-weight:bold">Enter</span> to continue</span></div>
+        <!-- Welcome box -->
+        <div style="padding:20px 24px;color:#c47050" id="ccWelcomeBox">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+            <span style="color:#888">──</span>
+            <span style="color:#c47050;font-weight:700">Claude Code</span>
+            <span style="color:#888">v2.1.56</span>
+            <span style="color:#888">──────────────────</span>
+          </div>
+          <div style="border:1px solid #c4705040;border-radius:10px;padding:20px;text-align:center;position:relative;margin-bottom:14px">
+            <div style="font-weight:700;font-size:1rem;color:#e4e4e7;margin-bottom:14px" id="ccWelcomeText" style="opacity:0">Welcome back Jayme!</div>
+            <!-- Pixel pig -->
+            <div style="display:flex;justify-content:center;margin-bottom:14px">
+              <div style="position:relative;width:60px;height:40px">
+                <div style="position:absolute;top:0;left:10px;width:40px;height:24px;background:#d4845a;border-radius:6px 6px 4px 4px"></div>
+                <div style="position:absolute;top:4px;left:20px;width:4px;height:4px;background:#1a1a1e;border-radius:1px"></div>
+                <div style="position:absolute;top:4px;left:36px;width:4px;height:4px;background:#1a1a1e;border-radius:1px"></div>
+                <div style="position:absolute;top:12px;left:24px;width:12px;height:8px;background:#c47050;border-radius:3px"></div>
+                <div style="position:absolute;top:14px;left:27px;width:2px;height:2px;background:#1a1a1e"></div>
+                <div style="position:absolute;top:14px;left:31px;width:2px;height:2px;background:#1a1a1e"></div>
+                <div style="position:absolute;top:24px;left:6px;width:8px;height:12px;background:#d4845a;border-radius:2px"></div>
+                <div style="position:absolute;top:24px;left:46px;width:8px;height:12px;background:#d4845a;border-radius:2px"></div>
+                <div style="position:absolute;top:24px;left:18px;width:24px;height:14px;background:#d4845a;border-radius:3px"></div>
+                <div style="position:absolute;top:36px;left:20px;width:6px;height:4px;background:#c47050;border-radius:0 0 2px 2px"></div>
+                <div style="position:absolute;top:36px;left:34px;width:6px;height:4px;background:#c47050;border-radius:0 0 2px 2px"></div>
+              </div>
+            </div>
+            <div style="font-size:0.7rem;color:#888;line-height:1.6">
+              Opus 4.6 (1M context) · Claude Pro ·<br>
+              jaymebaggio@hotmail.com's Organization<br>
+              ~/last30days-skill
+            </div>
+            <!-- Side labels -->
+            <div style="position:absolute;top:12px;right:-2px;font-size:0.55rem;color:#888;writing-mode:vertical-rl;letter-spacing:0.1em">Tips</div>
+          </div>
+          <div style="color:#888;font-size:0.8rem">❯ <span style="animation:blink 1s step-end infinite;color:#c47050">▊</span></div>
+        </div>
       </div>
       <span class="component-source">Terminal Art</span>
     </div>
@@ -3486,15 +3505,15 @@ function <span class="hl">Analytics</span>() {
           <div style="width:10px;height:10px;border-radius:50%;background:#28c840"></div>
           <span style="margin-left:auto;font-size:0.6rem;color:#5a8a5a">last30days — research</span>
         </div>
-        <div style="padding:16px 20px;line-height:1.15;font-size:12px;white-space:pre;overflow-x:auto"><span style="color:#e0ffe0"> ██████╗ ███████╗███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗</span>
-<span style="color:#c0f0c0"> ██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║</span>
-<span style="color:#90e090"> ██████╔╝█████╗  ███████╗█████╗  ███████║██████╔╝██║     ███████║</span>
-<span style="color:#60d060"> ██╔══██╗██╔══╝  ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║</span>
-<span style="color:#40b040"> ██║  ██║███████╗███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║</span>
-<span style="color:#209020"> ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝</span>
-
- <span style="color:#5a8a5a">⚡ Perplexity MCP + last30days</span>
- <span style="color:#60d060">🔍 Reddit · X · Bluesky · YouTube · TikTok · Instagram · HN · Polymarket · Web</span></div>
+        <div id="researchArt" style="padding:16px 20px;line-height:1.15;font-size:12px;white-space:pre;overflow-x:auto"><span class="ta-line" style="color:#e0ffe0;opacity:0;transition:opacity 0.3s"> ██████╗ ███████╗███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗</span>
+<span class="ta-line" style="color:#c0f0c0;opacity:0;transition:opacity 0.3s"> ██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║</span>
+<span class="ta-line" style="color:#90e090;opacity:0;transition:opacity 0.3s"> ██████╔╝█████╗  ███████╗█████╗  ███████║██████╔╝██║     ███████║</span>
+<span class="ta-line" style="color:#60d060;opacity:0;transition:opacity 0.3s"> ██╔══██╗██╔══╝  ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║</span>
+<span class="ta-line" style="color:#40b040;opacity:0;transition:opacity 0.3s"> ██║  ██║███████╗███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║</span>
+<span class="ta-line" style="color:#209020;opacity:0;transition:opacity 0.3s"> ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝</span>
+<span class="ta-line" style="opacity:0;transition:opacity 0.3s"> </span>
+<span class="ta-line" style="color:#5a8a5a;opacity:0;transition:opacity 0.3s"> ⚡ Perplexity MCP + last30days</span>
+<span class="ta-line" style="color:#60d060;opacity:0;transition:opacity 0.3s"> 🔍 Reddit · X · Bluesky · YouTube · TikTok · Instagram · HN · Polymarket · Web</span></div>
       </div>
       <span class="component-source">Terminal Art</span>
     </div>
@@ -4863,6 +4882,25 @@ function updateTextareaCounter(){
   wrap.addEventListener('scroll',checkReveal);
   // Initial reveal
   setTimeout(checkReveal,100);
+})();
+
+// ── TERMINAL ART LINE REVEAL ────────────────────
+(function(){
+  function revealLines(containerId){
+    var el=document.getElementById(containerId);
+    if(!el)return;
+    var lines=el.querySelectorAll('.ta-line');
+    // Reset
+    lines.forEach(function(l){l.style.opacity='0';l.style.transform='translateX(-8px)'});
+    // Reveal with stagger
+    lines.forEach(function(l,i){
+      setTimeout(function(){l.style.opacity='1';l.style.transform='translateX(0)'},i*120);
+    });
+  }
+  // Initial reveal
+  setTimeout(function(){revealLines('researchArt')},500);
+  // Replay
+  setInterval(function(){revealLines('researchArt')},8000);
 })();
 
 // ── CARD STACK INTO BOX (replay) ────────────────
