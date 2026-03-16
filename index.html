@@ -1215,6 +1215,18 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .ca-backdrop::after{content:'';position:absolute;inset:0;border-radius:inherit;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");mix-blend-mode:overlay;pointer-events:none;z-index:0}
 .ca-backdrop>*{position:relative;z-index:1}
 .ca-white-card{transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),box-shadow 0.5s ease}
+/* Card Stack Into Box */
+.stack-box-scene{display:flex;align-items:center;justify-content:center;flex:1;perspective:800px}
+.stack-box-container{position:relative;width:180px;height:220px}
+.stack-box-slot{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:160px;height:70px;background:linear-gradient(145deg,#4a6b5a,#3a5548);border-radius:35px;box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 2px 4px rgba(255,255,255,0.1),inset 0 -4px 8px rgba(0,0,0,0.2);z-index:10}
+.stack-box-slot::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:130px;height:24px;background:rgba(0,0,0,0.25);border-radius:12px}
+.stack-card-fly{position:absolute;left:50%;width:140px;padding:10px 14px;background:#1a1a1e;border-radius:14px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.4);transform-origin:center bottom;opacity:0}
+.stack-card-fly .card-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7rem;color:var(--muted)}
+.stack-card-fly .card-text{font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:0.8rem}
+@keyframes cardDrop0{0%{opacity:0;transform:translateX(-50%) translateY(-180px) rotate(-8deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-90px) rotate(-3deg) scale(1)}85%{transform:translateX(-50%) translateY(-70px) rotate(-5deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-80px) rotate(-4deg) scale(1)}}
+@keyframes cardDrop1{0%{opacity:0;transform:translateX(-50%) translateY(-200px) rotate(5deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-105px) rotate(1deg) scale(1)}85%{transform:translateX(-50%) translateY(-95px) rotate(2deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-100px) rotate(1deg) scale(1)}}
+@keyframes cardDrop2{0%{opacity:0;transform:translateX(-50%) translateY(-220px) rotate(-3deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-125px) rotate(-1deg) scale(1)}85%{transform:translateX(-50%) translateY(-118px) rotate(-2deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-122px) rotate(-1deg) scale(1)}}
+@keyframes cardDrop3{0%{opacity:0;transform:translateX(-50%) translateY(-240px) rotate(6deg) scale(0.9)}40%{opacity:1}70%{transform:translateX(-50%) translateY(-148px) rotate(2deg) scale(1)}85%{transform:translateX(-50%) translateY(-140px) rotate(3deg) scale(0.98)}100%{opacity:1;transform:translateX(-50%) translateY(-145px) rotate(2deg) scale(1)}}
 .ca-white-card:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.95),0 30px 70px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.03),0 0 40px rgba(37,99,235,0.03)!important}
 
 .ca-card-bg{position:relative}
@@ -3399,6 +3411,37 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
 
+  <div class="demo-row">
+    <div class="demo-cell" data-name="Card Stack Into Box" data-category="motion" data-library="creative-arsenal" style="min-height:340px">
+      <div class="component-label">Card Stack Into Box</div>
+      <div class="stack-box-scene" id="stackBoxScene">
+        <div class="stack-box-container">
+          <!-- Cards that drop in -->
+          <div class="stack-card-fly" id="stackFly0" style="z-index:4;animation:cardDrop0 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;color:#6ee7b7">
+            <div class="card-icon">&#9998;</div>
+            <div class="card-text">If you</div>
+          </div>
+          <div class="stack-card-fly" id="stackFly1" style="z-index:5;animation:cardDrop1 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.9s both;color:#93c5fd">
+            <div class="card-icon">&#9733;</div>
+            <div class="card-text">Take</div>
+          </div>
+          <div class="stack-card-fly" id="stackFly2" style="z-index:6;animation:cardDrop2 0.8s cubic-bezier(0.34,1.56,0.64,1) 1.5s both;color:#c4b5fd">
+            <div class="card-icon">&#9881;</div>
+            <div class="card-text">Every</div>
+          </div>
+          <div class="stack-card-fly" id="stackFly3" style="z-index:7;animation:cardDrop3 0.8s cubic-bezier(0.34,1.56,0.64,1) 2.1s both;color:#fbbf24">
+            <div class="card-icon">&#10024;</div>
+            <div class="card-text">Notes</div>
+          </div>
+          <!-- The box/slot -->
+          <div class="stack-box-slot"></div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:0.65rem;color:var(--muted);margin-top:4px">Cards drop and stack with spring physics</div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+
   <!-- ══ REMOTION-BITS EXPANDED ═════════════════════ -->
   <div class="section-title">remotion-bits — Full Library</div>
   <div class="demo-row">
@@ -4687,6 +4730,27 @@ function updateTextareaCounter(){
   wrap.addEventListener('scroll',checkReveal);
   // Initial reveal
   setTimeout(checkReveal,100);
+})();
+
+// ── CARD STACK INTO BOX (replay) ────────────────
+(function(){
+  function replayStackBox(){
+    for(var i=0;i<4;i++){
+      var el=document.getElementById('stackFly'+i);
+      if(!el)return;
+      el.style.animation='none';
+      el.offsetHeight;
+    }
+    var delays=[0.3,0.9,1.5,2.1];
+    var anims=['cardDrop0','cardDrop1','cardDrop2','cardDrop3'];
+    for(var i=0;i<4;i++){
+      (function(idx){
+        var el=document.getElementById('stackFly'+idx);
+        el.style.animation=anims[idx]+' 0.8s cubic-bezier(0.34,1.56,0.64,1) '+delays[idx]+'s both';
+      })(i);
+    }
+  }
+  setInterval(replayStackBox,6000);
 })();
 
 // ── INIT FILTER COUNT ────────────────────────────
