@@ -1030,6 +1030,185 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 .textarea-counter.near-max{color:#eab308}
 .textarea-counter.at-max{color:#ef4444}
 
+/* ── ANIMATED BEAM NETWORK ── */
+.beam-network-svg{width:100%;height:100%}
+.beam-network-svg .node-circle{fill:var(--accent);r:6}
+.beam-network-svg .edge-line{stroke:rgba(255,255,255,0.08);stroke-width:1.5;fill:none}
+.beam-network-svg .beam-dot{fill:var(--accent);filter:drop-shadow(0 0 6px var(--accent))}
+@keyframes beamTravel1{0%{offset-distance:0%}100%{offset-distance:100%}}
+@keyframes beamTravel2{0%{offset-distance:0%}100%{offset-distance:100%}}
+
+/* ── MOUSE-REACTIVE PARTICLES ── */
+.particle-canvas-wrap{position:relative;width:100%;height:100%;min-height:200px}
+.particle-canvas-wrap canvas{width:100%;height:100%;display:block;border-radius:12px}
+
+/* ── MORPHING SHAPES ── */
+.morph-shapes-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.morph-blob{position:absolute;width:140px;height:140px;border-radius:50%;filter:blur(2px);opacity:0.7}
+.morph-blob:nth-child(1){background:var(--accent);animation:morphBlob1 8s ease-in-out infinite}
+.morph-blob:nth-child(2){background:#6366f1;animation:morphBlob2 10s ease-in-out infinite}
+.morph-blob:nth-child(3){background:#ec4899;animation:morphBlob3 12s ease-in-out infinite}
+@keyframes morphBlob1{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;transform:translate(0,0) scale(1)}33%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%;transform:translate(15px,-10px) scale(1.05)}66%{border-radius:50% 60% 30% 60%/30% 50% 70% 50%;transform:translate(-10px,15px) scale(0.95)}}
+@keyframes morphBlob2{0%,100%{border-radius:40% 60% 60% 40%/50% 40% 60% 50%;transform:translate(0,0) rotate(0deg)}50%{border-radius:60% 40% 30% 70%/40% 60% 50% 60%;transform:translate(20px,10px) rotate(30deg)}}
+@keyframes morphBlob3{0%,100%{border-radius:50% 50% 40% 60%/60% 40% 60% 40%;transform:translate(0,0) rotate(0deg)}33%{border-radius:40% 60% 50% 50%/50% 50% 60% 40%;transform:translate(-15px,10px) rotate(-20deg)}66%{border-radius:60% 40% 60% 40%/40% 60% 40% 60%;transform:translate(10px,-15px) rotate(15deg)}}
+
+/* ── PULSE RING ── */
+.pulse-ring-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pulse-ring{position:absolute;border:2px solid var(--accent);border-radius:50%;animation:pulseExpand 3s ease-out infinite;opacity:0}
+.pulse-ring:nth-child(1){animation-delay:0s}
+.pulse-ring:nth-child(2){animation-delay:0.6s}
+.pulse-ring:nth-child(3){animation-delay:1.2s}
+.pulse-ring:nth-child(4){animation-delay:1.8s}
+.pulse-ring:nth-child(5){animation-delay:2.4s}
+.pulse-ring-center{width:12px;height:12px;background:var(--accent);border-radius:50%;box-shadow:0 0 20px var(--accent);z-index:1}
+@keyframes pulseExpand{0%{width:12px;height:12px;opacity:0.8}100%{width:200px;height:200px;opacity:0}}
+
+/* ── ORBIT ANIMATION ── */
+.orbit-wrap{position:relative;width:200px;height:200px;perspective:600px;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(0deg)}
+.orbit-ring{position:absolute;inset:0;border:1px solid rgba(255,255,255,0.06);border-radius:50%;animation-timing-function:linear;animation-iteration-count:infinite}
+.orbit-ring-1{inset:20px;animation:orbitSpin 6s linear infinite}
+.orbit-ring-2{inset:50px;animation:orbitSpin 4s linear infinite reverse}
+.orbit-ring-3{inset:80px;animation:orbitSpin 8s linear infinite}
+.orbit-dot{position:absolute;width:10px;height:10px;border-radius:50%;top:-5px;left:50%;margin-left:-5px}
+.orbit-dot-1{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.orbit-dot-2{background:#6366f1;box-shadow:0 0 10px #6366f1}
+.orbit-dot-3{background:#ec4899;box-shadow:0 0 10px #ec4899}
+.orbit-center{position:absolute;top:50%;left:50%;width:16px;height:16px;margin:-8px 0 0 -8px;background:var(--accent);border-radius:50%;box-shadow:0 0 20px var(--accent)}
+@keyframes orbitSpin{0%{transform:rotateZ(0deg)}100%{transform:rotateZ(360deg)}}
+
+/* ── TYPEWRITER CODE ── */
+.typewriter-code-wrap{width:100%;height:100%;display:flex;flex-direction:column;background:rgba(0,0,0,0.4);border-radius:10px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:0.65rem;line-height:1.7}
+.typewriter-code-header{display:flex;gap:6px;padding:10px 14px;background:rgba(255,255,255,0.03)}
+.typewriter-code-dot{width:8px;height:8px;border-radius:50%}
+.typewriter-code-body{padding:8px 14px;flex:1;overflow:hidden;position:relative}
+.typewriter-code-line{display:flex;opacity:0;transform:translateY(4px);transition:opacity 0.3s,transform 0.3s}
+.typewriter-code-line.visible{opacity:1;transform:translateY(0)}
+.typewriter-code-line .line-no{color:rgba(255,255,255,0.15);margin-right:12px;user-select:none;min-width:16px;text-align:right}
+.typewriter-code-line .code-text{white-space:pre}
+.tc-keyword{color:#c084fc}
+.tc-func{color:#60a5fa}
+.tc-string{color:#34d399}
+.tc-comment{color:rgba(255,255,255,0.25);font-style:italic}
+.tc-punct{color:rgba(255,255,255,0.4)}
+.tc-cursor{display:inline-block;width:6px;height:14px;background:var(--accent);animation:tcBlink 0.8s step-end infinite;vertical-align:middle;margin-left:2px}
+@keyframes tcBlink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── COUNTER CASCADE ── */
+.counter-cascade-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;padding:10px}
+.cascade-stat{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px 12px;text-align:center}
+.cascade-stat .stat-value{font-family:'Cabinet Grotesk',sans-serif;font-size:1.5rem;font-weight:900;color:var(--text);line-height:1}
+.cascade-stat .stat-label{font-size:0.6rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em}
+.cascade-stat .stat-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:8px;overflow:hidden}
+.cascade-stat .stat-bar-fill{height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width 1.5s cubic-bezier(0.22,1,0.36,1)}
+
+/* ── ANIMATED PATH DRAWING ── */
+.path-drawing-svg{width:100%;height:100%;max-width:200px;max-height:200px}
+.path-drawing-svg .draw-path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--path-len);stroke-dashoffset:var(--path-len);animation:drawStroke 3s ease forwards}
+.path-drawing-svg .draw-path:nth-child(2){animation-delay:0.5s;stroke:#6366f1}
+.path-drawing-svg .draw-path:nth-child(3){animation-delay:1s;stroke:#ec4899}
+.path-drawing-svg .draw-path:nth-child(4){animation-delay:1.5s;stroke:#f59e0b}
+.path-drawing-svg .draw-path:nth-child(5){animation-delay:2s;stroke:var(--accent)}
+@keyframes drawStroke{to{stroke-dashoffset:0}}
+
+/* ── BREATHING CARD ── */
+.breathing-card{width:85%;max-width:260px;padding:28px 24px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:16px;text-align:center;animation:breathe 4s ease-in-out infinite;box-shadow:0 0 30px rgba(16,185,129,0)}
+.breathing-card h4{font-family:'Cabinet Grotesk',sans-serif;font-size:1rem;font-weight:800;margin-bottom:6px}
+.breathing-card p{font-size:0.7rem;color:var(--muted);line-height:1.5}
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 30px rgba(16,185,129,0)}50%{transform:scale(1.03);box-shadow:0 0 40px rgba(16,185,129,0.15)}}
+
+/* ── WAVE ANIMATION ── */
+.wave-animation-wrap{position:relative;width:100%;height:100%;overflow:hidden;display:flex;align-items:flex-end}
+.wave-layer{position:absolute;bottom:0;left:0;width:200%;height:60px}
+.wave-layer svg{width:100%;height:100%}
+.wave-layer:nth-child(1){animation:waveScroll 6s linear infinite;opacity:0.6}
+.wave-layer:nth-child(2){animation:waveScroll 8s linear infinite reverse;opacity:0.3;bottom:5px}
+.wave-layer:nth-child(3){animation:waveScroll 10s linear infinite;opacity:0.15;bottom:10px}
+@keyframes waveScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── FLIP COUNTER ── */
+.flip-counter-wrap{display:flex;gap:6px;align-items:center}
+.flip-digit-box{position:relative;width:40px;height:56px;perspective:300px}
+.flip-digit-top,.flip-digit-bottom{position:absolute;width:100%;height:50%;overflow:hidden;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-family:'Cabinet Grotesk',sans-serif;font-size:1.8rem;font-weight:900;color:var(--text)}
+.flip-digit-top{top:0;border-radius:8px 8px 0 0;border-bottom:1px solid rgba(255,255,255,0.06);align-items:flex-end;padding-bottom:0}
+.flip-digit-top span{transform:translateY(50%)}
+.flip-digit-bottom{bottom:0;border-radius:0 0 8px 8px;align-items:flex-start;padding-top:0}
+.flip-digit-bottom span{transform:translateY(-50%)}
+.flip-digit-flap{position:absolute;width:100%;height:50%;overflow:hidden;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-family:'Cabinet Grotesk',sans-serif;font-size:1.8rem;font-weight:900;color:var(--text);backface-visibility:hidden}
+.flip-digit-flap-top{top:0;border-radius:8px 8px 0 0;transform-origin:bottom center;align-items:flex-end}
+.flip-digit-flap-top span{transform:translateY(50%)}
+.flip-digit-flap-bottom{bottom:0;border-radius:0 0 8px 8px;transform-origin:top center;transform:rotateX(90deg);align-items:flex-start}
+.flip-digit-flap-bottom span{transform:translateY(-50%)}
+.flip-digit-box.flipping .flip-digit-flap-top{animation:flipTop 0.4s ease-in forwards}
+.flip-digit-box.flipping .flip-digit-flap-bottom{animation:flipBottom 0.4s 0.2s ease-out forwards}
+@keyframes flipTop{0%{transform:rotateX(0deg)}100%{transform:rotateX(-90deg)}}
+@keyframes flipBottom{0%{transform:rotateX(90deg)}100%{transform:rotateX(0deg)}}
+.flip-colon{font-family:'Cabinet Grotesk',sans-serif;font-size:1.8rem;font-weight:900;color:var(--muted)}
+
+/* ── MAGNETIC CURSOR TRAIL ── */
+.cursor-trail-area{position:relative;width:100%;height:100%;overflow:hidden;cursor:none;display:flex;align-items:center;justify-content:center}
+.cursor-trail-area .trail-hint{font-size:0.7rem;color:var(--muted);pointer-events:none}
+.trail-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--accent);pointer-events:none;transition:opacity 0.3s}
+
+/* ── TEXT REVEAL ON SCROLL ── */
+.text-reveal-scroll-wrap{width:100%;height:200px;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
+.text-reveal-scroll-wrap::-webkit-scrollbar{width:4px}
+.text-reveal-scroll-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
+.reveal-word{display:inline-block;opacity:0.1;transform:translateY(8px);transition:opacity 0.4s ease,transform 0.4s ease;margin-right:6px;font-family:'Satoshi',sans-serif;font-size:0.85rem;line-height:2}
+.reveal-word.revealed{opacity:1;transform:translateY(0)}
+
+/* ── ANIMATED GRADIENT MESH ── */
+.gradient-mesh-wrap{position:relative;width:100%;height:100%;overflow:hidden;border-radius:12px}
+.gradient-mesh-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.5;mix-blend-mode:screen}
+.gradient-mesh-blob:nth-child(1){width:200px;height:200px;background:#10b981;top:-40px;left:-40px;animation:meshFloat1 12s ease-in-out infinite}
+.gradient-mesh-blob:nth-child(2){width:180px;height:180px;background:#6366f1;bottom:-30px;right:-30px;animation:meshFloat2 15s ease-in-out infinite}
+.gradient-mesh-blob:nth-child(3){width:160px;height:160px;background:#ec4899;top:50%;left:50%;transform:translate(-50%,-50%);animation:meshFloat3 18s ease-in-out infinite}
+.gradient-mesh-blob:nth-child(4){width:140px;height:140px;background:#f59e0b;top:-20px;right:20%;animation:meshFloat4 14s ease-in-out infinite}
+@keyframes meshFloat1{0%,100%{transform:translate(0,0)}25%{transform:translate(40px,30px)}50%{transform:translate(20px,60px)}75%{transform:translate(-20px,30px)}}
+@keyframes meshFloat2{0%,100%{transform:translate(0,0)}25%{transform:translate(-30px,-40px)}50%{transform:translate(-50px,-20px)}75%{transform:translate(-20px,-50px)}}
+@keyframes meshFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}33%{transform:translate(-30%,-60%) scale(1.1)}66%{transform:translate(-60%,-40%) scale(0.9)}}
+@keyframes meshFloat4{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-30px,40px) rotate(20deg)}}
+.gradient-mesh-label{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:'Cabinet Grotesk',sans-serif;font-size:0.8rem;font-weight:700;color:white;text-shadow:0 2px 10px rgba(0,0,0,0.5);z-index:1}
+
+/* ── LOADING SPINNER COLLECTION ── */
+.spinner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;padding:12px}
+.spinner-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.spinner-item .spinner-label{font-size:0.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
+/* Dots spinner */
+.spinner-dots{display:flex;gap:4px}
+.spinner-dots span{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:dotsBounce 1.2s ease-in-out infinite}
+.spinner-dots span:nth-child(2){animation-delay:0.2s}
+.spinner-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes dotsBounce{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+/* Bars spinner */
+.spinner-bars{display:flex;gap:3px;align-items:end;height:24px}
+.spinner-bars span{width:4px;background:var(--accent);border-radius:2px;animation:barsGrow 1s ease-in-out infinite}
+.spinner-bars span:nth-child(1){animation-delay:0s}
+.spinner-bars span:nth-child(2){animation-delay:0.15s}
+.spinner-bars span:nth-child(3){animation-delay:0.3s}
+.spinner-bars span:nth-child(4){animation-delay:0.45s}
+@keyframes barsGrow{0%,100%{height:8px}50%{height:24px}}
+/* Ring spinner */
+.spinner-ring{width:24px;height:24px;border:3px solid rgba(255,255,255,0.08);border-top-color:var(--accent);border-radius:50%;animation:ringSpin 0.8s linear infinite}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+/* Pulse spinner */
+.spinner-pulse{width:24px;height:24px;border-radius:50%;background:var(--accent);animation:pulseGrow 1.2s ease-in-out infinite}
+@keyframes pulseGrow{0%{transform:scale(0.5);opacity:1}100%{transform:scale(1.5);opacity:0}}
+/* Bounce spinner */
+.spinner-bounce{display:flex;gap:4px;align-items:center;height:24px}
+.spinner-bounce span{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:bounceDot 0.6s ease-in-out infinite alternate}
+.spinner-bounce span:nth-child(2){animation-delay:0.2s}
+.spinner-bounce span:nth-child(3){animation-delay:0.4s}
+@keyframes bounceDot{0%{transform:translateY(6px)}100%{transform:translateY(-6px)}}
+/* Wave spinner */
+.spinner-wave{display:flex;gap:2px;align-items:center;height:24px}
+.spinner-wave span{width:3px;height:16px;background:var(--accent);border-radius:2px;animation:waveBar 1.2s ease-in-out infinite}
+.spinner-wave span:nth-child(1){animation-delay:0s}
+.spinner-wave span:nth-child(2){animation-delay:0.1s}
+.spinner-wave span:nth-child(3){animation-delay:0.2s}
+.spinner-wave span:nth-child(4){animation-delay:0.3s}
+.spinner-wave span:nth-child(5){animation-delay:0.4s}
+@keyframes waveBar{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1.2)}}
+
 .footer{text-align:center;padding:80px 0 40px;color:var(--muted);font-size:0.8rem}
 </style>
 </head>
@@ -2945,6 +3124,259 @@ function <span class="hl">Analytics</span>() {
     </div>
   </div>
 
+  <!-- ══ MOTION / ANIMATED COMPONENTS ═══════════════ -->
+  <div class="section-title">Motion &amp; Animated Components</div>
+  <div class="demo-row">
+    <!-- 1. Animated Beam Network -->
+    <div class="demo-cell" data-name="Animated Beam Network" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Animated Beam Network</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%">
+        <svg class="beam-network-svg" id="beamNetworkSvg" viewBox="0 0 280 200">
+          <!-- edges -->
+          <path class="edge-line" id="beamEdge1" d="M60,40 L140,100"/>
+          <path class="edge-line" id="beamEdge2" d="M140,100 L220,50"/>
+          <path class="edge-line" id="beamEdge3" d="M140,100 L60,160"/>
+          <path class="edge-line" id="beamEdge4" d="M140,100 L220,160"/>
+          <path class="edge-line" id="beamEdge5" d="M60,40 L220,50"/>
+          <path class="edge-line" id="beamEdge6" d="M60,160 L220,160"/>
+          <!-- nodes -->
+          <circle class="node-circle" cx="60" cy="40"/>
+          <circle class="node-circle" cx="220" cy="50"/>
+          <circle class="node-circle" cx="140" cy="100" r="8" style="filter:drop-shadow(0 0 8px var(--accent))"/>
+          <circle class="node-circle" cx="60" cy="160"/>
+          <circle class="node-circle" cx="220" cy="160"/>
+          <!-- beam dots (animated via JS) -->
+          <circle class="beam-dot" r="3" id="beamDot1"/>
+          <circle class="beam-dot" r="3" id="beamDot2" style="fill:#6366f1;filter:drop-shadow(0 0 6px #6366f1)"/>
+          <circle class="beam-dot" r="3" id="beamDot3" style="fill:#ec4899;filter:drop-shadow(0 0 6px #ec4899)"/>
+        </svg>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 2. Mouse-Reactive Particles -->
+    <div class="demo-cell" data-name="Mouse-Reactive Particles" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Mouse-Reactive Particles</div>
+      <div class="particle-canvas-wrap" id="particleCanvasWrap">
+        <canvas id="particleCanvas"></canvas>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 3. Morphing Shapes -->
+    <div class="demo-cell" data-name="Morphing Shapes" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Morphing Shapes</div>
+      <div class="morph-shapes-wrap">
+        <div class="morph-blob"></div>
+        <div class="morph-blob"></div>
+        <div class="morph-blob"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <!-- 4. Pulse Ring -->
+    <div class="demo-cell" data-name="Pulse Ring" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Pulse Ring</div>
+      <div class="pulse-ring-wrap">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring-center"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 5. Orbit Animation -->
+    <div class="demo-cell" data-name="Orbit Animation" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Orbit Animation</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="orbit-wrap">
+          <div class="orbit-ring orbit-ring-1"><div class="orbit-dot orbit-dot-1"></div></div>
+          <div class="orbit-ring orbit-ring-2"><div class="orbit-dot orbit-dot-2"></div></div>
+          <div class="orbit-ring orbit-ring-3"><div class="orbit-dot orbit-dot-3"></div></div>
+          <div class="orbit-center"></div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 6. Typewriter Code -->
+    <div class="demo-cell" data-name="Typewriter Code" data-category="text" data-library="magic-ui">
+      <div class="component-label">Typewriter Code</div>
+      <div class="typewriter-code-wrap">
+        <div class="typewriter-code-header">
+          <div class="typewriter-code-dot" style="background:#ef4444"></div>
+          <div class="typewriter-code-dot" style="background:#eab308"></div>
+          <div class="typewriter-code-dot" style="background:#22c55e"></div>
+        </div>
+        <div class="typewriter-code-body" id="typewriterCodeBody"></div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <!-- 7. Counter Cascade -->
+    <div class="demo-cell" data-name="Counter Cascade" data-category="data" data-library="magic-ui">
+      <div class="component-label">Counter Cascade</div>
+      <div class="counter-cascade-wrap" id="counterCascadeWrap">
+        <div class="cascade-stat" data-target="2847" data-delay="0">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Users</div>
+          <div class="stat-bar"><div class="stat-bar-fill" data-width="78"></div></div>
+        </div>
+        <div class="cascade-stat" data-target="94" data-delay="200" data-suffix="%">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Uptime</div>
+          <div class="stat-bar"><div class="stat-bar-fill" data-width="94"></div></div>
+        </div>
+        <div class="cascade-stat" data-target="156" data-delay="400" data-prefix="$" data-suffix="K">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Revenue</div>
+          <div class="stat-bar"><div class="stat-bar-fill" data-width="62"></div></div>
+        </div>
+        <div class="cascade-stat" data-target="12" data-delay="600" data-suffix="ms">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Latency</div>
+          <div class="stat-bar"><div class="stat-bar-fill" data-width="15"></div></div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 8. Animated Path Drawing -->
+    <div class="demo-cell" data-name="Animated Path Drawing" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Animated Path Drawing</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <svg class="path-drawing-svg" id="pathDrawingSvg" viewBox="0 0 200 200">
+          <!-- Lightbulb outline -->
+          <path class="draw-path" style="--path-len:300" d="M100,20 C60,20 30,50 30,90 C30,115 50,130 60,145 L60,160 L140,160 L140,145 C150,130 170,115 170,90 C170,50 140,20 100,20Z"/>
+          <!-- Filament -->
+          <path class="draw-path" style="--path-len:80" d="M80,90 Q90,60 100,90 Q110,120 120,90"/>
+          <!-- Base lines -->
+          <path class="draw-path" style="--path-len:80" d="M65,170 L135,170"/>
+          <path class="draw-path" style="--path-len:70" d="M70,180 L130,180"/>
+          <!-- Bottom cap -->
+          <path class="draw-path" style="--path-len:60" d="M80,190 Q100,200 120,190"/>
+        </svg>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 9. Breathing Card -->
+    <div class="demo-cell" data-name="Breathing Card" data-category="cards" data-library="creative-arsenal">
+      <div class="component-label">Breathing Card</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="breathing-card">
+          <h4>Breathe</h4>
+          <p>A calm, meditative card with gentle scale and glow animation</p>
+        </div>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <!-- 10. Wave Animation -->
+    <div class="demo-cell" data-name="Wave Animation" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Wave Animation</div>
+      <div class="wave-animation-wrap">
+        <div class="wave-layer">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C200,10 400,50 600,30 C800,10 1000,50 1200,30 L1200,60 L0,60Z" fill="rgba(16,185,129,0.3)"/></svg>
+        </div>
+        <div class="wave-layer">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,35 C150,15 350,55 550,30 C750,5 950,50 1200,25 L1200,60 L0,60Z" fill="rgba(99,102,241,0.3)"/></svg>
+        </div>
+        <div class="wave-layer">
+          <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,25 C250,45 450,15 650,35 C850,55 1050,20 1200,40 L1200,60 L0,60Z" fill="rgba(236,72,153,0.2)"/></svg>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 11. Flip Counter -->
+    <div class="demo-cell" data-name="Flip Counter" data-category="data" data-library="magic-ui">
+      <div class="component-label">Flip Counter</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">
+        <div class="flip-counter-wrap" id="flipCounterWrap">
+          <div class="flip-digit-box" data-digit="0">
+            <div class="flip-digit-top"><span>0</span></div>
+            <div class="flip-digit-bottom"><span>0</span></div>
+          </div>
+          <div class="flip-digit-box" data-digit="0">
+            <div class="flip-digit-top"><span>0</span></div>
+            <div class="flip-digit-bottom"><span>0</span></div>
+          </div>
+          <span class="flip-colon">:</span>
+          <div class="flip-digit-box" data-digit="0">
+            <div class="flip-digit-top"><span>0</span></div>
+            <div class="flip-digit-bottom"><span>0</span></div>
+          </div>
+          <div class="flip-digit-box" data-digit="0">
+            <div class="flip-digit-top"><span>0</span></div>
+            <div class="flip-digit-bottom"><span>0</span></div>
+          </div>
+        </div>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 12. Magnetic Cursor Trail -->
+    <div class="demo-cell" data-name="Magnetic Cursor Trail" data-category="effects" data-library="creative-arsenal">
+      <div class="component-label">Magnetic Cursor Trail</div>
+      <div class="cursor-trail-area" id="cursorTrailArea">
+        <span class="trail-hint">Move your mouse here</span>
+      </div>
+      <span class="component-source">Creative Arsenal</span>
+    </div>
+  </div>
+  <div class="demo-row">
+    <!-- 13. Text Reveal on Scroll -->
+    <div class="demo-cell" data-name="Text Reveal on Scroll" data-category="text" data-library="magic-ui">
+      <div class="component-label">Text Reveal on Scroll</div>
+      <div class="text-reveal-scroll-wrap" id="textRevealScrollWrap">
+        <p id="textRevealContent"></p>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 14. Animated Gradient Mesh -->
+    <div class="demo-cell" data-name="Animated Gradient Mesh" data-category="effects" data-library="magic-ui">
+      <div class="component-label">Animated Gradient Mesh</div>
+      <div class="gradient-mesh-wrap">
+        <div class="gradient-mesh-blob"></div>
+        <div class="gradient-mesh-blob"></div>
+        <div class="gradient-mesh-blob"></div>
+        <div class="gradient-mesh-blob"></div>
+        <span class="gradient-mesh-label">Dynamic Mesh</span>
+      </div>
+      <span class="component-source">Magic UI</span>
+    </div>
+    <!-- 15. Loading Spinner Collection -->
+    <div class="demo-cell" data-name="Loading Spinner Collection" data-category="state" data-library="shadcn">
+      <div class="component-label">Loading Spinner Collection</div>
+      <div class="spinner-grid">
+        <div class="spinner-item">
+          <div class="spinner-dots"><span></span><span></span><span></span></div>
+          <span class="spinner-label">Dots</span>
+        </div>
+        <div class="spinner-item">
+          <div class="spinner-bars"><span></span><span></span><span></span><span></span></div>
+          <span class="spinner-label">Bars</span>
+        </div>
+        <div class="spinner-item">
+          <div class="spinner-ring"></div>
+          <span class="spinner-label">Ring</span>
+        </div>
+        <div class="spinner-item">
+          <div class="spinner-pulse"></div>
+          <span class="spinner-label">Pulse</span>
+        </div>
+        <div class="spinner-item">
+          <div class="spinner-bounce"><span></span><span></span><span></span></div>
+          <span class="spinner-label">Bounce</span>
+        </div>
+        <div class="spinner-item">
+          <div class="spinner-wave"><span></span><span></span><span></span><span></span><span></span></div>
+          <span class="spinner-label">Wave</span>
+        </div>
+      </div>
+      <span class="component-source">shadcn/ui</span>
+    </div>
+  </div>
+
   <!-- ══ REMOTION-BITS EXPANDED ═════════════════════ -->
   <div class="section-title">remotion-bits — Full Library</div>
   <div class="demo-row">
@@ -3864,6 +4296,364 @@ function updateTextareaCounter(){
   field.style.height='auto';
   field.style.height=field.scrollHeight+'px';
 }
+
+// ── 1. ANIMATED BEAM NETWORK ─────────────────────
+(function initBeamNetwork(){
+  var svg=document.getElementById('beamNetworkSvg');
+  if(!svg)return;
+  var edges=[
+    {id:'beamEdge1',dot:'beamDot1'},
+    {id:'beamEdge2',dot:'beamDot2'},
+    {id:'beamEdge3',dot:'beamDot3'}
+  ];
+  var allEdgeIds=['beamEdge1','beamEdge2','beamEdge3','beamEdge4','beamEdge5','beamEdge6'];
+  var dotEls=edges.map(function(e){return document.getElementById(e.dot)});
+  var pathEls=allEdgeIds.map(function(id){return document.getElementById(id)});
+  var edgePaths=edges.map(function(e){return document.getElementById(e.id)});
+  // Pick random edges for each dot
+  var dotState=edges.map(function(e,i){
+    var p=document.getElementById(e.id);
+    var len=p.getTotalLength();
+    return {path:p,len:len,t:Math.random(),speed:0.003+Math.random()*0.004,dir:1,dot:dotEls[i]};
+  });
+  function animateBeams(){
+    dotState.forEach(function(s){
+      s.t+=s.speed*s.dir;
+      if(s.t>=1){s.t=1;s.dir=-1;
+        // Pick a new random edge
+        var rIdx=Math.floor(Math.random()*allEdgeIds.length);
+        var newP=pathEls[rIdx];
+        s.path=newP;s.len=newP.getTotalLength();
+      }
+      if(s.t<=0){s.t=0;s.dir=1;
+        var rIdx=Math.floor(Math.random()*allEdgeIds.length);
+        var newP=pathEls[rIdx];
+        s.path=newP;s.len=newP.getTotalLength();
+      }
+      var pt=s.path.getPointAtLength(s.t*s.len);
+      s.dot.setAttribute('cx',pt.x);
+      s.dot.setAttribute('cy',pt.y);
+    });
+    requestAnimationFrame(animateBeams);
+  }
+  animateBeams();
+})();
+
+// ── 2. MOUSE-REACTIVE PARTICLES ──────────────────
+(function initParticles(){
+  var wrap=document.getElementById('particleCanvasWrap');
+  var canvas=document.getElementById('particleCanvas');
+  if(!canvas||!wrap)return;
+  var ctx=canvas.getContext('2d');
+  var particles=[];
+  var mouse={x:-1000,y:-1000};
+  var count=60;
+  function resize(){
+    var r=wrap.getBoundingClientRect();
+    canvas.width=r.width;canvas.height=r.height;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  for(var i=0;i<count;i++){
+    particles.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      vx:(Math.random()-0.5)*0.5,
+      vy:(Math.random()-0.5)*0.5,
+      r:Math.random()*2+1,
+      alpha:Math.random()*0.5+0.2
+    });
+  }
+  wrap.addEventListener('mousemove',function(e){
+    var r=canvas.getBoundingClientRect();
+    mouse.x=e.clientX-r.left;
+    mouse.y=e.clientY-r.top;
+  });
+  wrap.addEventListener('mouseleave',function(){mouse.x=-1000;mouse.y=-1000});
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(function(p){
+      var dx=p.x-mouse.x,dy=p.y-mouse.y;
+      var dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<100&&dist>0){
+        var force=(100-dist)/100*2;
+        p.vx+=dx/dist*force*0.3;
+        p.vy+=dy/dist*force*0.3;
+      }
+      p.vx*=0.98;p.vy*=0.98;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+      if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(16,185,129,'+p.alpha+')';
+      ctx.fill();
+    });
+    // Draw connections
+    for(var i=0;i<particles.length;i++){
+      for(var j=i+1;j<particles.length;j++){
+        var dx=particles[i].x-particles[j].x;
+        var dy=particles[i].y-particles[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<80){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(16,185,129,'+(1-dist/80)*0.15+')';
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ── 6. TYPEWRITER CODE ───────────────────────────
+(function initTypewriterCode(){
+  var body=document.getElementById('typewriterCodeBody');
+  if(!body)return;
+  var lines=[
+    {no:'1',parts:[{cls:'tc-keyword',text:'import'},{cls:'tc-punct',text:' { '},{cls:'tc-func',text:'motion'},{cls:'tc-punct',text:' } '},{cls:'tc-keyword',text:'from'},{cls:'',text:' '},{cls:'tc-string',text:"'framer-motion'"}]},
+    {no:'2',parts:[]},
+    {no:'3',parts:[{cls:'tc-keyword',text:'const'},{cls:'',text:' '},{cls:'tc-func',text:'App'},{cls:'tc-punct',text:' = () => {'}]},
+    {no:'4',parts:[{cls:'',text:'  '},{cls:'tc-keyword',text:'return'},{cls:'tc-punct',text:' ('}]},
+    {no:'5',parts:[{cls:'',text:'    '},{cls:'tc-punct',text:'<'},{cls:'tc-func',text:'motion.div'}]},
+    {no:'6',parts:[{cls:'',text:'      '},{cls:'tc-keyword',text:'animate'},{cls:'tc-punct',text:'={{ '},{cls:'tc-string',text:'scale: 1.2'},{cls:'tc-punct',text:' }}'}]},
+    {no:'7',parts:[{cls:'',text:'      '},{cls:'tc-keyword',text:'transition'},{cls:'tc-punct',text:'={{ '},{cls:'tc-string',text:'duration: 0.5'},{cls:'tc-punct',text:' }}'}]},
+    {no:'8',parts:[{cls:'',text:'    '},{cls:'tc-punct',text:'/>'}]},
+    {no:'9',parts:[{cls:'',text:'  '},{cls:'tc-punct',text:')'}]},
+    {no:'10',parts:[{cls:'tc-punct',text:'}'}]},
+  ];
+  var idx=0;
+  function addLine(){
+    if(idx>=lines.length){
+      // Reset and start over
+      setTimeout(function(){body.innerHTML='';idx=0;addLine()},2000);
+      return;
+    }
+    var l=lines[idx];
+    var div=document.createElement('div');
+    div.className='typewriter-code-line';
+    var noSpan=document.createElement('span');
+    noSpan.className='line-no';
+    noSpan.textContent=l.no;
+    div.appendChild(noSpan);
+    var codeSpan=document.createElement('span');
+    codeSpan.className='code-text';
+    l.parts.forEach(function(p){
+      var s=document.createElement('span');
+      if(p.cls)s.className=p.cls;
+      s.textContent=p.text;
+      codeSpan.appendChild(s);
+    });
+    div.appendChild(codeSpan);
+    // Add cursor to last line
+    var cursor=document.createElement('span');
+    cursor.className='tc-cursor';
+    codeSpan.appendChild(cursor);
+    body.appendChild(div);
+    // Remove cursor from previous line
+    var allLines=body.querySelectorAll('.typewriter-code-line');
+    if(allLines.length>1){
+      var prevCursor=allLines[allLines.length-2].querySelector('.tc-cursor');
+      if(prevCursor)prevCursor.remove();
+    }
+    setTimeout(function(){div.classList.add('visible')},50);
+    idx++;
+    setTimeout(addLine,400+Math.random()*300);
+  }
+  addLine();
+})();
+
+// ── 7. COUNTER CASCADE ──────────────────────────
+(function initCounterCascade(){
+  var wrap=document.getElementById('counterCascadeWrap');
+  if(!wrap)return;
+  var stats=wrap.querySelectorAll('.cascade-stat');
+  stats.forEach(function(stat){
+    var target=parseInt(stat.getAttribute('data-target'),10);
+    var delay=parseInt(stat.getAttribute('data-delay'),10)||0;
+    var prefix=stat.getAttribute('data-prefix')||'';
+    var suffix=stat.getAttribute('data-suffix')||'';
+    var valEl=stat.querySelector('.stat-value');
+    var barFill=stat.querySelector('.stat-bar-fill');
+    var barWidth=barFill?barFill.getAttribute('data-width'):0;
+    setTimeout(function(){
+      var start=0;
+      var duration=1500;
+      var startTime=null;
+      function animate(ts){
+        if(!startTime)startTime=ts;
+        var progress=Math.min((ts-startTime)/duration,1);
+        var eased=1-Math.pow(1-progress,3);
+        var val=Math.round(eased*target);
+        valEl.textContent=prefix+val+suffix;
+        if(barFill)barFill.style.width=eased*barWidth+'%';
+        if(progress<1)requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    },delay);
+  });
+})();
+
+// ── 8. ANIMATED PATH DRAWING ────────────────────
+(function initPathDrawing(){
+  var svg=document.getElementById('pathDrawingSvg');
+  if(!svg)return;
+  var paths=svg.querySelectorAll('.draw-path');
+  paths.forEach(function(p){
+    var len=p.getTotalLength();
+    p.style.setProperty('--path-len',len);
+    p.style.strokeDasharray=len;
+    p.style.strokeDashoffset=len;
+  });
+  // Reset and replay
+  function replay(){
+    paths.forEach(function(p){
+      p.style.animation='none';
+      p.offsetHeight; // force reflow
+      p.style.animation='';
+    });
+  }
+  setInterval(replay,6000);
+})();
+
+// ── 11. FLIP COUNTER ────────────────────────────
+(function initFlipCounter(){
+  var wrap=document.getElementById('flipCounterWrap');
+  if(!wrap)return;
+  var boxes=wrap.querySelectorAll('.flip-digit-box');
+  var seconds=0;
+  function getDigits(sec){
+    var m=Math.floor(sec/60)%100;
+    var s=sec%60;
+    return [Math.floor(m/10),m%10,Math.floor(s/10),s%10];
+  }
+  function flipDigit(box,newVal){
+    var oldVal=parseInt(box.getAttribute('data-digit'),10);
+    if(oldVal===newVal)return;
+    box.setAttribute('data-digit',newVal);
+    // Update static faces
+    var topSpan=box.querySelector('.flip-digit-top span');
+    var botSpan=box.querySelector('.flip-digit-bottom span');
+    // Remove old flaps
+    var oldFlaps=box.querySelectorAll('.flip-digit-flap');
+    oldFlaps.forEach(function(f){f.remove()});
+    // Create flap for old value (top half falling)
+    var flapTop=document.createElement('div');
+    flapTop.className='flip-digit-flap flip-digit-flap-top';
+    flapTop.innerHTML='<span>'+oldVal+'</span>';
+    box.appendChild(flapTop);
+    // Create flap for new value (bottom half rising)
+    var flapBot=document.createElement('div');
+    flapBot.className='flip-digit-flap flip-digit-flap-bottom';
+    flapBot.innerHTML='<span>'+newVal+'</span>';
+    box.appendChild(flapBot);
+    // Update base digits
+    topSpan.textContent=newVal;
+    // Bottom shows old during animation, then new
+    setTimeout(function(){botSpan.textContent=newVal},400);
+    box.classList.remove('flipping');
+    box.offsetHeight;
+    box.classList.add('flipping');
+    setTimeout(function(){
+      box.classList.remove('flipping');
+      var flaps=box.querySelectorAll('.flip-digit-flap');
+      flaps.forEach(function(f){f.remove()});
+    },600);
+  }
+  function tick(){
+    var digits=getDigits(seconds);
+    boxes.forEach(function(b,i){
+      if(i<digits.length)flipDigit(b,digits[i]);
+    });
+    seconds++;
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+// ── 12. MAGNETIC CURSOR TRAIL ───────────────────
+(function initCursorTrail(){
+  var area=document.getElementById('cursorTrailArea');
+  if(!area)return;
+  var dots=[];
+  var numDots=16;
+  var positions=[];
+  for(var i=0;i<numDots;i++){
+    var dot=document.createElement('div');
+    dot.className='trail-dot';
+    dot.style.width=(12-i*0.5)+'px';
+    dot.style.height=(12-i*0.5)+'px';
+    dot.style.opacity=(1-i/numDots)*0.8;
+    dot.style.background=i%3===0?'#10b981':i%3===1?'#6366f1':'#ec4899';
+    area.appendChild(dot);
+    dots.push(dot);
+    positions.push({x:0,y:0});
+  }
+  var mouseX=0,mouseY=0,active=false;
+  area.addEventListener('mousemove',function(e){
+    var r=area.getBoundingClientRect();
+    mouseX=e.clientX-r.left;
+    mouseY=e.clientY-r.top;
+    active=true;
+  });
+  area.addEventListener('mouseleave',function(){active=false});
+  function animate(){
+    if(active){
+      positions[0].x+=(mouseX-positions[0].x)*0.3;
+      positions[0].y+=(mouseY-positions[0].y)*0.3;
+      for(var i=1;i<numDots;i++){
+        positions[i].x+=(positions[i-1].x-positions[i].x)*0.2;
+        positions[i].y+=(positions[i-1].y-positions[i].y)*0.2;
+      }
+      dots.forEach(function(d,i){
+        d.style.left=positions[i].x+'px';
+        d.style.top=positions[i].y+'px';
+        d.style.transform='translate(-50%,-50%)';
+        d.style.opacity=(1-i/numDots)*0.8;
+      });
+    } else {
+      dots.forEach(function(d){d.style.opacity='0'});
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── 13. TEXT REVEAL ON SCROLL ───────────────────
+(function initTextReveal(){
+  var wrap=document.getElementById('textRevealScrollWrap');
+  var content=document.getElementById('textRevealContent');
+  if(!wrap||!content)return;
+  var text="Design is not just what it looks like and feels like. Design is how it works. Every pixel matters. Every interaction tells a story. The best interfaces are invisible — they get out of the way and let users accomplish their goals. Motion brings interfaces to life. It guides attention, provides feedback, and creates delight. When done right, animation feels natural and effortless. Build with intention. Ship with confidence. Iterate with purpose.";
+  var words=text.split(' ');
+  content.innerHTML='';
+  words.forEach(function(w){
+    var span=document.createElement('span');
+    span.className='reveal-word';
+    span.textContent=w;
+    content.appendChild(span);
+  });
+  var allWords=content.querySelectorAll('.reveal-word');
+  function checkReveal(){
+    var wrapRect=wrap.getBoundingClientRect();
+    var scrollTop=wrap.scrollTop;
+    var wrapHeight=wrap.clientHeight;
+    allWords.forEach(function(w){
+      var top=w.offsetTop-scrollTop;
+      if(top<wrapHeight*0.85){
+        w.classList.add('revealed');
+      } else {
+        w.classList.remove('revealed');
+      }
+    });
+  }
+  wrap.addEventListener('scroll',checkReveal);
+  // Initial reveal
+  setTimeout(checkReveal,100);
+})();
 
 // ── INIT FILTER COUNT ────────────────────────────
 filterComponents();
