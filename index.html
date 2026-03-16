@@ -1213,15 +1213,25 @@ h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);f
 @keyframes gentleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .ca-backdrop{position:relative;isolation:isolate}
 /* Motion Techniques */
-@keyframes zDive{0%{transform:scale(1) translateZ(0);opacity:0.6}50%{transform:scale(3) translateZ(200px);opacity:0}100%{transform:scale(1) translateZ(0);opacity:0.6}}
-@keyframes portalPulse{0%,100%{transform:scale(1);box-shadow:0 0 30px rgba(16,185,129,0.4)}50%{transform:scale(1.2);box-shadow:0 0 50px rgba(16,185,129,0.6)}}
-@keyframes parallaxBg{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
-@keyframes parallaxMid{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
-@keyframes parallaxFg{0%{transform:translateX(0)}100%{transform:translateX(-300px)}}
-@keyframes linearMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
-@keyframes expoMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
-@keyframes overshootMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
-.sg-bad,.sg-good{transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+/* Z-Axis Dive: camera flies forward through space */
+@keyframes zAxisCameraFly{
+  0%{transform:translateZ(-200px)}
+  100%{transform:translateZ(600px)}
+}
+@keyframes portalRingGlow{
+  0%,100%{box-shadow:0 0 15px rgba(16,185,129,0.3),inset 0 0 15px rgba(16,185,129,0.1)}
+  50%{box-shadow:0 0 30px rgba(16,185,129,0.6),inset 0 0 25px rgba(16,185,129,0.2)}
+}
+/* Lateral Parallax: camera trucks sideways, perspective does the work */
+@keyframes truckCamera{
+  0%{transform:translateX(80px)}
+  50%{transform:translateX(-80px)}
+  100%{transform:translateX(80px)}
+}
+/* Easing balls */
+@keyframes easeBallMove{0%,100%{left:0}50%{left:calc(100% - 20px)}}
+/* Stagger orchestration */
+.sg-bad-box,.sg-good-box{transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s cubic-bezier(0.34,1.56,0.64,1)}
 @keyframes docZoomAnim{0%,20%{transform:scale(1) translateY(0)}40%,60%{transform:scale(2.8) translateY(15%)}80%,100%{transform:scale(1) translateY(0)}}
 .ca-backdrop::after{content:'';position:absolute;inset:0;border-radius:inherit;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");mix-blend-mode:overlay;pointer-events:none;z-index:0}
 .ca-backdrop>*{position:relative;z-index:1}
@@ -3459,59 +3469,72 @@ function <span class="hl">Analytics</span>() {
   <div class="section-title">Motion Techniques — Reference</div>
 
   <div class="demo-row">
-    <!-- Z-AXIS DIVE -->
+    <!-- Z-AXIS DIVE (PORTAL) — Camera flies forward through space -->
     <div class="demo-cell" data-name="Z-Axis Dive (Portal)" data-category="techniques" data-library="creative-arsenal" style="min-height:300px">
       <div class="component-label">Z-Axis Dive (Portal)</div>
-      <div style="flex:1;display:flex;align-items:center;justify-content:center;perspective:500px;overflow:hidden;position:relative" id="zAxisScene">
-        <!-- Layers that zoom past -->
-        <div id="zAxisLayer3" style="position:absolute;width:200px;height:200px;border:2px solid rgba(16,185,129,0.1);border-radius:16px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) infinite"></div>
-        <div id="zAxisLayer2" style="position:absolute;width:140px;height:140px;border:2px solid rgba(16,185,129,0.2);border-radius:12px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) 0.5s infinite"></div>
-        <div id="zAxisLayer1" style="position:absolute;width:80px;height:80px;border:2px solid rgba(16,185,129,0.4);border-radius:8px;animation:zDive 4s cubic-bezier(0.4,0,0.2,1) 1s infinite"></div>
-        <!-- Portal hole -->
-        <div style="width:30px;height:30px;border-radius:50%;background:var(--accent);box-shadow:0 0 30px rgba(16,185,129,0.4),0 0 60px rgba(16,185,129,0.2);z-index:5;animation:portalPulse 2s ease-in-out infinite"></div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;perspective:600px;perspective-origin:center center">
+        <!-- 3D scene container — the CAMERA moves forward (translateZ increases), children rush past -->
+        <div style="position:absolute;width:100%;height:100%;transform-style:preserve-3d;animation:zAxisCameraFly 3.5s cubic-bezier(0.4,0,0.2,1) infinite">
+          <!-- Rectangular frames at increasing Z depths — they rush toward and past camera -->
+          <div style="position:absolute;left:50%;top:50%;width:220px;height:150px;border:2px solid rgba(16,185,129,0.07);border-radius:4px;transform:translate(-50%,-50%) translateZ(-600px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:200px;height:130px;border:2px solid rgba(16,185,129,0.10);border-radius:4px;transform:translate(-50%,-50%) translateZ(-480px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:180px;height:110px;border:2px solid rgba(16,185,129,0.14);border-radius:4px;transform:translate(-50%,-50%) translateZ(-360px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:160px;height:95px;border:2px solid rgba(16,185,129,0.18);border-radius:4px;transform:translate(-50%,-50%) translateZ(-240px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:140px;height:80px;border:2px solid rgba(16,185,129,0.24);border-radius:4px;transform:translate(-50%,-50%) translateZ(-120px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:120px;height:65px;border:2px solid rgba(16,185,129,0.32);border-radius:4px;transform:translate(-50%,-50%) translateZ(0px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:100px;height:55px;border:2px solid rgba(16,185,129,0.40);border-radius:4px;transform:translate(-50%,-50%) translateZ(120px)"></div>
+          <div style="position:absolute;left:50%;top:50%;width:80px;height:45px;border:2px solid rgba(16,185,129,0.50);border-radius:4px;transform:translate(-50%,-50%) translateZ(240px)"></div>
+          <!-- Portal ring — camera flies through this -->
+          <div style="position:absolute;left:50%;top:50%;width:50px;height:50px;border-radius:50%;border:3px solid rgba(16,185,129,0.7);transform:translate(-50%,-50%) translateZ(100px);animation:portalRingGlow 2s ease-in-out infinite"></div>
+          <!-- Scattered particles at various depths -->
+          <div style="position:absolute;left:30%;top:30%;width:4px;height:4px;border-radius:50%;background:rgba(16,185,129,0.5);transform:translateZ(-500px)"></div>
+          <div style="position:absolute;left:70%;top:25%;width:3px;height:3px;border-radius:50%;background:rgba(16,185,129,0.4);transform:translateZ(-400px)"></div>
+          <div style="position:absolute;left:25%;top:65%;width:5px;height:5px;border-radius:50%;background:rgba(16,185,129,0.3);transform:translateZ(-300px)"></div>
+          <div style="position:absolute;left:75%;top:70%;width:3px;height:3px;border-radius:50%;background:rgba(16,185,129,0.5);transform:translateZ(-200px)"></div>
+          <div style="position:absolute;left:40%;top:20%;width:4px;height:4px;border-radius:50%;background:rgba(16,185,129,0.4);transform:translateZ(-100px)"></div>
+          <div style="position:absolute;left:60%;top:75%;width:3px;height:3px;border-radius:50%;background:rgba(16,185,129,0.3);transform:translateZ(0px)"></div>
+          <div style="position:absolute;left:20%;top:45%;width:5px;height:5px;border-radius:50%;background:rgba(16,185,129,0.5);transform:translateZ(100px)"></div>
+          <div style="position:absolute;left:80%;top:50%;width:4px;height:4px;border-radius:50%;background:rgba(16,185,129,0.4);transform:translateZ(200px)"></div>
+        </div>
       </div>
       <div style="padding:0 16px 12px">
         <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Z-Axis Dive (Portal)</div>
-        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Camera rapidly accelerates through a "hole" in a graphic to break into the next scene. Use for key transitions — solution reveals, logo breakouts.</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Camera accelerates forward through a portal. Objects rush past the viewer as the camera flies through 3D space. The world is still; the camera moves.</div>
       </div>
       <span class="component-source">Motion Technique</span>
     </div>
 
-    <!-- LATERAL PARALLAX TRUCKING -->
+    <!-- LATERAL PARALLAX TRUCKING — Camera dollies sideways, perspective creates parallax -->
     <div class="demo-cell" data-name="Lateral Parallax Trucking" data-category="techniques" data-library="creative-arsenal" style="min-height:300px">
       <div class="component-label">Lateral Parallax Trucking</div>
-      <div style="flex:1;overflow:hidden;position:relative;display:flex;align-items:center">
-        <!-- Background layer (slow) -->
-        <div style="position:absolute;inset:0;display:flex;align-items:center;gap:80px;animation:parallaxBg 6s linear infinite">
-          <div style="width:60px;height:100px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
-          <div style="width:80px;height:120px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
-          <div style="width:50px;height:80px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
-          <div style="width:70px;height:110px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
-          <div style="width:60px;height:100px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
-          <div style="width:80px;height:120px;background:rgba(59,130,246,0.06);border-radius:8px;flex-shrink:0"></div>
+      <div style="flex:1;overflow:hidden;position:relative;display:flex;align-items:flex-end;perspective:800px;perspective-origin:center center">
+        <!-- Single scene container — translating this on X simulates camera truck. Perspective + translateZ depth make layers shift at different rates AUTOMATICALLY -->
+        <div style="position:absolute;inset:0;transform-style:preserve-3d;animation:truckCamera 5s cubic-bezier(0.45,0.05,0.55,0.95) infinite">
+          <!-- Background layer — deep in Z, moves LEAST -->
+          <div style="position:absolute;bottom:20px;left:20px;width:50px;height:90px;background:rgba(59,130,246,0.08);border-radius:4px 4px 0 0;transform:translateZ(-200px)"></div>
+          <div style="position:absolute;bottom:20px;left:100px;width:70px;height:120px;background:rgba(59,130,246,0.06);border-radius:4px 4px 0 0;transform:translateZ(-200px)"></div>
+          <div style="position:absolute;bottom:20px;left:200px;width:55px;height:80px;background:rgba(59,130,246,0.07);border-radius:4px 4px 0 0;transform:translateZ(-200px)"></div>
+          <div style="position:absolute;bottom:20px;left:290px;width:65px;height:100px;background:rgba(59,130,246,0.06);border-radius:4px 4px 0 0;transform:translateZ(-200px)"></div>
+          <!-- Midground layer — medium depth -->
+          <div style="position:absolute;bottom:15px;left:40px;width:40px;height:65px;background:rgba(139,92,246,0.14);border-radius:3px 3px 0 0;transform:translateZ(-100px)"></div>
+          <div style="position:absolute;bottom:15px;left:140px;width:50px;height:85px;background:rgba(139,92,246,0.12);border-radius:3px 3px 0 0;transform:translateZ(-100px)"></div>
+          <div style="position:absolute;bottom:15px;left:230px;width:45px;height:55px;background:rgba(139,92,246,0.13);border-radius:3px 3px 0 0;transform:translateZ(-100px)"></div>
+          <div style="position:absolute;bottom:15px;left:320px;width:40px;height:70px;background:rgba(139,92,246,0.12);border-radius:3px 3px 0 0;transform:translateZ(-100px)"></div>
+          <!-- Foreground layer — closest to camera (Z=0), moves MOST -->
+          <div style="position:absolute;bottom:10px;left:10px;width:30px;height:75px;background:rgba(16,185,129,0.28);border-radius:2px 2px 0 0;transform:translateZ(0px)"></div>
+          <div style="position:absolute;bottom:10px;left:110px;width:25px;height:95px;background:rgba(16,185,129,0.25);border-radius:2px 2px 0 0;transform:translateZ(0px)"></div>
+          <div style="position:absolute;bottom:10px;left:200px;width:35px;height:60px;background:rgba(16,185,129,0.27);border-radius:2px 2px 0 0;transform:translateZ(0px)"></div>
+          <div style="position:absolute;bottom:10px;left:290px;width:28px;height:85px;background:rgba(16,185,129,0.25);border-radius:2px 2px 0 0;transform:translateZ(0px)"></div>
+          <!-- Ground plane -->
+          <div style="position:absolute;bottom:0;left:-50px;width:500px;height:12px;background:linear-gradient(to top,rgba(255,255,255,0.03),transparent);transform:translateZ(0px)"></div>
         </div>
-        <!-- Midground layer (medium) -->
-        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;gap:60px;padding-bottom:30px;animation:parallaxMid 4s linear infinite">
-          <div style="width:40px;height:60px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-          <div style="width:50px;height:80px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-          <div style="width:35px;height:50px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-          <div style="width:45px;height:70px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-          <div style="width:40px;height:60px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-          <div style="width:50px;height:80px;background:rgba(139,92,246,0.12);border-radius:6px;flex-shrink:0"></div>
-        </div>
-        <!-- Foreground layer (fast) — silhouettes -->
-        <div style="position:absolute;inset:0;display:flex;align-items:flex-end;gap:40px;padding-bottom:10px;animation:parallaxFg 2.5s linear infinite">
-          <div style="width:30px;height:70px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-          <div style="width:25px;height:90px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-          <div style="width:35px;height:60px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-          <div style="width:28px;height:80px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-          <div style="width:30px;height:70px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-          <div style="width:25px;height:90px;background:rgba(16,185,129,0.25);border-radius:4px 4px 0 0;flex-shrink:0"></div>
-        </div>
+        <!-- Depth labels -->
+        <div style="position:absolute;top:8px;left:10px;font-size:0.45rem;color:rgba(59,130,246,0.5)">Far</div>
+        <div style="position:absolute;top:8px;right:10px;font-size:0.45rem;color:rgba(16,185,129,0.7)">Near</div>
       </div>
       <div style="padding:0 16px 12px">
         <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Lateral Parallax Trucking</div>
-        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Foreground elements move faster than background when panning horizontally. Creates 3D depth perception with layered movement speeds.</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Camera dollies sideways. Real CSS perspective + translateZ depth means closer layers shift faster automatically — no faked speeds needed.</div>
       </div>
       <span class="component-source">Motion Technique</span>
     </div>
@@ -3521,29 +3544,29 @@ function <span class="hl">Analytics</span>() {
     <!-- EXPONENTIAL EASING -->
     <div class="demo-cell" data-name="Exponential Easing" data-category="techniques" data-library="creative-arsenal" style="min-height:300px">
       <div class="component-label">Exponential Easing</div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:0 20px">
-        <!-- Linear (bad) -->
-        <div style="width:100%;position:relative;height:24px">
-          <div style="position:absolute;left:0;font-size:0.5rem;color:var(--muted);top:-10px">Linear (avoid)</div>
-          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
-          <div style="width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,0.3);border:1px solid rgba(239,68,68,0.5);position:absolute;top:2px;animation:linearMove 3s linear infinite"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:0 20px">
+        <!-- Ball 1: Linear (robotic, bad) -->
+        <div style="width:100%;position:relative;height:28px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:rgba(239,68,68,0.7);top:-12px;font-weight:600">Linear (robotic)</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:12px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,0.3);border:1px solid rgba(239,68,68,0.5);position:absolute;top:4px;animation:easeBallMove 3s linear infinite"></div>
         </div>
-        <!-- Exponential (good) -->
-        <div style="width:100%;position:relative;height:24px;margin-top:12px">
-          <div style="position:absolute;left:0;font-size:0.5rem;color:var(--accent);top:-10px;font-weight:600">Exponential (use this)</div>
-          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
-          <div style="width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,0.3);border:1px solid rgba(16,185,129,0.5);position:absolute;top:2px;animation:expoMove 3s cubic-bezier(0.16,1,0.3,1) infinite;box-shadow:0 0 12px rgba(16,185,129,0.3)"></div>
+        <!-- Ball 2: Exponential (smooth) -->
+        <div style="width:100%;position:relative;height:28px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:var(--accent);top:-12px;font-weight:600">Exponential (smooth)</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:12px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,0.3);border:1px solid rgba(16,185,129,0.5);position:absolute;top:4px;animation:easeBallMove 3s cubic-bezier(0.16,1,0.3,1) infinite;box-shadow:0 0 12px rgba(16,185,129,0.3)"></div>
         </div>
-        <!-- Overshoot (best) -->
-        <div style="width:100%;position:relative;height:24px;margin-top:12px">
-          <div style="position:absolute;left:0;font-size:0.5rem;color:#8b5cf6;top:-10px;font-weight:600">Overshoot "thud"</div>
-          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:10px"></div>
-          <div style="width:20px;height:20px;border-radius:50%;background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);position:absolute;top:2px;animation:overshootMove 3s cubic-bezier(0.34,1.56,0.64,1) infinite;box-shadow:0 0 12px rgba(139,92,246,0.3)"></div>
+        <!-- Ball 3: Overshoot with thud settle -->
+        <div style="width:100%;position:relative;height:28px">
+          <div style="position:absolute;left:0;font-size:0.5rem;color:#8b5cf6;top:-12px;font-weight:600">Overshoot "thud"</div>
+          <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:2px;position:absolute;top:12px"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(139,92,246,0.3);border:1px solid rgba(139,92,246,0.5);position:absolute;top:4px;animation:easeBallMove 3s cubic-bezier(0.34,1.56,0.64,1) infinite;box-shadow:0 0 12px rgba(139,92,246,0.3)"></div>
         </div>
       </div>
       <div style="padding:0 16px 12px">
         <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Exponential Easing</div>
-        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Motion starts slow, ramps to peak velocity, then settles with a heavy "thud" (overshoot). Never use linear start-stop movement.</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Same distance, same duration, different feel. Linear looks robotic. Exponential is smooth. Overshoot adds a satisfying "thud" settle.</div>
       </div>
       <span class="component-source">Motion Technique</span>
     </div>
@@ -3551,29 +3574,33 @@ function <span class="hl">Analytics</span>() {
     <!-- STAGGERED ORCHESTRATION -->
     <div class="demo-cell" data-name="Staggered Orchestration" data-category="techniques" data-library="creative-arsenal" style="min-height:300px">
       <div class="component-label">Staggered Orchestration</div>
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:0 20px">
-        <!-- Bad: all at once -->
-        <div style="font-size:0.5rem;color:var(--muted);margin-bottom:-8px">All at once (avoid):</div>
-        <div style="display:flex;gap:6px" id="staggerBad">
-          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
-          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
-          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
-          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
-          <div class="sg-bad" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:0 20px">
+        <!-- Row 1: Bad — all at once -->
+        <div>
+          <div style="font-size:0.5rem;color:rgba(239,68,68,0.7);margin-bottom:6px;font-weight:600">Bad — all at once</div>
+          <div style="display:flex;gap:8px" id="staggerBad">
+            <div class="sg-bad-box" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+            <div class="sg-bad-box" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+            <div class="sg-bad-box" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+            <div class="sg-bad-box" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+            <div class="sg-bad-box" style="width:40px;height:40px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2)"></div>
+          </div>
         </div>
-        <!-- Good: staggered -->
-        <div style="font-size:0.5rem;color:var(--accent);font-weight:600;margin-top:8px;margin-bottom:-8px">Staggered (use this):</div>
-        <div style="display:flex;gap:6px" id="staggerGood">
-          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
-          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
-          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
-          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
-          <div class="sg-good" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+        <!-- Row 2: Good — staggered build -->
+        <div>
+          <div style="font-size:0.5rem;color:var(--accent);margin-bottom:6px;font-weight:600">Good — staggered build</div>
+          <div style="display:flex;gap:8px" id="staggerGood">
+            <div class="sg-good-box" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+            <div class="sg-good-box" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+            <div class="sg-good-box" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+            <div class="sg-good-box" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+            <div class="sg-good-box" style="width:40px;height:40px;border-radius:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2)"></div>
+          </div>
         </div>
       </div>
       <div style="padding:0 16px 12px">
         <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px">Staggered Orchestration</div>
-        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Never animate a whole group at once. Stagger entry by 3-5 frames to create a mechanical, deliberate build effect.</div>
+        <div style="font-size:0.6rem;color:var(--muted);line-height:1.5">Never animate a whole group at once. Stagger entry by 100ms per element for a deliberate, mechanical build effect.</div>
       </div>
       <span class="component-source">Motion Technique</span>
     </div>
@@ -5099,18 +5126,18 @@ function updateTextareaCounter(){
 // ── STAGGERED ORCHESTRATION DEMO ─────────────────
 (function(){
   function runStagger(){
-    var bad=document.querySelectorAll('#staggerBad .sg-bad');
-    var good=document.querySelectorAll('#staggerGood .sg-good');
-    // Reset
+    var bad=document.querySelectorAll('#staggerBad .sg-bad-box');
+    var good=document.querySelectorAll('#staggerGood .sg-good-box');
+    // Reset all to invisible
     bad.forEach(function(el){el.style.transform='scale(0)';el.style.opacity='0'});
     good.forEach(function(el){el.style.transform='scale(0)';el.style.opacity='0'});
-    // Bad: all at once
+    // Bad: all appear at once after a brief pause
     setTimeout(function(){
       bad.forEach(function(el){el.style.transform='scale(1)';el.style.opacity='1'});
     },300);
-    // Good: staggered
+    // Good: each box appears 100ms after the previous
     good.forEach(function(el,i){
-      setTimeout(function(){el.style.transform='scale(1)';el.style.opacity='1'},400+i*120);
+      setTimeout(function(){el.style.transform='scale(1)';el.style.opacity='1'},400+i*100);
     });
   }
   runStagger();
