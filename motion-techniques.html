@@ -211,59 +211,82 @@
   .parallax-world {
     position: absolute;
     inset: 0;
-    perspective: 1000px;
-    perspective-origin: 50% 60%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
     overflow: hidden;
-  }
-  .parallax-scene {
-    transform-style: preserve-3d;
-    animation: truckCamera 8s ease-in-out infinite;
-    position: absolute;
-    inset: 0;
   }
   .parallax-layer {
     position: absolute;
-    bottom: 80px;
+    bottom: 0;
     display: flex;
     align-items: flex-end;
-    gap: 50px;
+    gap: 60px;
     padding: 0 40px;
-    width: 300%;
-    left: -100%;
-    transform-style: preserve-3d;
+    width: max-content;
   }
-  /* Deep background — z: -300px (moves least) */
-  .parallax-layer.deep { transform: translateZ(-300px); }
-  .parallax-layer.deep .building { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12); }
+  /* Deep background — moves SLOW (30px) */
+  .parallax-layer.deep {
+    animation: truckSlow 8s ease-in-out infinite;
+    left: -100px;
+  }
+  .parallax-layer.deep .building {
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.1);
+    opacity: 0.5;
+  }
 
-  /* Mid layer — z: -150px */
-  .parallax-layer.mid { transform: translateZ(-150px); }
-  .parallax-layer.mid .building { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.2); }
+  /* Mid layer — moves MEDIUM (100px) */
+  .parallax-layer.mid {
+    animation: truckMid 8s ease-in-out infinite;
+    left: -60px;
+  }
+  .parallax-layer.mid .building {
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.18);
+    opacity: 0.7;
+  }
 
-  /* Foreground — z: 0px (moves most) */
-  .parallax-layer.front { transform: translateZ(0px); }
-  .parallax-layer.front .building { background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.35); }
+  /* Foreground — moves FAST (200px) */
+  .parallax-layer.front {
+    animation: truckFast 8s ease-in-out infinite;
+    left: -20px;
+  }
+  .parallax-layer.front .building {
+    background: rgba(16,185,129,0.18);
+    border: 1px solid rgba(16,185,129,0.3);
+  }
 
-  .building { border-radius: 4px 4px 0 0; flex-shrink: 0; }
+  .building { border-radius: 6px 6px 0 0; flex-shrink: 0; }
 
-  /* Ground plane */
+  /* Ground line */
   .parallax-ground {
     position: absolute;
-    bottom: 0;
-    left: -50%;
-    width: 200%;
-    height: 2px;
-    background: rgba(255,255,255,0.06);
-    transform-style: preserve-3d;
+    bottom: 80px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
   }
 
-  @keyframes truckCamera {
-    0% { transform: translateX(200px); }
-    50% { transform: translateX(-200px); }
-    100% { transform: translateX(200px); }
+  /* Speed labels */
+  .speed-label {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    right: 40px;
+  }
+
+  @keyframes truckSlow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-40px); }
+  }
+  @keyframes truckMid {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-120px); }
+  }
+  @keyframes truckFast {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-250px); }
   }
 
   /* ════════════════════════════════════════════════ */
@@ -477,42 +500,49 @@
     <p>Foreground objects move faster than background when panning horizontally. Real perspective depth, not faked animation speeds.</p>
   </div>
   <div class="parallax-world">
-    <div class="parallax-scene">
-      <!-- Deep background buildings -->
-      <div class="parallax-layer deep">
-        <div class="building" style="width:80px;height:200px"></div>
-        <div class="building" style="width:60px;height:280px"></div>
-        <div class="building" style="width:100px;height:220px"></div>
-        <div class="building" style="width:70px;height:260px"></div>
-        <div class="building" style="width:90px;height:190px"></div>
-        <div class="building" style="width:65px;height:240px"></div>
-        <div class="building" style="width:85px;height:210px"></div>
-        <div class="building" style="width:75px;height:270px"></div>
-      </div>
-      <!-- Mid buildings -->
-      <div class="parallax-layer mid">
-        <div class="building" style="width:50px;height:160px"></div>
-        <div class="building" style="width:70px;height:200px"></div>
-        <div class="building" style="width:45px;height:140px"></div>
-        <div class="building" style="width:60px;height:180px"></div>
-        <div class="building" style="width:55px;height:150px"></div>
-        <div class="building" style="width:65px;height:190px"></div>
-        <div class="building" style="width:50px;height:170px"></div>
-        <div class="building" style="width:75px;height:210px"></div>
-      </div>
-      <!-- Foreground silhouettes -->
-      <div class="parallax-layer front">
-        <div class="building" style="width:40px;height:120px"></div>
-        <div class="building" style="width:55px;height:160px"></div>
-        <div class="building" style="width:35px;height:100px"></div>
-        <div class="building" style="width:50px;height:140px"></div>
-        <div class="building" style="width:45px;height:130px"></div>
-        <div class="building" style="width:60px;height:150px"></div>
-        <div class="building" style="width:40px;height:110px"></div>
-        <div class="building" style="width:55px;height:145px"></div>
-      </div>
-      <div class="parallax-ground"></div>
+    <!-- Speed labels -->
+    <div class="speed-label" style="bottom:380px;color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.06)">Background — slow (40px)</div>
+    <div class="speed-label" style="bottom:260px;color:rgba(59,130,246,0.6);background:rgba(59,130,246,0.08)">Midground — medium (120px)</div>
+    <div class="speed-label" style="bottom:160px;color:rgba(16,185,129,0.8);background:rgba(16,185,129,0.08)">Foreground — fast (250px)</div>
+    <!-- Deep background buildings (slow) -->
+    <div class="parallax-layer deep" style="bottom:100px">
+      <div class="building" style="width:80px;height:260px"></div>
+      <div class="building" style="width:60px;height:320px"></div>
+      <div class="building" style="width:100px;height:280px"></div>
+      <div class="building" style="width:70px;height:300px"></div>
+      <div class="building" style="width:90px;height:240px"></div>
+      <div class="building" style="width:65px;height:290px"></div>
+      <div class="building" style="width:85px;height:260px"></div>
+      <div class="building" style="width:75px;height:310px"></div>
+      <div class="building" style="width:80px;height:270px"></div>
+      <div class="building" style="width:60px;height:250px"></div>
     </div>
+    <!-- Mid buildings (medium) -->
+    <div class="parallax-layer mid" style="bottom:100px">
+      <div class="building" style="width:50px;height:180px"></div>
+      <div class="building" style="width:70px;height:220px"></div>
+      <div class="building" style="width:45px;height:160px"></div>
+      <div class="building" style="width:60px;height:200px"></div>
+      <div class="building" style="width:55px;height:170px"></div>
+      <div class="building" style="width:65px;height:210px"></div>
+      <div class="building" style="width:50px;height:190px"></div>
+      <div class="building" style="width:75px;height:230px"></div>
+      <div class="building" style="width:55px;height:180px"></div>
+    </div>
+    <!-- Foreground silhouettes (fast) -->
+    <div class="parallax-layer front" style="bottom:100px">
+      <div class="building" style="width:40px;height:100px"></div>
+      <div class="building" style="width:55px;height:140px"></div>
+      <div class="building" style="width:35px;height:90px"></div>
+      <div class="building" style="width:50px;height:120px"></div>
+      <div class="building" style="width:45px;height:110px"></div>
+      <div class="building" style="width:60px;height:130px"></div>
+      <div class="building" style="width:40px;height:95px"></div>
+      <div class="building" style="width:55px;height:125px"></div>
+    </div>
+    <!-- Ground line -->
+    <div class="parallax-ground" style="bottom:100px"></div>
+    <div style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);font-size:0.6rem;color:rgba(255,255,255,0.2);font-family:'JetBrains Mono',monospace">&#8592; camera trucks sideways &#8594;</div>
   </div>
   <div class="scroll-hint">scroll &#8595;</div>
   <div class="technique-number">2</div>
